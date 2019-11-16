@@ -61,43 +61,55 @@ public class LoginFrame extends javax.swing.JFrame {
         backBtn = new javax.swing.JPanel();
         backLabel = new javax.swing.JLabel();
         loginMainPanel = new javax.swing.JPanel();
+        rolePanel = new javax.swing.JPanel();
+        roleLabel = new javax.swing.JLabel();
+        roleComboBox = new javax.swing.JComboBox<>();
+        filler27 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 20), new java.awt.Dimension(32767, 20));
+        filler28 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
+        filler29 = new javax.swing.Box.Filler(new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 32767));
         usernamePanel = new javax.swing.JPanel();
         usernameLabel = new javax.swing.JLabel();
         usernameTextField = new javax.swing.JTextField();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 40), new java.awt.Dimension(0, 40), new java.awt.Dimension(32767, 40));
-        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
-        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 32767));
+        filler30 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
+        filler31 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
+        filler32 = new javax.swing.Box.Filler(new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 32767));
         passwordPanel = new javax.swing.JPanel();
         passwordLabel = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
-        filler13 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
-        filler14 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 40), new java.awt.Dimension(0, 40), new java.awt.Dimension(32767, 40));
-        filler15 = new javax.swing.Box.Filler(new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 32767));
+        filler33 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
+        filler34 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 20), new java.awt.Dimension(32767, 20));
+        filler35 = new javax.swing.Box.Filler(new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 32767));
         loginBtnPanel = new javax.swing.JPanel();
         loginBtn = new javax.swing.JPanel();
         loginLabel = new javax.swing.JLabel();
-        filler17 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 30), new java.awt.Dimension(0, 30), new java.awt.Dimension(32767, 30));
-        registerJournalPanel = new javax.swing.JPanel();
-        loginToobarPanel1 = new javax.swing.JPanel();
-        backBtn1 = new javax.swing.JPanel();
-        backLabel1 = new javax.swing.JLabel();
-        loginMainPanel1 = new javax.swing.JPanel();
-        usernamePanel1 = new javax.swing.JPanel();
-        usernameLabel1 = new javax.swing.JLabel();
-        usernameTextField1 = new javax.swing.JTextField();
-        filler16 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 40), new java.awt.Dimension(0, 40), new java.awt.Dimension(32767, 40));
-        filler18 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
+        filler36 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 20), new java.awt.Dimension(32767, 20));
+        regJournalPanel = new javax.swing.JPanel();
+        regJournalToobarPanel = new javax.swing.JPanel();
+        regJournalbackBtn = new javax.swing.JPanel();
+        regJournalbackLabel = new javax.swing.JLabel();
+        regJournalMainPanel = new javax.swing.JPanel();
+        regJournalJournalNamePanel = new javax.swing.JPanel();
+        regJournalJournalNameLabel = new javax.swing.JLabel();
+        regJournalJournalNameTextField = new javax.swing.JTextField();
+        filler24 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 20), new java.awt.Dimension(32767, 20));
+        filler25 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
+        filler26 = new javax.swing.Box.Filler(new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 32767));
+        regJournalUsernamePanel = new javax.swing.JPanel();
+        regJournalUsernameLabel = new javax.swing.JLabel();
+        regJournalUsernameTextField = new javax.swing.JTextField();
+        filler16 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
+        filler18 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         filler19 = new javax.swing.Box.Filler(new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 32767));
-        passwordPanel1 = new javax.swing.JPanel();
-        passwordLabel1 = new javax.swing.JLabel();
-        passwordField1 = new javax.swing.JPasswordField();
+        regJournalPasswordPanel = new javax.swing.JPanel();
+        regJournalPasswordLabel = new javax.swing.JLabel();
+        regJournalPasswordField = new javax.swing.JPasswordField();
         filler20 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
-        filler21 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 40), new java.awt.Dimension(0, 40), new java.awt.Dimension(32767, 40));
+        filler21 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 20), new java.awt.Dimension(32767, 20));
         filler22 = new javax.swing.Box.Filler(new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 32767));
-        loginBtnPanel1 = new javax.swing.JPanel();
-        loginBtn1 = new javax.swing.JPanel();
-        loginLabel1 = new javax.swing.JLabel();
-        filler23 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 30), new java.awt.Dimension(0, 30), new java.awt.Dimension(32767, 30));
+        regJournalBtnPanel = new javax.swing.JPanel();
+        regJournalBtn = new javax.swing.JPanel();
+        regJournalLabel = new javax.swing.JLabel();
+        filler23 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 20), new java.awt.Dimension(32767, 20));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -334,7 +346,23 @@ public class LoginFrame extends javax.swing.JFrame {
         loginPanel.add(loginToobarPanel, java.awt.BorderLayout.NORTH);
 
         loginMainPanel.setBackground(new java.awt.Color(54, 33, 89));
-        loginMainPanel.setLayout(new java.awt.GridLayout(3, 1));
+        loginMainPanel.setLayout(new java.awt.GridLayout(4, 1));
+
+        rolePanel.setBackground(new java.awt.Color(54, 33, 89));
+        rolePanel.setLayout(new java.awt.BorderLayout());
+
+        roleLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        roleLabel.setForeground(new java.awt.Color(204, 204, 204));
+        roleLabel.setText("                Role: ");
+        rolePanel.add(roleLabel, java.awt.BorderLayout.WEST);
+
+        roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Editor", "Author", "Reviewer" }));
+        rolePanel.add(roleComboBox, java.awt.BorderLayout.CENTER);
+        rolePanel.add(filler27, java.awt.BorderLayout.NORTH);
+        rolePanel.add(filler28, java.awt.BorderLayout.SOUTH);
+        rolePanel.add(filler29, java.awt.BorderLayout.EAST);
+
+        loginMainPanel.add(rolePanel);
 
         usernamePanel.setBackground(new java.awt.Color(54, 33, 89));
         usernamePanel.setLayout(new java.awt.BorderLayout());
@@ -344,9 +372,9 @@ public class LoginFrame extends javax.swing.JFrame {
         usernameLabel.setText("      Username: ");
         usernamePanel.add(usernameLabel, java.awt.BorderLayout.WEST);
         usernamePanel.add(usernameTextField, java.awt.BorderLayout.CENTER);
-        usernamePanel.add(filler1, java.awt.BorderLayout.NORTH);
-        usernamePanel.add(filler2, java.awt.BorderLayout.SOUTH);
-        usernamePanel.add(filler3, java.awt.BorderLayout.LINE_END);
+        usernamePanel.add(filler30, java.awt.BorderLayout.NORTH);
+        usernamePanel.add(filler31, java.awt.BorderLayout.SOUTH);
+        usernamePanel.add(filler32, java.awt.BorderLayout.LINE_END);
 
         loginMainPanel.add(usernamePanel);
 
@@ -358,9 +386,9 @@ public class LoginFrame extends javax.swing.JFrame {
         passwordLabel.setText("      Password:  ");
         passwordPanel.add(passwordLabel, java.awt.BorderLayout.WEST);
         passwordPanel.add(passwordField, java.awt.BorderLayout.CENTER);
-        passwordPanel.add(filler13, java.awt.BorderLayout.NORTH);
-        passwordPanel.add(filler14, java.awt.BorderLayout.SOUTH);
-        passwordPanel.add(filler15, java.awt.BorderLayout.LINE_END);
+        passwordPanel.add(filler33, java.awt.BorderLayout.NORTH);
+        passwordPanel.add(filler34, java.awt.BorderLayout.SOUTH);
+        passwordPanel.add(filler35, java.awt.BorderLayout.LINE_END);
 
         loginMainPanel.add(passwordPanel);
 
@@ -394,7 +422,7 @@ public class LoginFrame extends javax.swing.JFrame {
         loginBtn.add(loginLabel, java.awt.BorderLayout.CENTER);
 
         loginBtnPanel.add(loginBtn, java.awt.BorderLayout.CENTER);
-        loginBtnPanel.add(filler17, java.awt.BorderLayout.SOUTH);
+        loginBtnPanel.add(filler36, java.awt.BorderLayout.SOUTH);
 
         loginMainPanel.add(loginBtnPanel);
 
@@ -402,108 +430,122 @@ public class LoginFrame extends javax.swing.JFrame {
 
         mainPanel.add(loginPanel, "loginPanel");
 
-        registerJournalPanel.setBackground(new java.awt.Color(54, 33, 89));
-        registerJournalPanel.setLayout(new java.awt.BorderLayout());
+        regJournalPanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalPanel.setLayout(new java.awt.BorderLayout());
 
-        loginToobarPanel1.setBackground(new java.awt.Color(54, 33, 89));
-        loginToobarPanel1.setPreferredSize(new java.awt.Dimension(400, 30));
-        loginToobarPanel1.setLayout(new javax.swing.BoxLayout(loginToobarPanel1, javax.swing.BoxLayout.LINE_AXIS));
+        regJournalToobarPanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalToobarPanel.setPreferredSize(new java.awt.Dimension(400, 30));
+        regJournalToobarPanel.setLayout(new javax.swing.BoxLayout(regJournalToobarPanel, javax.swing.BoxLayout.LINE_AXIS));
 
-        backBtn1.setBackground(new java.awt.Color(64, 43, 100));
-        backBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        backBtn1.setMaximumSize(new java.awt.Dimension(60, 30));
-        backBtn1.setPreferredSize(new java.awt.Dimension(60, 30));
-        backBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+        regJournalbackBtn.setBackground(new java.awt.Color(64, 43, 100));
+        regJournalbackBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        regJournalbackBtn.setMaximumSize(new java.awt.Dimension(60, 30));
+        regJournalbackBtn.setPreferredSize(new java.awt.Dimension(60, 30));
+        regJournalbackBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                backBtn1MouseClicked(evt);
+                backBtnMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                backBtn1btnMouseEntered(evt);
+                btnMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                backBtn1btnMouseExited(evt);
+                btnMouseExited(evt);
             }
         });
-        backBtn1.setLayout(new java.awt.BorderLayout());
+        regJournalbackBtn.setLayout(new java.awt.BorderLayout());
 
-        backLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        backLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        backLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        backLabel1.setText("< Back");
-        backBtn1.add(backLabel1, java.awt.BorderLayout.CENTER);
+        regJournalbackLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        regJournalbackLabel.setForeground(new java.awt.Color(255, 255, 255));
+        regJournalbackLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        regJournalbackLabel.setText("< Back");
+        regJournalbackBtn.add(regJournalbackLabel, java.awt.BorderLayout.CENTER);
 
-        loginToobarPanel1.add(backBtn1);
+        regJournalToobarPanel.add(regJournalbackBtn);
 
-        registerJournalPanel.add(loginToobarPanel1, java.awt.BorderLayout.NORTH);
+        regJournalPanel.add(regJournalToobarPanel, java.awt.BorderLayout.NORTH);
 
-        loginMainPanel1.setBackground(new java.awt.Color(54, 33, 89));
-        loginMainPanel1.setLayout(new java.awt.GridLayout(3, 1));
+        regJournalMainPanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalMainPanel.setLayout(new java.awt.GridLayout(4, 1));
 
-        usernamePanel1.setBackground(new java.awt.Color(54, 33, 89));
-        usernamePanel1.setLayout(new java.awt.BorderLayout());
+        regJournalJournalNamePanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalJournalNamePanel.setLayout(new java.awt.BorderLayout());
 
-        usernameLabel1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        usernameLabel1.setForeground(new java.awt.Color(204, 204, 204));
-        usernameLabel1.setText("      Username: ");
-        usernamePanel1.add(usernameLabel1, java.awt.BorderLayout.WEST);
-        usernamePanel1.add(usernameTextField1, java.awt.BorderLayout.CENTER);
-        usernamePanel1.add(filler16, java.awt.BorderLayout.NORTH);
-        usernamePanel1.add(filler18, java.awt.BorderLayout.SOUTH);
-        usernamePanel1.add(filler19, java.awt.BorderLayout.LINE_END);
+        regJournalJournalNameLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        regJournalJournalNameLabel.setForeground(new java.awt.Color(204, 204, 204));
+        regJournalJournalNameLabel.setText("      Journal name: ");
+        regJournalJournalNamePanel.add(regJournalJournalNameLabel, java.awt.BorderLayout.WEST);
+        regJournalJournalNamePanel.add(regJournalJournalNameTextField, java.awt.BorderLayout.CENTER);
+        regJournalJournalNamePanel.add(filler24, java.awt.BorderLayout.NORTH);
+        regJournalJournalNamePanel.add(filler25, java.awt.BorderLayout.SOUTH);
+        regJournalJournalNamePanel.add(filler26, java.awt.BorderLayout.LINE_END);
 
-        loginMainPanel1.add(usernamePanel1);
+        regJournalMainPanel.add(regJournalJournalNamePanel);
 
-        passwordPanel1.setBackground(new java.awt.Color(54, 33, 89));
-        passwordPanel1.setLayout(new java.awt.BorderLayout());
+        regJournalUsernamePanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalUsernamePanel.setLayout(new java.awt.BorderLayout());
 
-        passwordLabel1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        passwordLabel1.setForeground(new java.awt.Color(204, 204, 204));
-        passwordLabel1.setText("      Password:  ");
-        passwordPanel1.add(passwordLabel1, java.awt.BorderLayout.WEST);
-        passwordPanel1.add(passwordField1, java.awt.BorderLayout.CENTER);
-        passwordPanel1.add(filler20, java.awt.BorderLayout.NORTH);
-        passwordPanel1.add(filler21, java.awt.BorderLayout.SOUTH);
-        passwordPanel1.add(filler22, java.awt.BorderLayout.LINE_END);
+        regJournalUsernameLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        regJournalUsernameLabel.setForeground(new java.awt.Color(204, 204, 204));
+        regJournalUsernameLabel.setText("      Username: ");
+        regJournalUsernamePanel.add(regJournalUsernameLabel, java.awt.BorderLayout.WEST);
+        regJournalUsernamePanel.add(regJournalUsernameTextField, java.awt.BorderLayout.CENTER);
+        regJournalUsernamePanel.add(filler16, java.awt.BorderLayout.NORTH);
+        regJournalUsernamePanel.add(filler18, java.awt.BorderLayout.SOUTH);
+        regJournalUsernamePanel.add(filler19, java.awt.BorderLayout.LINE_END);
 
-        loginMainPanel1.add(passwordPanel1);
+        regJournalMainPanel.add(regJournalUsernamePanel);
 
-        loginBtnPanel1.setBackground(new java.awt.Color(54, 33, 89));
-        loginBtnPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        loginBtnPanel1.setMaximumSize(new java.awt.Dimension(100, 100));
-        loginBtnPanel1.setPreferredSize(new java.awt.Dimension(100, 100));
-        loginBtnPanel1.setLayout(new java.awt.BorderLayout());
+        regJournalPasswordPanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalPasswordPanel.setLayout(new java.awt.BorderLayout());
 
-        loginBtn1.setBackground(new java.awt.Color(64, 43, 100));
-        loginBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        loginBtn1.setMaximumSize(new java.awt.Dimension(100, 100));
-        loginBtn1.setPreferredSize(new java.awt.Dimension(100, 100));
-        loginBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+        regJournalPasswordLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        regJournalPasswordLabel.setForeground(new java.awt.Color(204, 204, 204));
+        regJournalPasswordLabel.setText("      Password:  ");
+        regJournalPasswordPanel.add(regJournalPasswordLabel, java.awt.BorderLayout.WEST);
+        regJournalPasswordPanel.add(regJournalPasswordField, java.awt.BorderLayout.CENTER);
+        regJournalPasswordPanel.add(filler20, java.awt.BorderLayout.NORTH);
+        regJournalPasswordPanel.add(filler21, java.awt.BorderLayout.SOUTH);
+        regJournalPasswordPanel.add(filler22, java.awt.BorderLayout.LINE_END);
+
+        regJournalMainPanel.add(regJournalPasswordPanel);
+
+        regJournalBtnPanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalBtnPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        regJournalBtnPanel.setMaximumSize(new java.awt.Dimension(100, 100));
+        regJournalBtnPanel.setPreferredSize(new java.awt.Dimension(100, 100));
+        regJournalBtnPanel.setLayout(new java.awt.BorderLayout());
+
+        regJournalBtn.setBackground(new java.awt.Color(64, 43, 100));
+        regJournalBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        regJournalBtn.setMaximumSize(new java.awt.Dimension(100, 100));
+        regJournalBtn.setPreferredSize(new java.awt.Dimension(100, 100));
+        regJournalBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                loginBtn1MouseClicked(evt);
+                regJournalBtnMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                loginBtn1btnMouseEntered(evt);
+                btnMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                loginBtn1btnMouseExited(evt);
+                btnMouseExited(evt);
             }
         });
-        loginBtn1.setLayout(new java.awt.BorderLayout());
+        regJournalBtn.setLayout(new java.awt.BorderLayout());
 
-        loginLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        loginLabel1.setForeground(new java.awt.Color(204, 204, 204));
-        loginLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        loginLabel1.setText("Login");
-        loginBtn1.add(loginLabel1, java.awt.BorderLayout.CENTER);
+        regJournalLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        regJournalLabel.setForeground(new java.awt.Color(204, 204, 204));
+        regJournalLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        regJournalLabel.setText("Register");
+        regJournalBtn.add(regJournalLabel, java.awt.BorderLayout.CENTER);
 
-        loginBtnPanel1.add(loginBtn1, java.awt.BorderLayout.CENTER);
-        loginBtnPanel1.add(filler23, java.awt.BorderLayout.SOUTH);
+        regJournalBtnPanel.add(regJournalBtn, java.awt.BorderLayout.CENTER);
+        regJournalBtnPanel.add(filler23, java.awt.BorderLayout.SOUTH);
 
-        loginMainPanel1.add(loginBtnPanel1);
+        regJournalMainPanel.add(regJournalBtnPanel);
 
-        registerJournalPanel.add(loginMainPanel1, java.awt.BorderLayout.CENTER);
+        regJournalPanel.add(regJournalMainPanel, java.awt.BorderLayout.CENTER);
 
-        mainPanel.add(registerJournalPanel, "loginPanel");
+        mainPanel.add(regJournalPanel, "regJournalPanel");
 
         bg.add(mainPanel, java.awt.BorderLayout.CENTER);
 
@@ -573,7 +615,8 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_registerReviewerBtnMouseClicked
 
     private void registerJournalBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerJournalBtnMouseClicked
-        // TODO add your handling code here:
+        java.awt.CardLayout card = (java.awt.CardLayout)mainPanel.getLayout();
+        card.show(mainPanel, "regJournalPanel");
     }//GEN-LAST:event_registerJournalBtnMouseClicked
 
     private void btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMouseExited
@@ -588,29 +631,9 @@ public class LoginFrame extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_closeBtnMouseClicked
 
-    private void backBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtn1MouseClicked
+    private void regJournalBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regJournalBtnMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_backBtn1MouseClicked
-
-    private void backBtn1btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtn1btnMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_backBtn1btnMouseEntered
-
-    private void backBtn1btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtn1btnMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_backBtn1btnMouseExited
-
-    private void loginBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtn1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_loginBtn1MouseClicked
-
-    private void loginBtn1btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtn1btnMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_loginBtn1btnMouseEntered
-
-    private void loginBtn1btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtn1btnMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_loginBtn1btnMouseExited
+    }//GEN-LAST:event_regJournalBtnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -626,29 +649,33 @@ public class LoginFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backBtn;
-    private javax.swing.JPanel backBtn1;
     private javax.swing.JLabel backLabel;
-    private javax.swing.JLabel backLabel1;
     private javax.swing.JPanel bg;
     private javax.swing.JPanel closeBtn;
     private javax.swing.JLabel closeLabel;
-    private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler10;
     private javax.swing.Box.Filler filler11;
     private javax.swing.Box.Filler filler12;
-    private javax.swing.Box.Filler filler13;
-    private javax.swing.Box.Filler filler14;
-    private javax.swing.Box.Filler filler15;
     private javax.swing.Box.Filler filler16;
-    private javax.swing.Box.Filler filler17;
     private javax.swing.Box.Filler filler18;
     private javax.swing.Box.Filler filler19;
-    private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler20;
     private javax.swing.Box.Filler filler21;
     private javax.swing.Box.Filler filler22;
     private javax.swing.Box.Filler filler23;
-    private javax.swing.Box.Filler filler3;
+    private javax.swing.Box.Filler filler24;
+    private javax.swing.Box.Filler filler25;
+    private javax.swing.Box.Filler filler26;
+    private javax.swing.Box.Filler filler27;
+    private javax.swing.Box.Filler filler28;
+    private javax.swing.Box.Filler filler29;
+    private javax.swing.Box.Filler filler30;
+    private javax.swing.Box.Filler filler31;
+    private javax.swing.Box.Filler filler32;
+    private javax.swing.Box.Filler filler33;
+    private javax.swing.Box.Filler filler34;
+    private javax.swing.Box.Filler filler35;
+    private javax.swing.Box.Filler filler36;
     private javax.swing.Box.Filler filler4;
     private javax.swing.Box.Filler filler5;
     private javax.swing.Box.Filler filler6;
@@ -657,44 +684,52 @@ public class LoginFrame extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler9;
     private javax.swing.JPanel headerPanel;
     private javax.swing.JPanel loginBtn;
-    private javax.swing.JPanel loginBtn1;
     private javax.swing.JPanel loginBtnPanel;
-    private javax.swing.JPanel loginBtnPanel1;
     private javax.swing.JLabel loginLabel;
-    private javax.swing.JLabel loginLabel1;
     private javax.swing.JPanel loginMainPanel;
-    private javax.swing.JPanel loginMainPanel1;
     private javax.swing.JPanel loginPanel;
     private javax.swing.JPanel loginReaderBtn;
     private javax.swing.JLabel loginReaderLabel;
     private javax.swing.JLabel loginReaderLabel1;
     private javax.swing.JPanel loginSelPanel;
     private javax.swing.JPanel loginToobarPanel;
-    private javax.swing.JPanel loginToobarPanel1;
     private javax.swing.JPanel loginUserBtn;
     private javax.swing.JLabel loginUserLabel;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPasswordField passwordField;
-    private javax.swing.JPasswordField passwordField1;
     private javax.swing.JLabel passwordLabel;
-    private javax.swing.JLabel passwordLabel1;
     private javax.swing.JPanel passwordPanel;
-    private javax.swing.JPanel passwordPanel1;
+    private javax.swing.JPanel regJournalBtn;
+    private javax.swing.JPanel regJournalBtnPanel;
+    private javax.swing.JLabel regJournalJournalNameLabel;
+    private javax.swing.JPanel regJournalJournalNamePanel;
+    private javax.swing.JTextField regJournalJournalNameTextField;
+    private javax.swing.JLabel regJournalLabel;
+    private javax.swing.JPanel regJournalMainPanel;
+    private javax.swing.JPanel regJournalPanel;
+    private javax.swing.JPasswordField regJournalPasswordField;
+    private javax.swing.JLabel regJournalPasswordLabel;
+    private javax.swing.JPanel regJournalPasswordPanel;
+    private javax.swing.JPanel regJournalToobarPanel;
+    private javax.swing.JLabel regJournalUsernameLabel;
+    private javax.swing.JPanel regJournalUsernamePanel;
+    private javax.swing.JTextField regJournalUsernameTextField;
+    private javax.swing.JPanel regJournalbackBtn;
+    private javax.swing.JLabel regJournalbackLabel;
     private javax.swing.JPanel registerJournalBtn;
     private javax.swing.JLabel registerJournalLabel;
-    private javax.swing.JPanel registerJournalPanel;
     private javax.swing.JPanel registerPanel;
     private javax.swing.JPanel registerReviewerBtn;
     private javax.swing.JLabel registerReviewerLabel;
+    private javax.swing.JComboBox<String> roleComboBox;
+    private javax.swing.JLabel roleLabel;
+    private javax.swing.JPanel rolePanel;
     private javax.swing.JPanel selePanel;
     private javax.swing.JPanel startupPanel;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JLabel usernameLabel;
-    private javax.swing.JLabel usernameLabel1;
     private javax.swing.JPanel usernamePanel;
-    private javax.swing.JPanel usernamePanel1;
     private javax.swing.JTextField usernameTextField;
-    private javax.swing.JTextField usernameTextField1;
     private javax.swing.JLabel welLabel;
     // End of variables declaration//GEN-END:variables
 }
