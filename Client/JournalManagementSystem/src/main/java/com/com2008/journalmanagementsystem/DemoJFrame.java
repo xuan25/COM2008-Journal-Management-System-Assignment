@@ -30,6 +30,8 @@ public class DemoJFrame extends javax.swing.JFrame {
         readerPanel1 = new com.com2008.journalmanagementsystem.ReaderPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        readerPanel1.setPreferredSize(new java.awt.Dimension(960, 540));
         getContentPane().add(readerPanel1, java.awt.BorderLayout.CENTER);
 
         pack();

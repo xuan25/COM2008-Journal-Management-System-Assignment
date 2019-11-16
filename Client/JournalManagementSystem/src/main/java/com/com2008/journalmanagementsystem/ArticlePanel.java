@@ -37,25 +37,35 @@ public class ArticlePanel extends javax.swing.JPanel {
         rejectBtn = new javax.swing.JButton();
         mainScrollPane = new javax.swing.JScrollPane();
         mainPanel = new javax.swing.JPanel();
+        innerPanel = new javax.swing.JPanel();
         abstructPanel = new javax.swing.JPanel();
         abstructLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 30), new java.awt.Dimension(0, 30), new java.awt.Dimension(32767, 30));
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         jSeparator1 = new javax.swing.JSeparator();
+        filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         pdfPanel = new javax.swing.JPanel();
         innerPdfPanel = new javax.swing.JPanel();
         pdfLabel = new javax.swing.JLabel();
         linkLabel = new javax.swing.JLabel();
         copyLinkBtn = new javax.swing.JButton();
-        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 30), new java.awt.Dimension(0, 30), new java.awt.Dimension(32767, 30));
+        filler8 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         jSeparator2 = new javax.swing.JSeparator();
+        filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         reviewPanel = new javax.swing.JPanel();
         ReviewsLabel = new javax.swing.JLabel();
+        filler12 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         innerReviewPanel = new javax.swing.JPanel();
         reviewPanel1 = new com.com2008.journalmanagementsystem.ReviewPanel();
         reviewPanel2 = new com.com2008.journalmanagementsystem.ReviewPanel();
         reviewPanel3 = new com.com2008.journalmanagementsystem.ReviewPanel();
+        filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
+        jSeparator3 = new javax.swing.JSeparator();
+        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
+        filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
+        filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
+        filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
 
         setLayout(new java.awt.BorderLayout());
 
@@ -90,7 +100,9 @@ public class ArticlePanel extends javax.swing.JPanel {
 
         add(headerPanel, java.awt.BorderLayout.NORTH);
 
-        mainPanel.setLayout(new javax.swing.BoxLayout(mainPanel, javax.swing.BoxLayout.PAGE_AXIS));
+        mainPanel.setLayout(new java.awt.BorderLayout());
+
+        innerPanel.setLayout(new javax.swing.BoxLayout(innerPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
         abstructPanel.setLayout(new java.awt.BorderLayout());
 
@@ -107,9 +119,10 @@ public class ArticlePanel extends javax.swing.JPanel {
 
         abstructPanel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        mainPanel.add(abstructPanel);
-        mainPanel.add(filler1);
-        mainPanel.add(jSeparator1);
+        innerPanel.add(abstructPanel);
+        innerPanel.add(filler1);
+        innerPanel.add(jSeparator1);
+        innerPanel.add(filler7);
 
         pdfPanel.setLayout(new java.awt.BorderLayout());
 
@@ -128,15 +141,17 @@ public class ArticlePanel extends javax.swing.JPanel {
 
         pdfPanel.add(innerPdfPanel, java.awt.BorderLayout.CENTER);
 
-        mainPanel.add(pdfPanel);
-        mainPanel.add(filler2);
-        mainPanel.add(jSeparator2);
+        innerPanel.add(pdfPanel);
+        innerPanel.add(filler8);
+        innerPanel.add(jSeparator2);
+        innerPanel.add(filler9);
 
         reviewPanel.setLayout(new java.awt.BorderLayout());
 
         ReviewsLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         ReviewsLabel.setText("Reviews");
         reviewPanel.add(ReviewsLabel, java.awt.BorderLayout.NORTH);
+        reviewPanel.add(filler12, java.awt.BorderLayout.PAGE_END);
 
         innerReviewPanel.setLayout(new javax.swing.BoxLayout(innerReviewPanel, javax.swing.BoxLayout.PAGE_AXIS));
         innerReviewPanel.add(reviewPanel1);
@@ -145,7 +160,15 @@ public class ArticlePanel extends javax.swing.JPanel {
 
         reviewPanel.add(innerReviewPanel, java.awt.BorderLayout.CENTER);
 
-        mainPanel.add(reviewPanel);
+        innerPanel.add(reviewPanel);
+        innerPanel.add(filler10);
+        innerPanel.add(jSeparator3);
+
+        mainPanel.add(innerPanel, java.awt.BorderLayout.CENTER);
+        mainPanel.add(filler3, java.awt.BorderLayout.WEST);
+        mainPanel.add(filler4, java.awt.BorderLayout.EAST);
+        mainPanel.add(filler5, java.awt.BorderLayout.NORTH);
+        mainPanel.add(filler6, java.awt.BorderLayout.SOUTH);
 
         mainScrollPane.setViewportView(mainPanel);
 
@@ -161,13 +184,23 @@ public class ArticlePanel extends javax.swing.JPanel {
     private javax.swing.JButton copyLinkBtn;
     private javax.swing.JPanel decisionPanel;
     private javax.swing.Box.Filler filler1;
-    private javax.swing.Box.Filler filler2;
+    private javax.swing.Box.Filler filler10;
+    private javax.swing.Box.Filler filler12;
+    private javax.swing.Box.Filler filler3;
+    private javax.swing.Box.Filler filler4;
+    private javax.swing.Box.Filler filler5;
+    private javax.swing.Box.Filler filler6;
+    private javax.swing.Box.Filler filler7;
+    private javax.swing.Box.Filler filler8;
+    private javax.swing.Box.Filler filler9;
     private javax.swing.JPanel headerPanel;
+    private javax.swing.JPanel innerPanel;
     private javax.swing.JPanel innerPdfPanel;
     private javax.swing.JPanel innerReviewPanel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel linkLabel;
     private javax.swing.JPanel mainPanel;
