@@ -34,6 +34,8 @@ public class ReaderPanel extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
+        jSplitPane1.setDividerLocation(200);
+
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Journals");
         javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Journal1");
         javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Vol.1");
