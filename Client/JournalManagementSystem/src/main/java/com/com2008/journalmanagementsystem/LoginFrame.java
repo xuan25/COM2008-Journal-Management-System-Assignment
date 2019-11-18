@@ -165,7 +165,7 @@ public class LoginFrame extends javax.swing.JFrame {
         setPreferredSize(getFrameSize());
         setSize(getFrameSize());
 
-        bg.setBackground(new java.awt.Color(54, 33, 89));
+        bg.setBackground(getBgColor());
         bg.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 bgMouseDragged(evt);
@@ -178,7 +178,7 @@ public class LoginFrame extends javax.swing.JFrame {
         });
         bg.setLayout(new java.awt.BorderLayout());
 
-        headerPanel.setBackground(new java.awt.Color(54, 33, 89));
+        headerPanel.setBackground(getBgColor());
         headerPanel.setPreferredSize(new java.awt.Dimension(400, 30));
         headerPanel.setLayout(new javax.swing.BoxLayout(headerPanel, javax.swing.BoxLayout.LINE_AXIS));
         headerPanel.add(filler10);
@@ -189,7 +189,7 @@ public class LoginFrame extends javax.swing.JFrame {
         headerPanel.add(titleLabel);
         headerPanel.add(filler12);
 
-        closeBtn.setBackground(new java.awt.Color(64, 43, 100));
+        closeBtn.setBackground(getFgColor());
         closeBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         closeBtn.setMaximumSize(new java.awt.Dimension(30, 30));
         closeBtn.setPreferredSize(new java.awt.Dimension(30, 30));
@@ -217,11 +217,13 @@ public class LoginFrame extends javax.swing.JFrame {
 
         bg.add(headerPanel, java.awt.BorderLayout.NORTH);
 
+        mainPanel.setBackground(getBgColor());
         mainPanel.setLayout(new java.awt.CardLayout());
 
+        startupPanel.setBackground(getBgColor());
         startupPanel.setLayout(new java.awt.BorderLayout());
 
-        selePanel.setBackground(new java.awt.Color(54, 33, 89));
+        selePanel.setBackground(getBgColor());
         selePanel.setLayout(new javax.swing.BoxLayout(selePanel, javax.swing.BoxLayout.PAGE_AXIS));
         selePanel.add(filler4);
 
@@ -234,11 +236,11 @@ public class LoginFrame extends javax.swing.JFrame {
         selePanel.add(welLabel);
         selePanel.add(filler5);
 
-        loginSelPanel.setBackground(new java.awt.Color(54, 33, 89));
+        loginSelPanel.setBackground(getBgColor());
         loginSelPanel.setLayout(new javax.swing.BoxLayout(loginSelPanel, javax.swing.BoxLayout.LINE_AXIS));
         loginSelPanel.add(filler8);
 
-        loginReaderBtn.setBackground(new java.awt.Color(64, 43, 100));
+        loginReaderBtn.setBackground(getFgColor());
         loginReaderBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         loginReaderBtn.setMaximumSize(new java.awt.Dimension(100, 100));
         loginReaderBtn.setPreferredSize(new java.awt.Dimension(100, 100));
@@ -271,7 +273,7 @@ public class LoginFrame extends javax.swing.JFrame {
         loginSelPanel.add(loginReaderBtn);
         loginSelPanel.add(filler7);
 
-        loginUserBtn.setBackground(new java.awt.Color(64, 43, 100));
+        loginUserBtn.setBackground(getFgColor());
         loginUserBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         loginUserBtn.setMaximumSize(new java.awt.Dimension(100, 100));
         loginUserBtn.setPreferredSize(new java.awt.Dimension(100, 100));
@@ -302,9 +304,10 @@ public class LoginFrame extends javax.swing.JFrame {
 
         startupPanel.add(selePanel, java.awt.BorderLayout.CENTER);
 
+        registerPanel.setBackground(getBgColor());
         registerPanel.setLayout(new java.awt.GridLayout(1, 2));
 
-        registerReviewerBtn.setBackground(new java.awt.Color(64, 43, 100));
+        registerReviewerBtn.setBackground(getFgColor());
         registerReviewerBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         registerReviewerBtn.setMaximumSize(new java.awt.Dimension(100, 30));
         registerReviewerBtn.setPreferredSize(new java.awt.Dimension(100, 30));
@@ -329,7 +332,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
         registerPanel.add(registerReviewerBtn);
 
-        registerJournalBtn.setBackground(new java.awt.Color(64, 43, 100));
+        registerJournalBtn.setBackground(getFgColor());
         registerJournalBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         registerJournalBtn.setMaximumSize(new java.awt.Dimension(100, 30));
         registerJournalBtn.setPreferredSize(new java.awt.Dimension(100, 30));
@@ -358,14 +361,14 @@ public class LoginFrame extends javax.swing.JFrame {
 
         mainPanel.add(startupPanel, "startupPanel");
 
-        regJournalPanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalPanel.setBackground(getBgColor());
         regJournalPanel.setLayout(new java.awt.BorderLayout());
 
-        regJournalToobarPanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalToobarPanel.setBackground(getBgColor());
         regJournalToobarPanel.setPreferredSize(new java.awt.Dimension(400, 30));
         regJournalToobarPanel.setLayout(new javax.swing.BoxLayout(regJournalToobarPanel, javax.swing.BoxLayout.LINE_AXIS));
 
-        regJournalbackBtn.setBackground(new java.awt.Color(64, 43, 100));
+        regJournalbackBtn.setBackground(getFgColor());
         regJournalbackBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         regJournalbackBtn.setMaximumSize(new java.awt.Dimension(60, 30));
         regJournalbackBtn.setPreferredSize(new java.awt.Dimension(60, 30));
@@ -392,21 +395,22 @@ public class LoginFrame extends javax.swing.JFrame {
 
         regJournalPanel.add(regJournalToobarPanel, java.awt.BorderLayout.NORTH);
 
+        regJournalMainScrollPane.setBackground(getBgColor());
         regJournalMainScrollPane.setBorder(null);
 
-        regJournalMainPanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalMainPanel.setBackground(getBgColor());
         regJournalMainPanel.setLayout(new java.awt.BorderLayout());
 
-        regJournalInnerPanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalInnerPanel.setBackground(getBgColor());
         regJournalInnerPanel.setLayout(new javax.swing.BoxLayout(regJournalInnerPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
-        regJournalJournalNamePanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalJournalNamePanel.setBackground(getBgColor());
         regJournalJournalNamePanel.setMaximumSize(new java.awt.Dimension(2147483647, 31));
         regJournalJournalNamePanel.setMinimumSize(new java.awt.Dimension(0, 31));
         regJournalJournalNamePanel.setPreferredSize(new java.awt.Dimension(120, 31));
         regJournalJournalNamePanel.setLayout(new java.awt.BorderLayout());
 
-        regJournalJournalNameLabelPanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalJournalNameLabelPanel.setBackground(getBgColor());
         regJournalJournalNameLabelPanel.setMinimumSize(new java.awt.Dimension(110, 16));
         regJournalJournalNameLabelPanel.setPreferredSize(getTextfieldLabelSize());
         regJournalJournalNameLabelPanel.setLayout(new java.awt.BorderLayout());
@@ -426,13 +430,13 @@ public class LoginFrame extends javax.swing.JFrame {
 
         regJournalInnerPanel.add(regJournalJournalNamePanel);
 
-        regJournalISSNPanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalISSNPanel.setBackground(getBgColor());
         regJournalISSNPanel.setMaximumSize(new java.awt.Dimension(2147483647, 31));
         regJournalISSNPanel.setMinimumSize(new java.awt.Dimension(0, 31));
         regJournalISSNPanel.setPreferredSize(new java.awt.Dimension(120, 31));
         regJournalISSNPanel.setLayout(new java.awt.BorderLayout());
 
-        regJournalISSNLabelPanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalISSNLabelPanel.setBackground(getBgColor());
         regJournalISSNLabelPanel.setMinimumSize(new java.awt.Dimension(110, 16));
         regJournalISSNLabelPanel.setPreferredSize(getTextfieldLabelSize());
         regJournalISSNLabelPanel.setLayout(new java.awt.BorderLayout());
@@ -452,13 +456,13 @@ public class LoginFrame extends javax.swing.JFrame {
 
         regJournalInnerPanel.add(regJournalISSNPanel);
 
-        regJournalEmailPanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalEmailPanel.setBackground(getBgColor());
         regJournalEmailPanel.setMaximumSize(new java.awt.Dimension(2147483647, 31));
         regJournalEmailPanel.setMinimumSize(new java.awt.Dimension(0, 31));
         regJournalEmailPanel.setPreferredSize(new java.awt.Dimension(120, 31));
         regJournalEmailPanel.setLayout(new java.awt.BorderLayout());
 
-        regJournalEmailLabelPanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalEmailLabelPanel.setBackground(getBgColor());
         regJournalEmailLabelPanel.setMinimumSize(new java.awt.Dimension(110, 16));
         regJournalEmailLabelPanel.setPreferredSize(getTextfieldLabelSize());
         regJournalEmailLabelPanel.setLayout(new java.awt.BorderLayout());
@@ -478,13 +482,13 @@ public class LoginFrame extends javax.swing.JFrame {
 
         regJournalInnerPanel.add(regJournalEmailPanel);
 
-        regJournalPasswordPanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalPasswordPanel.setBackground(getBgColor());
         regJournalPasswordPanel.setMaximumSize(new java.awt.Dimension(2147483647, 31));
         regJournalPasswordPanel.setMinimumSize(new java.awt.Dimension(0, 31));
         regJournalPasswordPanel.setPreferredSize(new java.awt.Dimension(120, 31));
         regJournalPasswordPanel.setLayout(new java.awt.BorderLayout());
 
-        regJournalPasswordLabelPanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalPasswordLabelPanel.setBackground(getBgColor());
         regJournalPasswordLabelPanel.setMinimumSize(new java.awt.Dimension(110, 16));
         regJournalPasswordLabelPanel.setPreferredSize(getTextfieldLabelSize());
         regJournalPasswordLabelPanel.setLayout(new java.awt.BorderLayout());
@@ -502,13 +506,13 @@ public class LoginFrame extends javax.swing.JFrame {
 
         regJournalInnerPanel.add(regJournalPasswordPanel);
 
-        regJournalRePasswordPanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalRePasswordPanel.setBackground(getBgColor());
         regJournalRePasswordPanel.setMaximumSize(new java.awt.Dimension(2147483647, 31));
         regJournalRePasswordPanel.setMinimumSize(new java.awt.Dimension(0, 31));
         regJournalRePasswordPanel.setPreferredSize(new java.awt.Dimension(120, 31));
         regJournalRePasswordPanel.setLayout(new java.awt.BorderLayout());
 
-        regJournalRePasswordLabelPanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalRePasswordLabelPanel.setBackground(getBgColor());
         regJournalRePasswordLabelPanel.setMinimumSize(new java.awt.Dimension(110, 16));
         regJournalRePasswordLabelPanel.setPreferredSize(getTextfieldLabelSize());
         regJournalRePasswordLabelPanel.setLayout(new java.awt.BorderLayout());
@@ -526,13 +530,13 @@ public class LoginFrame extends javax.swing.JFrame {
 
         regJournalInnerPanel.add(regJournalRePasswordPanel);
 
-        regJournalUniversityPanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalUniversityPanel.setBackground(getBgColor());
         regJournalUniversityPanel.setMaximumSize(new java.awt.Dimension(2147483647, 31));
         regJournalUniversityPanel.setMinimumSize(new java.awt.Dimension(0, 31));
         regJournalUniversityPanel.setPreferredSize(new java.awt.Dimension(120, 31));
         regJournalUniversityPanel.setLayout(new java.awt.BorderLayout());
 
-        regJournalUniversityLabelPanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalUniversityLabelPanel.setBackground(getBgColor());
         regJournalUniversityLabelPanel.setMinimumSize(new java.awt.Dimension(110, 16));
         regJournalUniversityLabelPanel.setPreferredSize(getTextfieldLabelSize());
         regJournalUniversityLabelPanel.setLayout(new java.awt.BorderLayout());
@@ -552,13 +556,13 @@ public class LoginFrame extends javax.swing.JFrame {
 
         regJournalInnerPanel.add(regJournalUniversityPanel);
 
-        regJournalTitlePanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalTitlePanel.setBackground(getBgColor());
         regJournalTitlePanel.setMaximumSize(new java.awt.Dimension(2147483647, 31));
         regJournalTitlePanel.setMinimumSize(new java.awt.Dimension(0, 31));
         regJournalTitlePanel.setPreferredSize(new java.awt.Dimension(120, 31));
         regJournalTitlePanel.setLayout(new java.awt.BorderLayout());
 
-        regJournalTitleLabelPanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalTitleLabelPanel.setBackground(getBgColor());
         regJournalTitleLabelPanel.setMinimumSize(new java.awt.Dimension(110, 16));
         regJournalTitleLabelPanel.setPreferredSize(getTextfieldLabelSize());
         regJournalTitleLabelPanel.setLayout(new java.awt.BorderLayout());
@@ -578,13 +582,13 @@ public class LoginFrame extends javax.swing.JFrame {
 
         regJournalInnerPanel.add(regJournalTitlePanel);
 
-        regJournalForenamePanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalForenamePanel.setBackground(getBgColor());
         regJournalForenamePanel.setMaximumSize(new java.awt.Dimension(2147483647, 31));
         regJournalForenamePanel.setMinimumSize(new java.awt.Dimension(0, 31));
         regJournalForenamePanel.setPreferredSize(new java.awt.Dimension(120, 31));
         regJournalForenamePanel.setLayout(new java.awt.BorderLayout());
 
-        regJournalForenameLabelPanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalForenameLabelPanel.setBackground(getBgColor());
         regJournalForenameLabelPanel.setMinimumSize(new java.awt.Dimension(110, 16));
         regJournalForenameLabelPanel.setPreferredSize(getTextfieldLabelSize());
         regJournalForenameLabelPanel.setLayout(new java.awt.BorderLayout());
@@ -604,13 +608,13 @@ public class LoginFrame extends javax.swing.JFrame {
 
         regJournalInnerPanel.add(regJournalForenamePanel);
 
-        regJournalSurnamePanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalSurnamePanel.setBackground(getBgColor());
         regJournalSurnamePanel.setMaximumSize(new java.awt.Dimension(2147483647, 31));
         regJournalSurnamePanel.setMinimumSize(new java.awt.Dimension(0, 31));
         regJournalSurnamePanel.setPreferredSize(new java.awt.Dimension(120, 31));
         regJournalSurnamePanel.setLayout(new java.awt.BorderLayout());
 
-        regJournalSurnameLabelPanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalSurnameLabelPanel.setBackground(getBgColor());
         regJournalSurnameLabelPanel.setMinimumSize(new java.awt.Dimension(110, 16));
         regJournalSurnameLabelPanel.setPreferredSize(getTextfieldLabelSize());
         regJournalSurnameLabelPanel.setLayout(new java.awt.BorderLayout());
@@ -640,13 +644,13 @@ public class LoginFrame extends javax.swing.JFrame {
 
         regJournalPanel.add(regJournalMainScrollPane, java.awt.BorderLayout.CENTER);
 
-        regJournalBtnPanel.setBackground(new java.awt.Color(54, 33, 89));
+        regJournalBtnPanel.setBackground(getBgColor());
         regJournalBtnPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         regJournalBtnPanel.setMaximumSize(new java.awt.Dimension(100, 60));
         regJournalBtnPanel.setPreferredSize(new java.awt.Dimension(100, 60));
         regJournalBtnPanel.setLayout(new java.awt.BorderLayout());
 
-        regJournalBtn.setBackground(new java.awt.Color(64, 43, 100));
+        regJournalBtn.setBackground(getFgColor());
         regJournalBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         regJournalBtn.setMaximumSize(new java.awt.Dimension(100, 40));
         regJournalBtn.setPreferredSize(new java.awt.Dimension(100, 40));
@@ -676,14 +680,14 @@ public class LoginFrame extends javax.swing.JFrame {
 
         mainPanel.add(regJournalPanel, "regJournalPanel");
 
-        loginPanel.setBackground(new java.awt.Color(54, 33, 89));
+        loginPanel.setBackground(getBgColor());
         loginPanel.setLayout(new java.awt.BorderLayout());
 
-        loginToobarPanel.setBackground(new java.awt.Color(54, 33, 89));
+        loginToobarPanel.setBackground(getBgColor());
         loginToobarPanel.setPreferredSize(new java.awt.Dimension(400, 30));
         loginToobarPanel.setLayout(new javax.swing.BoxLayout(loginToobarPanel, javax.swing.BoxLayout.LINE_AXIS));
 
-        loginbackBtn.setBackground(new java.awt.Color(64, 43, 100));
+        loginbackBtn.setBackground(getFgColor());
         loginbackBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         loginbackBtn.setMaximumSize(new java.awt.Dimension(60, 30));
         loginbackBtn.setPreferredSize(new java.awt.Dimension(60, 30));
@@ -710,19 +714,19 @@ public class LoginFrame extends javax.swing.JFrame {
 
         loginPanel.add(loginToobarPanel, java.awt.BorderLayout.NORTH);
 
-        loginMainPanel.setBackground(new java.awt.Color(54, 33, 89));
+        loginMainPanel.setBackground(getBgColor());
         loginMainPanel.setLayout(new java.awt.BorderLayout());
 
-        loginInnerPanel.setBackground(new java.awt.Color(54, 33, 89));
+        loginInnerPanel.setBackground(getBgColor());
         loginInnerPanel.setLayout(new javax.swing.BoxLayout(loginInnerPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
-        loginRolePanel.setBackground(new java.awt.Color(54, 33, 89));
+        loginRolePanel.setBackground(getBgColor());
         loginRolePanel.setMaximumSize(new java.awt.Dimension(2147483647, 31));
         loginRolePanel.setMinimumSize(new java.awt.Dimension(0, 31));
         loginRolePanel.setPreferredSize(new java.awt.Dimension(120, 31));
         loginRolePanel.setLayout(new java.awt.BorderLayout());
 
-        loginRoleLabelPanel.setBackground(new java.awt.Color(54, 33, 89));
+        loginRoleLabelPanel.setBackground(getBgColor());
         loginRoleLabelPanel.setMinimumSize(new java.awt.Dimension(110, 16));
         loginRoleLabelPanel.setPreferredSize(getTextfieldLabelSize());
         loginRoleLabelPanel.setLayout(new java.awt.BorderLayout());
@@ -742,13 +746,13 @@ public class LoginFrame extends javax.swing.JFrame {
 
         loginInnerPanel.add(loginRolePanel);
 
-        loginEmailPanel.setBackground(new java.awt.Color(54, 33, 89));
+        loginEmailPanel.setBackground(getBgColor());
         loginEmailPanel.setMaximumSize(new java.awt.Dimension(2147483647, 31));
         loginEmailPanel.setMinimumSize(new java.awt.Dimension(0, 31));
         loginEmailPanel.setPreferredSize(new java.awt.Dimension(120, 31));
         loginEmailPanel.setLayout(new java.awt.BorderLayout());
 
-        loginEmailLabelPanel.setBackground(new java.awt.Color(54, 33, 89));
+        loginEmailLabelPanel.setBackground(getBgColor());
         loginEmailLabelPanel.setMinimumSize(new java.awt.Dimension(110, 16));
         loginEmailLabelPanel.setPreferredSize(getTextfieldLabelSize());
         loginEmailLabelPanel.setLayout(new java.awt.BorderLayout());
@@ -768,13 +772,13 @@ public class LoginFrame extends javax.swing.JFrame {
 
         loginInnerPanel.add(loginEmailPanel);
 
-        loginPasswordPanel.setBackground(new java.awt.Color(54, 33, 89));
+        loginPasswordPanel.setBackground(getBgColor());
         loginPasswordPanel.setMaximumSize(new java.awt.Dimension(2147483647, 31));
         loginPasswordPanel.setMinimumSize(new java.awt.Dimension(0, 31));
         loginPasswordPanel.setPreferredSize(new java.awt.Dimension(120, 31));
         loginPasswordPanel.setLayout(new java.awt.BorderLayout());
 
-        loginPasswordLabelPanel.setBackground(new java.awt.Color(54, 33, 89));
+        loginPasswordLabelPanel.setBackground(getBgColor());
         loginPasswordLabelPanel.setMinimumSize(new java.awt.Dimension(110, 16));
         loginPasswordLabelPanel.setPreferredSize(getTextfieldLabelSize());
         loginPasswordLabelPanel.setLayout(new java.awt.BorderLayout());
@@ -800,12 +804,12 @@ public class LoginFrame extends javax.swing.JFrame {
 
         loginPanel.add(loginMainPanel, java.awt.BorderLayout.CENTER);
 
-        loginBtnPanel.setBackground(new java.awt.Color(54, 33, 89));
+        loginBtnPanel.setBackground(getBgColor());
         loginBtnPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         loginBtnPanel.setMaximumSize(new java.awt.Dimension(100, 60));
         loginBtnPanel.setLayout(new java.awt.BorderLayout());
 
-        loginBtn.setBackground(new java.awt.Color(64, 43, 100));
+        loginBtn.setBackground(getFgColor());
         loginBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         loginBtn.setMaximumSize(new java.awt.Dimension(100, 40));
         loginBtn.setPreferredSize(new java.awt.Dimension(100, 40));
@@ -843,14 +847,10 @@ public class LoginFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    // <editor-fold defaultstate="collapsed" desc="Frame size and location">
     private int frmWidth = 400;
     private int frmHeight = 300;
-    
-    private java.awt.Dimension textfieldLabelSize = new java.awt.Dimension(120, 100);
-    
-    private java.awt.Dimension  getTextfieldLabelSize(){
-        return textfieldLabelSize;
-    }
     
     private java.awt.Dimension getFrameSize(){
         return new java.awt.Dimension(frmWidth, frmHeight);
@@ -865,15 +865,41 @@ public class LoginFrame extends javax.swing.JFrame {
         java.awt.Point p = new java.awt.Point(screenwidth/2-frmwidth/2, screenheight/2-frmheight/2);
         return p;
     }
+    // </editor-fold>
     
-    private void setColor(javax.swing.JPanel panel){
-        panel.setBackground(new java.awt.Color(85, 65, 118));
+    // <editor-fold defaultstate="collapsed" desc="Element size">
+    private java.awt.Dimension textfieldLabelSize = new java.awt.Dimension(120, 100);
+    private java.awt.Dimension getTextfieldLabelSize(){
+        return textfieldLabelSize;
+    }
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Theme color">
+    private java.awt.Color bgColor = new java.awt.Color(54, 33, 89);
+    private java.awt.Color getBgColor(){
+        return bgColor;
     }
     
-    private void resetColor(javax.swing.JPanel panel){
-        panel.setBackground(new java.awt.Color(64, 43, 100));
+    private java.awt.Color fgColor = new java.awt.Color(64, 43, 100);
+    private java.awt.Color getFgColor(){
+        return fgColor;
     }
     
+    private java.awt.Color hlColor = new java.awt.Color(85, 65, 118);
+    private java.awt.Color getGlColor(){
+        return hlColor;
+    }
+    
+    private void highlightBackground(javax.swing.JPanel panel){
+        panel.setBackground(hlColor);
+    }
+    
+    private void resetBackground(javax.swing.JPanel panel){
+        panel.setBackground(fgColor);
+    }
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Drag & drop">
     private int dx = 0, dy = 0;
     
     private void bgMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bgMousePressed
@@ -887,6 +913,8 @@ public class LoginFrame extends javax.swing.JFrame {
         this.setLocation(x - dx, y - dy);
     }//GEN-LAST:event_bgMouseDragged
 
+    // </editor-fold>
+    
     private void loginUserBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginUserBtnMouseClicked
         java.awt.CardLayout card = (java.awt.CardLayout)mainPanel.getLayout();
         card.show(mainPanel, "loginPanel");
@@ -911,11 +939,11 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_registerJournalBtnMouseClicked
 
     private void btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMouseExited
-        resetColor(((javax.swing.JPanel)evt.getSource()));
+        resetBackground(((javax.swing.JPanel)evt.getSource()));
     }//GEN-LAST:event_btnMouseExited
 
     private void btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMouseEntered
-        setColor(((javax.swing.JPanel)evt.getSource()));
+        highlightBackground(((javax.swing.JPanel)evt.getSource()));
     }//GEN-LAST:event_btnMouseEntered
 
     private void closeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtnMouseClicked
