@@ -19,24 +19,24 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
-        selectionsPanel.add(new SidePanelButton("Reader panel", new MouseAdapter() {
+        selectionsPanel.add(new SidePanelButton("Journals", new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
                 activeSidePanelBtn((SidePanelButton)evt.getSource());
                 updateMainPanel(new ReaderPanel());
             }
         }));
         
-        selectionsPanel.add(new SidePanelButton("Selection 2", new MouseAdapter() {
+        selectionsPanel.add(new SidePanelButton("Staff management", new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
                 activeSidePanelBtn((SidePanelButton)evt.getSource());
-                updateMainPanel(new Label("Selection 2"));
+                updateMainPanel(new StaffManagementPanel());
             }
         }));
         
-        selectionsPanel.add(new SidePanelButton("Selection 3", new MouseAdapter() {
+        selectionsPanel.add(new SidePanelButton("Publish", new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
                 activeSidePanelBtn((SidePanelButton)evt.getSource());
-                updateMainPanel(new Label("Selection 3"));
+                updateMainPanel(new ProgressManagementPanel());
             }
         }));
     }
