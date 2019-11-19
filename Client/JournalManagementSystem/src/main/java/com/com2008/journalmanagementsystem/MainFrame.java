@@ -19,30 +19,24 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
-        selectionsPanel.add(new SidePanelButton("Selection 1", new MouseAdapter() {
+        selectionsPanel.add(new SidePanelButton("Reader panel", new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
                 activeSidePanelBtn((SidePanelButton)evt.getSource());
-                mainPanel.removeAll();
-                mainPanel.add(new Label("Selection 1"), BorderLayout.NORTH);
-                mainPanel.revalidate();
+                updateMainPanel(new ReaderPanel());
             }
         }));
         
         selectionsPanel.add(new SidePanelButton("Selection 2", new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
                 activeSidePanelBtn((SidePanelButton)evt.getSource());
-                mainPanel.removeAll();
-                mainPanel.add(new Label("Selection 2"), BorderLayout.NORTH);
-                mainPanel.revalidate();
+                updateMainPanel(new Label("Selection 2"));
             }
         }));
         
         selectionsPanel.add(new SidePanelButton("Selection 3", new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
                 activeSidePanelBtn((SidePanelButton)evt.getSource());
-                mainPanel.removeAll();
-                mainPanel.add(new Label("Selection 3"), BorderLayout.NORTH);
-                mainPanel.revalidate();
+                updateMainPanel(new Label("Selection 3"));
             }
         }));
     }
@@ -52,6 +46,12 @@ public class MainFrame extends javax.swing.JFrame {
             ((SidePanelButton)comp).reset();
         }
         btn.active();
+    }
+    
+    private void updateMainPanel(Component comp){
+        mainPanel.removeAll();
+        mainPanel.add(comp, BorderLayout.CENTER);
+        mainPanel.revalidate();
     }
 
     /**
@@ -91,6 +91,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         sidePanel.setBackground(Theme.getBgColor());
         sidePanel.setMaximumSize(new java.awt.Dimension(250, 32767));
+        sidePanel.setMinimumSize(new java.awt.Dimension(250, 65));
         sidePanel.setPreferredSize(new java.awt.Dimension(250, 646));
         sidePanel.setLayout(new java.awt.BorderLayout());
 
@@ -201,7 +202,7 @@ public class MainFrame extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
