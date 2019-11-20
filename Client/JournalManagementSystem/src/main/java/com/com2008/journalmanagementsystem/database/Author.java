@@ -1,5 +1,6 @@
 package com.com2008.journalmanagementsystem.database;
 
+// A demo class of IDataRow
 public class Author implements IDataRow{
     private String UniversityAffiliation;
     private String Email;
