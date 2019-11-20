@@ -1,4 +1,4 @@
-package com.com2008.journalmanagementsystem.database;
+package com.com2008.journalmanagementsystem.util.database;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
