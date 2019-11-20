@@ -35,6 +35,29 @@ public class Database {
     }
 
     /**
+     * Run INSERT, UPDATE, DELETE
+     * @param sql SQL
+     * @return Count
+     * @throws SQLException
+     */
+    public static int executeUpdate(String sql) throws SQLException {
+        Statement statement = connection.createStatement();
+        return statement.executeUpdate(sql);
+    }
+
+    /**
+     * Run SELECT
+     * @param sql SQL
+     * @return Result set
+     * @throws SQLException
+     */
+    public static ResultSet executeQuery(String sql) throws SQLException {
+        Statement statement = connection.createStatement();
+        statement.executeQuery(sql);
+        return statement.executeQuery(sql);
+    }
+
+    /**
      * Insert a new row to a table
      * @param table Table name
      * @param dataRow Data instance you want to insert
