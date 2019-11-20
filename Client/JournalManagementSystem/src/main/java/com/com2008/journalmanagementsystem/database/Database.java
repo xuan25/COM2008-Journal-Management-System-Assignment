@@ -5,9 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.util.*;
 
-import javax.lang.model.util.ElementScanner6;
-
-// A database generic interface for java classes
+// A database generic interface for java classes. Text and Number supported.
 public class Database {
     // Database connection
     private static Connection connection = null;
@@ -64,7 +62,10 @@ public class Database {
                         valuesBuilder.append(",");
                     }
                     columnsBuilder.append(key);
-                    valuesBuilder.append("'" + value + "'");
+                    if(field.getType() == String.class)
+                        valuesBuilder.append("'" + value + "'");
+                    else
+                        valuesBuilder.append(value);
                 }
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
@@ -175,8 +176,12 @@ public class Database {
                         firstItem = false;
                     else
                         setBuilder.append(",");
-                    if(value != null)
-                        setBuilder.append(key + "='" + value + "'");
+                    if(value != null){
+                        if(field.getType() == String.class)
+                            setBuilder.append(key + "='" + value + "'");
+                        else
+                            setBuilder.append(key + "=" + value);
+                    }
                     else
                         setBuilder.append(key + "=NULL");
                 }
