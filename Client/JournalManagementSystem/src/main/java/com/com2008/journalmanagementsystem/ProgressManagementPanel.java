@@ -27,51 +27,51 @@ public class ProgressManagementPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        journalComboBox = new javax.swing.JComboBox<>();
+        leftPanel = new javax.swing.JPanel();
+        infoLabel = new javax.swing.JLabel();
+        articlesScrollPane1 = new javax.swing.JScrollPane();
+        articlesList = new javax.swing.JList<>();
+        rightPanel = new javax.swing.JPanel();
+        publishBtn = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Journal 1", "Journal 2", "Journal 3", "Journal 4" }));
-        add(jComboBox1, java.awt.BorderLayout.NORTH);
+        journalComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Journal 1", "Journal 2", "Journal 3", "Journal 4" }));
+        add(journalComboBox, java.awt.BorderLayout.NORTH);
 
-        jPanel2.setLayout(new java.awt.BorderLayout());
+        leftPanel.setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setText("Vol. xx, Edition yy.  Article count：5");
-        jPanel2.add(jLabel1, java.awt.BorderLayout.NORTH);
+        infoLabel.setText("Vol. xx, Edition yy.  Article count：5");
+        leftPanel.add(infoLabel, java.awt.BorderLayout.NORTH);
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        articlesList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Article 1", "Article 2", "Article 3", "Article 4", "Article 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        articlesScrollPane1.setViewportView(articlesList);
 
-        jPanel2.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        leftPanel.add(articlesScrollPane1, java.awt.BorderLayout.CENTER);
 
-        add(jPanel2, java.awt.BorderLayout.CENTER);
+        add(leftPanel, java.awt.BorderLayout.CENTER);
 
-        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.PAGE_AXIS));
+        rightPanel.setLayout(new javax.swing.BoxLayout(rightPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
-        jButton1.setText("Publish");
-        jPanel1.add(jButton1);
+        publishBtn.setText("Publish");
+        rightPanel.add(publishBtn);
 
-        add(jPanel1, java.awt.BorderLayout.EAST);
+        add(rightPanel, java.awt.BorderLayout.EAST);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> articlesList;
+    private javax.swing.JScrollPane articlesScrollPane1;
+    private javax.swing.JLabel infoLabel;
+    private javax.swing.JComboBox<String> journalComboBox;
+    private javax.swing.JPanel leftPanel;
+    private javax.swing.JButton publishBtn;
+    private javax.swing.JPanel rightPanel;
     // End of variables declaration//GEN-END:variables
 }

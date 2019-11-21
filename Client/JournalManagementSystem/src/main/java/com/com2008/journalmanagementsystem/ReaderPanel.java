@@ -30,7 +30,7 @@ public class ReaderPanel extends javax.swing.JPanel {
         jSplitPane1 = new javax.swing.JSplitPane();
         JournalScrollPane = new javax.swing.JScrollPane();
         JournalTree = new javax.swing.JTree();
-        articlePanel1 = new com.com2008.journalmanagementsystem.ArticlePanel();
+        articlePanel = new com.com2008.journalmanagementsystem.ArticlePanel();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -77,7 +77,7 @@ public class ReaderPanel extends javax.swing.JPanel {
         JournalScrollPane.setViewportView(JournalTree);
 
         jSplitPane1.setLeftComponent(JournalScrollPane);
-        jSplitPane1.setRightComponent(articlePanel1);
+        jSplitPane1.setRightComponent(articlePanel);
 
         add(jSplitPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
@@ -86,7 +86,7 @@ public class ReaderPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane JournalScrollPane;
     private javax.swing.JTree JournalTree;
-    private com.com2008.journalmanagementsystem.ArticlePanel articlePanel1;
+    private com.com2008.journalmanagementsystem.ArticlePanel articlePanel;
     private javax.swing.JSplitPane jSplitPane1;
     // End of variables declaration//GEN-END:variables
 }

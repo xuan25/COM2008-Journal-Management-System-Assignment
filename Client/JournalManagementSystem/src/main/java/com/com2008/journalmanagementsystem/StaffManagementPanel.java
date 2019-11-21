@@ -27,61 +27,61 @@ public class StaffManagementPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jPanel2 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        journalComboBox = new javax.swing.JComboBox<>();
+        leftPanel = new javax.swing.JPanel();
+        searchTextField = new javax.swing.JTextField();
+        editorsScrollPane1 = new javax.swing.JScrollPane();
+        editorsList = new javax.swing.JList<>();
+        rightPanel = new javax.swing.JPanel();
+        addStaffBtn = new javax.swing.JButton();
+        removeStaffBtn = new javax.swing.JButton();
+        transferCheifBtn = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Journal 1", "Journal 2", "Journal 3", "Journal 4" }));
-        add(jComboBox1, java.awt.BorderLayout.NORTH);
+        journalComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Journal 1", "Journal 2", "Journal 3", "Journal 4" }));
+        add(journalComboBox, java.awt.BorderLayout.NORTH);
 
-        jPanel2.setLayout(new java.awt.BorderLayout());
+        leftPanel.setLayout(new java.awt.BorderLayout());
 
-        jTextField1.setText("Search bar");
-        jPanel2.add(jTextField1, java.awt.BorderLayout.NORTH);
+        searchTextField.setText("Search bar");
+        leftPanel.add(searchTextField, java.awt.BorderLayout.NORTH);
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        editorsList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Editor 1", "Editor 2", "Editor 3", "Editor 4", "Editor 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        editorsScrollPane1.setViewportView(editorsList);
 
-        jPanel2.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        leftPanel.add(editorsScrollPane1, java.awt.BorderLayout.CENTER);
 
-        add(jPanel2, java.awt.BorderLayout.CENTER);
+        add(leftPanel, java.awt.BorderLayout.CENTER);
 
-        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.PAGE_AXIS));
+        rightPanel.setLayout(new javax.swing.BoxLayout(rightPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
-        jButton1.setText("Add staff");
-        jPanel1.add(jButton1);
+        addStaffBtn.setText("Add staff");
+        rightPanel.add(addStaffBtn);
 
-        jButton2.setText("Remove staff");
-        jPanel1.add(jButton2);
+        removeStaffBtn.setText("Remove staff");
+        rightPanel.add(removeStaffBtn);
 
-        jButton3.setText("Transfer cheif");
-        jPanel1.add(jButton3);
+        transferCheifBtn.setText("Transfer cheif");
+        rightPanel.add(transferCheifBtn);
 
-        add(jPanel1, java.awt.BorderLayout.EAST);
+        add(rightPanel, java.awt.BorderLayout.EAST);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton addStaffBtn;
+    private javax.swing.JList<String> editorsList;
+    private javax.swing.JScrollPane editorsScrollPane1;
+    private javax.swing.JComboBox<String> journalComboBox;
+    private javax.swing.JPanel leftPanel;
+    private javax.swing.JButton removeStaffBtn;
+    private javax.swing.JPanel rightPanel;
+    private javax.swing.JTextField searchTextField;
+    private javax.swing.JButton transferCheifBtn;
     // End of variables declaration//GEN-END:variables
 }
