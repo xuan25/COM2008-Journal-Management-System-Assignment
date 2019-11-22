@@ -266,20 +266,20 @@ public class Database {
             Database.connect("jdbc:mysql://stusql.dcs.shef.ac.uk/team018", "team018", "9ae70ba0");
             
             // Write & Read
-            write("Author", new Author("UoS", "bshan3@sheffield.ac.uk", "Shan", "Boxuan"));
-            write("Author", new Author("UoS", "jqi6@sheffield.ac.uk", "Qi", "Jingxiang"));
-            List<Author> a = read("Author", new Author("UoS", null, null, null));
+            write("Author", new Author("bshan3@sheffield.ac.uk", "Boxuan", "Shan", "UoS"));
+            write("Author", new Author("jqi6@sheffield.ac.uk", "Jingxiang", "Qi", "UoS"));
+            List<Author> a = read("Author", new Author(null, null, null, "UoS"));
             System.out.println("Result count 1: " + a.size());
 
             // Update & Read
-            update("Author", new Author(null, "bshan3@sheffield.ac.uk", null, null), new Author("UoS", "bshan3@sheffield.ac.uk", null, "Boxuan1"), false);
-            update("Author", new Author(null, "jqi6@sheffield.ac.uk", null, null), new Author("UoS", "jqi6@sheffield.ac.uk", null, "Jingxiang1"), true);
-            List<Author> b = read("Author", new Author("UoS", null, null, null));
+            update("Author", new Author("bshan3@sheffield.ac.uk", null, null, null), new Author("bshan3@sheffield.ac.uk", "Boxuan1", null, "UoS"), false);
+            update("Author", new Author("jqi6@sheffield.ac.uk", null, null, null), new Author("jqi6@sheffield.ac.uk", "Jingxiang1", null, "UoS"), true);
+            List<Author> b = read("Author", new Author(null, null, null, "UoS"));
             System.out.println("Result count 2: " + b.size());
 
             // Delete & Read
-            delete("Author", new Author("UoS", null, null, null));
-            List<Author> c = read("Author", new Author("UoS", null, null, null));
+            delete("Author", new Author(null, null, null, "UoS"));
+            List<Author> c = read("Author", new Author(null, null, null, "UoS"));
             System.out.println("Result count 3: " + c.size());
 
             // Disconnect
