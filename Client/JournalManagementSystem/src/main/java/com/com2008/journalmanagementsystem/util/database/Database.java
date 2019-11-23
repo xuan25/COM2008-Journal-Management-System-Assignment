@@ -1,5 +1,6 @@
 package com.com2008.journalmanagementsystem.util.database;
 
+import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
@@ -12,6 +13,7 @@ public class Database {
 
     /**
      * Disconnect from the database
+     * 
      * @return Success
      * @throws SQLException
      */
@@ -24,7 +26,8 @@ public class Database {
 
     /**
      * Connect to a database
-     * @param url Database url
+     * 
+     * @param url      Database url
      * @param username Database username
      * @param password Database password
      * @throws SQLException
@@ -36,6 +39,7 @@ public class Database {
 
     /**
      * Run INSERT, UPDATE, DELETE
+     * 
      * @param sql SQL
      * @return Count
      * @throws SQLException
@@ -47,6 +51,7 @@ public class Database {
 
     /**
      * Run SELECT
+     * 
      * @param sql SQL
      * @return Result set
      * @throws SQLException
@@ -55,6 +60,42 @@ public class Database {
         Statement statement = connection.createStatement();
         statement.executeQuery(sql);
         return statement.executeQuery(sql);
+    }
+
+    public static String uploadDocument(String tableName, String filepath) throws SQLException, IOException {
+        InputStream fileStream = new FileInputStream(filepath);
+        while(true){
+            try {
+                PreparedStatement statment = connection.prepareStatement("INSERT INTO " + tableName + " VALUES(?,?)");
+                UUID uuid = UUID.randomUUID();
+                statment.setString(1, uuid.toString());
+                statment.setBlob(2, fileStream);
+                statment.executeUpdate();
+                fileStream.close();
+                return uuid.toString();
+            } 
+            catch (SQLException e) {
+                if(e.getErrorCode() != 2601)
+                    throw e;
+            }
+        }
+    }
+
+    public static InputStream downloadDocument(String tableName, String uuid) throws SQLException, IOException {
+        String uuidColumnName = connection.createStatement().executeQuery("SELECT * FROM " + tableName + " LIMIT 0").getMetaData().getColumnName(1);
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM " + tableName + " WHERE " + uuidColumnName + "='" + uuid + "'");
+        if(resultSet.next()){
+            Blob document = resultSet.getBlob(2);
+            InputStream stream = document.getBinaryStream();
+            return stream;
+        }
+        return null;
+    }
+
+    public static int deleteDocument(String tableName, String uuid) throws SQLException{
+        String uuidColumnName = connection.createStatement().executeQuery("SELECT * FROM " + tableName + " LIMIT 0").getMetaData().getColumnName(1);
+        return connection.createStatement().executeUpdate("DELETE FROM " + tableName + " WHERE " + uuidColumnName + "='" + uuid + "'");
     }
 
     /**
@@ -266,21 +307,42 @@ public class Database {
             Database.connect("jdbc:mysql://stusql.dcs.shef.ac.uk/team018", "team018", "9ae70ba0");
             
             // Write & Read
-            write("Author", new Author("bshan3@sheffield.ac.uk", "Boxuan", "Shan", "UoS"));
-            write("Author", new Author("jqi6@sheffield.ac.uk", "Jingxiang", "Qi", "UoS"));
-            List<Author> a = read("Author", new Author(null, null, null, "UoS"));
+            write("Account", new Account("bshan3@sheffield.ac.uk", "Mr.", "Boxuan", "Shan", "UoS"));
+            write("Account", new Account("jqi6@sheffield.ac.uk", "Mr.", "Jingxiang", "Qi", "UoS"));
+            List<Account> a = read("Account", new Account(null, null, null, null, "UoS"));
             System.out.println("Result count 1: " + a.size());
 
             // Update & Read
-            update("Author", new Author("bshan3@sheffield.ac.uk", null, null, null), new Author("bshan3@sheffield.ac.uk", "Boxuan1", null, "UoS"), false);
-            update("Author", new Author("jqi6@sheffield.ac.uk", null, null, null), new Author("jqi6@sheffield.ac.uk", "Jingxiang1", null, "UoS"), true);
-            List<Author> b = read("Author", new Author(null, null, null, "UoS"));
+            update("Account", new Account("bshan3@sheffield.ac.uk", null,null, null, null), new Account("bshan3@sheffield.ac.uk", null, "Boxuan1", null, "UoS"), false);
+            update("Account", new Account("jqi6@sheffield.ac.uk", null, null, null, null), new Account("jqi6@sheffield.ac.uk", null, "Jingxiang1", null, "UoS"), true);
+            List<Account> b = read("Account", new Account(null, null, null, null, "UoS"));
             System.out.println("Result count 2: " + b.size());
 
             // Delete & Read
-            delete("Author", new Author(null, null, null, "UoS"));
-            List<Author> c = read("Author", new Author(null, null, null, "UoS"));
+            delete("Account", new Account(null, null, null, null, "UoS"));
+            List<Account> c = read("Account", new Account(null, null, null, null, "UoS"));
             System.out.println("Result count 3: " + c.size());
+
+
+            // Test Document
+            String documentFolder = "C:\\Users\\Xuan\\Documents\\Github\\COM2008Project\\";
+            String filename = "dummy.pdf";
+
+            // Document upload
+            String docID = uploadDocument("Document", documentFolder + filename);
+
+            // Document download
+            InputStream downloadStream = downloadDocument("Document", docID);
+            OutputStream out = new FileOutputStream(documentFolder + "dounload.pdf");
+            byte[] buffer = new byte[1024];
+            int len = 0;
+            while((len = downloadStream.read(buffer)) != -1){
+                out.write(buffer, 0, len);
+            }
+            out.close();
+
+            // Document delete
+            deleteDocument("Document", docID);
 
             // Disconnect
             Database.disconnect();
@@ -288,6 +350,9 @@ public class Database {
             System.out.println("Done!!!");
         }
         catch (SQLException ex) {
+		    ex.printStackTrace();
+        }
+        catch (IOException ex) {
 		    ex.printStackTrace();
         }
     }

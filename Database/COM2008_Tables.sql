@@ -60,6 +60,12 @@ CREATE TABLE Edition(
 
 -- Article related
 
+CREATE TABLE Document(
+    uuid            VARCHAR(255),
+    documentData    LONGBLOB,
+    PRIMARY KEY (uuid)
+);
+
 CREATE TABLE Submission(
     issn            VARCHAR(14),
     submissionID    VARCHAR(14),
