@@ -37,7 +37,8 @@ CREATE TABLE Journal(
     issn        VARCHAR(14),
     journalName VARCHAR(255),
     cheifEmail  VARCHAR(255),
-    PRIMARY KEY (issn)
+    PRIMARY KEY (issn),
+    FOREIGN KEY (cheifEmail) REFERENCES Editor(email)
 );
 
 CREATE TABLE JounalOnBoard(
