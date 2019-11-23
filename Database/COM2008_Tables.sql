@@ -41,7 +41,7 @@ CREATE TABLE Journal(
     FOREIGN KEY (cheifEmail) REFERENCES Editor(email)
 );
 
-CREATE TABLE JounalOnBoard(
+CREATE TABLE JournalOnBoard(
     issn    VARCHAR(255),
     email   VARCHAR(255),
     PRIMARY KEY (issn, email),
@@ -111,19 +111,21 @@ CREATE TABLE Review(
 );
 
 CREATE TABLE TypoError(
-    email       VARCHAR(255),
-    issn        VARCHAR(255),
+    email           VARCHAR(255),
+    issn            VARCHAR(255),
     submissionID    VARCHAR(255),
+    num             INT,
     content         VARCHAR(255),
-    PRIMARY KEY (email, issn, submissionID),
+    PRIMARY KEY (email, issn, submissionID, num),
     FOREIGN KEY (email, issn, submissionID) REFERENCES Review(email, issn, submissionID)
 );
 
 CREATE TABLE Criticism(
-    email       VARCHAR(255),
-    issn        VARCHAR(255),
+    email           VARCHAR(255),
+    issn            VARCHAR(255),
     submissionID    VARCHAR(255),
+    num             INT,
     content         VARCHAR(255),
-    PRIMARY KEY (email, issn, submissionID),
+    PRIMARY KEY (email, issn, submissionID, num),
     FOREIGN KEY (email, issn, submissionID) REFERENCES Review(email, issn, submissionID)
 );
