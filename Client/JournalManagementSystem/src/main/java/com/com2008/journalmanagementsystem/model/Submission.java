@@ -8,7 +8,7 @@ public class Submission implements IDataRow{
     private String submissionID;
     private String title;
     private String mainAuthor;
-    private String coAuthor;
+    private String corrAuthor;
     private String contentAbstract;
     private String draftID;
     private String finalID;
@@ -18,12 +18,12 @@ public class Submission implements IDataRow{
         
     }
 
-    public Submission(String issn, String submissionID, String title, String mainAuthor, String coAuthor, String contentAbstract, String draftID, String finalID, Status status){
+    public Submission(String issn, String submissionID, String title, String mainAuthor, String corrAuthor, String contentAbstract, String draftID, String finalID, Status status){
         this.issn = issn;
         this.submissionID = submissionID;
         this.title = title;
         this.mainAuthor = mainAuthor;
-        this.coAuthor = coAuthor;
+        this.corrAuthor = corrAuthor;
         this.contentAbstract = contentAbstract;
         this.draftID = draftID;
         this.finalID = finalID;
@@ -96,12 +96,12 @@ public class Submission implements IDataRow{
         this.mainAuthor = mainAuthor;
     }
 
-    public String getCoAuthor() {
-        return coAuthor;
+    public String getCorrAuthor() {
+        return corrAuthor;
     }
 
-    public void setCoAuthor(String coAuthor) {
-        this.coAuthor = coAuthor;
+    public void setCorrAuthor(String coAuthor) {
+        this.corrAuthor = coAuthor;
     }
 
     public String getContentAbstract() {

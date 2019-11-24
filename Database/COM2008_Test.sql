@@ -18,14 +18,14 @@ INSERT INTO Account (email, title, forename, surname, university) VALUES ("testA
 INSERT INTO Author (email, hashedPassword) VALUES ("testAuthor@test.com", "hashedPassword");
 
 -- New Submission
-INSERT INTO Account (email, title, forename, surname, university) VALUES ("testCoAuthor@test.com", "Mr.", "CoAuthor", "Test", "testUniversity");
-INSERT INTO Author (email, hashedPassword) VALUES ("testCoAuthor@test.com", "hashedPassword");
+INSERT INTO Account (email, title, forename, surname, university) VALUES ("testCorrAuthor@test.com", "Mr.", "CoAuthor", "Test", "testUniversity");
+INSERT INTO Author (email, hashedPassword) VALUES ("testCorrAuthor@test.com", "hashedPassword");
 INSERT INTO Account (email, title, forename, surname, university) VALUES ("testOtherAuthor@test.com", "Mr.", "OtherAuthor", "Test", "testUniversity");
 INSERT INTO Author (email, hashedPassword) VALUES ("testOtherAuthor@test.com", "hashedPassword");
 
-INSERT INTO Submission (issn, submissionID, title, mainAuthor, coAuthor, contentAbstract, draftID, finalID, status) VALUES ("ISSN 0000-0000", "001", "testTitle", "testAuthor@test.com", "testCoAuthor@test.com", "testAbtract", "draft", "final", 0);
+INSERT INTO Submission (issn, submissionID, title, mainAuthor, corrAuthor, contentAbstract, draftID, finalID, status) VALUES ("ISSN 0000-0000", "001", "testTitle", "testAuthor@test.com", "testCorrAuthor@test.com", "testAbtract", "draft", "final", 0);
 INSERT INTO SubmissionAuthor (issn, submissionID, email) VALUES ("ISSN 0000-0000", "001", "testAuthor@test.com");
-INSERT INTO SubmissionAuthor (issn, submissionID, email) VALUES ("ISSN 0000-0000", "001", "testCoAuthor@test.com");
+INSERT INTO SubmissionAuthor (issn, submissionID, email) VALUES ("ISSN 0000-0000", "001", "testCorrAuthor@test.com");
 INSERT INTO SubmissionAuthor (issn, submissionID, email) VALUES ("ISSN 0000-0000", "001", "testOtherAuthor@test.com");
 
 
