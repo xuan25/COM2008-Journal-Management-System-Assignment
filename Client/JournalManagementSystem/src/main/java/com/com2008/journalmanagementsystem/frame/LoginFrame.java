@@ -7,6 +7,7 @@ package com.com2008.journalmanagementsystem.frame;
 
 import java.awt.*;
 import javax.swing.*;
+
 /**
  *
  * @author Xuan
@@ -981,7 +982,8 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_backBtnMouseClicked
 
     private void loginReaderBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginReaderBtnMouseClicked
-        // TODO : Login as Reader
+        new MainFrame(this, UserRole.READER, null).setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_loginReaderBtnMouseClicked
 
     private void registerAuthorBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerAuthorBtnMouseClicked

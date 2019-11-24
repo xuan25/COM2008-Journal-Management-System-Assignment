@@ -5,6 +5,13 @@
  */
 package com.com2008.journalmanagementsystem.frame;
 
+import java.sql.SQLException;
+import java.util.List;
+
+import com.com2008.journalmanagementsystem.model.Review;
+import com.com2008.journalmanagementsystem.model.Submission;
+import com.com2008.journalmanagementsystem.util.database.Database;
+
 /**
  *
  * @author Xuan
@@ -16,6 +23,33 @@ public class ArticlePanel extends javax.swing.JPanel {
      */
     public ArticlePanel() {
         initComponents();
+    }
+
+    public ArticlePanel(Submission submission) {
+        initComponents();
+
+        innerReviewPanel.removeAll();
+
+        titleLabel.setText(submission.getTitle());
+        statusLabel.setText(submission.getStatus().toString());
+        abstractTextArea.setText(submission.getContentAbstract());
+        if (submission.getFinalID() == null)
+            linkLabel.setText(submission.getDraftID());
+        else
+            linkLabel.setText(submission.getFinalID());
+
+        try {
+            List<Review> reviews = Database.read("Review", new Review(null, submission.getIssn(), submission.getSubmissionID(), null, null, null));
+            for(int i = 0; i < reviews.size(); i++){
+                ReviewPanel reviewPanel = new ReviewPanel("Reviewer" + (i + 1), reviews.get(i));
+                innerReviewPanel.add(reviewPanel);
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        
     }
 
     /**
@@ -41,7 +75,7 @@ public class ArticlePanel extends javax.swing.JPanel {
         abstructPanel = new javax.swing.JPanel();
         abstructLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        abstractTextArea = new javax.swing.JTextArea();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         jSeparator1 = new javax.swing.JSeparator();
         filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
@@ -110,12 +144,12 @@ public class ArticlePanel extends javax.swing.JPanel {
         abstructLabel.setText("Abstruct");
         abstructPanel.add(abstructLabel, java.awt.BorderLayout.NORTH);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setRows(5);
-        jTextArea1.setText("This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  ");
-        jTextArea1.setWrapStyleWord(true);
-        jScrollPane1.setViewportView(jTextArea1);
+        abstractTextArea.setColumns(20);
+        abstractTextArea.setLineWrap(true);
+        abstractTextArea.setRows(5);
+        abstractTextArea.setText("This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  ");
+        abstractTextArea.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(abstractTextArea);
 
         abstructPanel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -178,6 +212,7 @@ public class ArticlePanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ReviewsLabel;
+    private javax.swing.JTextArea abstractTextArea;
     private javax.swing.JLabel abstructLabel;
     private javax.swing.JPanel abstructPanel;
     private javax.swing.JButton acceptBtn;
@@ -201,7 +236,6 @@ public class ArticlePanel extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel linkLabel;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JScrollPane mainScrollPane;

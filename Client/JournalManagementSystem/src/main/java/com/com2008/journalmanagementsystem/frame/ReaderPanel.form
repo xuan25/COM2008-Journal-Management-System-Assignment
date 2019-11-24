@@ -28,7 +28,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
       <SubComponents>
-        <Container class="javax.swing.JScrollPane" name="JournalScrollPane">
+        <Container class="javax.swing.JScrollPane" name="journalScrollPane">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>
@@ -40,22 +40,36 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTree" name="JournalTree">
+            <Component class="javax.swing.JTree" name="journalTree">
               <Properties>
                 <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.editors2.TreeModelEditor">
                   <TreeModel code="Journals&#xa; Journal1&#xa;  Vol.1&#xa;   Edition1&#xa;   Edition2&#xa;  Vol.2&#xa;   Edition1&#xa;  Vol.3&#xa;   Edition1&#xa; Journal2&#xa;  Vol.1&#xa;   Edition1&#xa;   Edition2&#xa;   Edition3&#xa;  Vol.2&#xa;   Edition1&#xa; Journal3&#xa;  Vol.1&#xa;   Edition1"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="valueChanged" listener="javax.swing.event.TreeSelectionListener" parameters="javax.swing.event.TreeSelectionEvent" handler="journalTreeValueChanged"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
-        <Component class="com.com2008.journalmanagementsystem.frame.ArticlePanel" name="articlePanel">
+        <Container class="javax.swing.JPanel" name="articalOutterPanel">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
               <JSplitPaneConstraints position="right"/>
             </Constraint>
           </Constraints>
-        </Component>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+          <SubComponents>
+            <Component class="com.com2008.journalmanagementsystem.frame.ArticlePanel" name="articlePanel">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+                  <BorderConstraints direction="Center"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+          </SubComponents>
+        </Container>
       </SubComponents>
     </Container>
   </SubComponents>

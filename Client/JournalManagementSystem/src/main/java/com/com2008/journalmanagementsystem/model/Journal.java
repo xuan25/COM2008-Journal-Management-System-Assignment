@@ -17,4 +17,33 @@ public class Journal implements IDataRow{
         this.journalName = journalName;
         this.cheifEmail = cheifEmail;
     }
+
+    public String getIssn() {
+        return issn;
+    }
+
+    public void setIssn(String issn) {
+        this.issn = issn;
+    }
+
+    public String getJournalName() {
+        return journalName;
+    }
+
+    public void setJournalName(String journalName) {
+        this.journalName = journalName;
+    }
+
+    public String getCheifEmail() {
+        return cheifEmail;
+    }
+
+    public void setCheifEmail(String cheifEmail) {
+        this.cheifEmail = cheifEmail;
+    }
+
+    @Override
+    public String toString() {
+        return journalName;
+    }
 }

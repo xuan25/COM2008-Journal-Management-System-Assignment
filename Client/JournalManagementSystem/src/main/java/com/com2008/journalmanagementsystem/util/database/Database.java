@@ -116,9 +116,10 @@ public class Database {
             field.setAccessible(true);
             try {
                 String key = field.getName();
-                String value = (String) field.get(dataRow);
+                Object obj = field.get(dataRow);
 
-                if (value != null) {
+                if (obj != null) {
+                    String value = obj.toString();
                     if (firstItem) 
                         firstItem = false;
                     else{
@@ -157,7 +158,7 @@ public class Database {
      */
     public static <T extends IDataRow> List<T> read(String table, T dataRow)throws SQLException {
         // Build sql
-        String sql = "SELECT * FROM " + table + " WHERE " + buildSQLCondition(dataRow);
+        String sql = "SELECT * FROM " + table + buildSQLCondition(dataRow);
         // System.out.println(sql);
 
         // Execute sql & get results
@@ -207,7 +208,7 @@ public class Database {
      */
     public static int delete(String table, IDataRow dataRow) throws SQLException{
         // Build sql
-        String sql = "DELETE FROM " + table + " WHERE " + buildSQLCondition(dataRow);
+        String sql = "DELETE FROM " + table + buildSQLCondition(dataRow);
         // System.out.println(sql);
 
         // Execute sql
@@ -233,9 +234,10 @@ public class Database {
             field.setAccessible(true);
             try {
                 String key = field.getName();
-                String value = (String) field.get(dataRowNew);
-
-                if (includeNull || value != null) {
+                Object obj = field.get(dataRowNew);
+                
+                if (includeNull || obj != null) {
+                    String value = obj.toString();
                     if(firstItem)
                         firstItem = false;
                     else
@@ -257,7 +259,7 @@ public class Database {
         }
 
         // Build sql
-        String sql = "UPDATE " + table + " SET " + setBuilder + " WHERE " + buildSQLCondition(dataRowOld);
+        String sql = "UPDATE " + table + " SET " + setBuilder + buildSQLCondition(dataRowOld);
         // System.out.println(sql);
 
         // Execute sql
@@ -271,6 +273,9 @@ public class Database {
      * @return Sql condition string
      */
     private static String buildSQLCondition(IDataRow dataRow){
+        if(dataRow == null)
+            return "";
+
         // Init string builders
         StringBuilder conditionBuilder = new StringBuilder();
 
@@ -282,15 +287,19 @@ public class Database {
             field.setAccessible(true);
             try {
                 String key = field.getName();
-                String value = (String) field.get(dataRow);
+                Object obj = field.get(dataRow);
 
-                if (value != null) {
-                    if (firstItem)
+                if (obj != null) {
+                    String value = obj.toString();
+                    if (firstItem) 
                         firstItem = false;
-                    else
+                    else{
                         conditionBuilder.append(" and ");
-
-                    conditionBuilder.append(key + "='" + value + "'");
+                    }
+                    if(field.getType() == String.class)
+                        conditionBuilder.append(key + "='" + value + "'");
+                    else
+                        conditionBuilder.append(key + "=" + value);
                 }
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
@@ -298,7 +307,10 @@ public class Database {
                 e.printStackTrace();
             }
         }
-        return conditionBuilder.toString();
+        
+        if(conditionBuilder.toString().equals(""))
+            return "";
+        return " WHERE " + conditionBuilder.toString();
     }
 
     public static void main(String[] args){

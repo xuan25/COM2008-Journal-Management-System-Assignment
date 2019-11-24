@@ -5,6 +5,14 @@
  */
 package com.com2008.journalmanagementsystem.frame;
 
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import com.com2008.journalmanagementsystem.model.*;
+import com.com2008.journalmanagementsystem.util.database.Database;
+
 /**
  *
  * @author Xuan
@@ -16,6 +24,36 @@ public class ReaderPanel extends javax.swing.JPanel {
      */
     public ReaderPanel() {
         initComponents();
+
+        articalOutterPanel.removeAll();
+
+        try {
+            DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("Journals");
+            List<Journal> jouranls = Database.read("Journal", new Journal());
+            for(Journal journal : jouranls){
+                String issn = journal.getIssn();
+                DefaultMutableTreeNode journalNode = new DefaultMutableTreeNode(journal);
+                List<Edition> editions = Database.read("Edition", new Edition(issn, null, null));
+                for(Edition edition : editions){
+                    int volume = edition.getVolume();
+                    int ed = edition.getEdition();
+                    DefaultMutableTreeNode editionNode = new DefaultMutableTreeNode(edition);
+                    List<Article> articles = Database.read("Article", new Article(issn, null, volume, ed));
+                    for(Article article : articles){
+                        String submissionID = article.getSubmissionID();
+                        Submission submission = Database.read("Submission", new Submission(issn, submissionID, null, null, null, null, null, null, null)).get(0);
+                        DefaultMutableTreeNode articalNode = new DefaultMutableTreeNode(submission);
+                        editionNode.add(articalNode);
+                    }
+                    journalNode.add(editionNode);
+                }
+                rootNode.add(journalNode);
+            }
+            journalTree.setModel(new javax.swing.tree.DefaultTreeModel(rootNode));
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -28,8 +66,9 @@ public class ReaderPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jSplitPane1 = new javax.swing.JSplitPane();
-        JournalScrollPane = new javax.swing.JScrollPane();
-        JournalTree = new javax.swing.JTree();
+        journalScrollPane = new javax.swing.JScrollPane();
+        journalTree = new javax.swing.JTree();
+        articalOutterPanel = new javax.swing.JPanel();
         articlePanel = new com.com2008.journalmanagementsystem.frame.ArticlePanel();
 
         setLayout(new java.awt.BorderLayout());
@@ -73,20 +112,41 @@ public class ReaderPanel extends javax.swing.JPanel {
         treeNode3.add(treeNode4);
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
-        JournalTree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        JournalScrollPane.setViewportView(JournalTree);
+        journalTree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        journalTree.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
+            public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
+                journalTreeValueChanged(evt);
+            }
+        });
+        journalScrollPane.setViewportView(journalTree);
 
-        jSplitPane1.setLeftComponent(JournalScrollPane);
-        jSplitPane1.setRightComponent(articlePanel);
+        jSplitPane1.setLeftComponent(journalScrollPane);
+
+        articalOutterPanel.setLayout(new java.awt.BorderLayout());
+        articalOutterPanel.add(articlePanel, java.awt.BorderLayout.CENTER);
+
+        jSplitPane1.setRightComponent(articalOutterPanel);
 
         add(jSplitPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void journalTreeValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_journalTreeValueChanged
+        DefaultMutableTreeNode lastNode = (DefaultMutableTreeNode)evt.getPath().getLastPathComponent();
+        Object userObject = lastNode.getUserObject();
+        if(userObject.getClass() == Submission.class){
+            Submission submission = (Submission)userObject;
+            articalOutterPanel.removeAll();
+            articalOutterPanel.add(new ArticlePanel(submission), java.awt.BorderLayout.CENTER);
+            articalOutterPanel.revalidate();
+        }
+    }//GEN-LAST:event_journalTreeValueChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane JournalScrollPane;
-    private javax.swing.JTree JournalTree;
+    private javax.swing.JPanel articalOutterPanel;
     private com.com2008.journalmanagementsystem.frame.ArticlePanel articlePanel;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JScrollPane journalScrollPane;
+    private javax.swing.JTree journalTree;
     // End of variables declaration//GEN-END:variables
 }

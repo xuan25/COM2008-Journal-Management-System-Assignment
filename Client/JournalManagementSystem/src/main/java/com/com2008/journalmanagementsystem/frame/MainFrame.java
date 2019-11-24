@@ -7,7 +7,13 @@ package com.com2008.journalmanagementsystem.frame;
 
 import java.awt.*;
 import javax.swing.*;
+
+import com.com2008.journalmanagementsystem.model.Account;
+import com.com2008.journalmanagementsystem.util.database.Database;
+
 import java.awt.event.*;
+import java.sql.SQLException;
+
 /**
  *
  * @author Xuan
@@ -21,31 +27,65 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         selectionsPanel.add(new SidePanelButton("Journals", new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
-                activeSidePanelBtn((SidePanelButton)evt.getSource());
+                activeSidePanelBtn((SidePanelButton) evt.getSource());
                 updateMainPanel(new ReaderPanel());
             }
         }));
-        
+
         selectionsPanel.add(new SidePanelButton("Staff management", new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
-                activeSidePanelBtn((SidePanelButton)evt.getSource());
+                activeSidePanelBtn((SidePanelButton) evt.getSource());
                 updateMainPanel(new StaffManagementPanel());
             }
         }));
-        
+
         selectionsPanel.add(new SidePanelButton("Publish", new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
-                activeSidePanelBtn((SidePanelButton)evt.getSource());
+                activeSidePanelBtn((SidePanelButton) evt.getSource());
                 updateMainPanel(new ProgressManagementPanel());
             }
         }));
-        
+
         selectionsPanel.add(new SidePanelButton("Profile", new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
-                activeSidePanelBtn((SidePanelButton)evt.getSource());
+                activeSidePanelBtn((SidePanelButton) evt.getSource());
                 updateMainPanel(new ProfilePanel());
             }
         }));
+    }
+
+    private LoginFrame parent;
+
+    public MainFrame(LoginFrame parent, UserRole userRole, String email) {
+        initComponents();
+
+        this.parent = parent;
+
+        if (email != null) {
+            try {
+                java.util.List<Account> accounts = Database.read("Account", new Account(email, null, null, null, null));
+                if(accounts.size() > 0)
+                    usernameLabel.setText(accounts.get(0).getForename());
+                // TODO : If user not found
+            } catch (SQLException e) {
+                // TODO : If user not found
+                e.printStackTrace();
+            }
+        }
+
+        switch(userRole){
+            case READER:
+                usernameLabel.setText("Reader");
+                selectionsPanel.add(new SidePanelButton("Journals", new MouseAdapter() {
+                    public void mousePressed(MouseEvent evt) {
+                        activeSidePanelBtn((SidePanelButton)evt.getSource());
+                        updateMainPanel(new ReaderPanel());
+                    }
+                }));
+                break;
+            default:
+                break;
+        }
     }
     
     private void activeSidePanelBtn(SidePanelButton btn){
@@ -145,6 +185,9 @@ public class MainFrame extends javax.swing.JFrame {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnMouseExited(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                logoutBtnMousePressed(evt);
+            }
         });
         logoutBtn.setLayout(new java.awt.BorderLayout());
 
@@ -197,6 +240,11 @@ public class MainFrame extends javax.swing.JFrame {
     private void btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMouseExited
         Theme.resetBackground((JPanel)evt.getSource());
     }//GEN-LAST:event_btnMouseExited
+
+    private void logoutBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutBtnMousePressed
+        parent.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_logoutBtnMousePressed
 
     /**
      * @param args the command line arguments
