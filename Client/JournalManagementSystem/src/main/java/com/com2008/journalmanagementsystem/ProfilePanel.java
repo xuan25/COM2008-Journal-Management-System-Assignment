@@ -34,8 +34,8 @@ public class ProfilePanel extends javax.swing.JPanel {
         innerPanel = new javax.swing.JPanel();
         changePasswordPanel = new javax.swing.JPanel();
         changePasswordLabel = new javax.swing.JLabel();
-        loginMainPanel = new javax.swing.JPanel();
-        loginInnerPanel = new javax.swing.JPanel();
+        changePasswordMainPanel = new javax.swing.JPanel();
+        changePasswordInnerPanel = new javax.swing.JPanel();
         oldPasswordPanel = new javax.swing.JPanel();
         oldPasswordLabelPanel = new javax.swing.JPanel();
         oldPasswordLabel = new javax.swing.JLabel();
@@ -77,11 +77,11 @@ public class ProfilePanel extends javax.swing.JPanel {
         changePasswordLabel.setText("Change password");
         changePasswordPanel.add(changePasswordLabel, java.awt.BorderLayout.NORTH);
 
-        loginMainPanel.setBackground(Theme.getBgColor());
-        loginMainPanel.setLayout(new java.awt.BorderLayout());
+        changePasswordMainPanel.setBackground(Theme.getBgColor());
+        changePasswordMainPanel.setLayout(new java.awt.BorderLayout());
 
-        loginInnerPanel.setBackground(Theme.getBgColor());
-        loginInnerPanel.setLayout(new javax.swing.BoxLayout(loginInnerPanel, javax.swing.BoxLayout.PAGE_AXIS));
+        changePasswordInnerPanel.setBackground(Theme.getBgColor());
+        changePasswordInnerPanel.setLayout(new javax.swing.BoxLayout(changePasswordInnerPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
         oldPasswordPanel.setBackground(Theme.getBgColor());
         oldPasswordPanel.setMaximumSize(new java.awt.Dimension(2147483647, 31));
@@ -97,7 +97,7 @@ public class ProfilePanel extends javax.swing.JPanel {
         oldPasswordLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         oldPasswordLabel.setForeground(new java.awt.Color(204, 204, 204));
         oldPasswordLabel.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        oldPasswordLabel.setText("Email:");
+        oldPasswordLabel.setText("Old password:");
         oldPasswordLabelPanel.add(oldPasswordLabel, java.awt.BorderLayout.CENTER);
         oldPasswordLabelPanel.add(filler38, java.awt.BorderLayout.EAST);
 
@@ -107,7 +107,7 @@ public class ProfilePanel extends javax.swing.JPanel {
         oldPasswordPanel.add(oldPasswordlTextField, java.awt.BorderLayout.CENTER);
         oldPasswordPanel.add(filler39, java.awt.BorderLayout.SOUTH);
 
-        loginInnerPanel.add(oldPasswordPanel);
+        changePasswordInnerPanel.add(oldPasswordPanel);
 
         newPasswordPanel.setBackground(Theme.getBgColor());
         newPasswordPanel.setMaximumSize(new java.awt.Dimension(2147483647, 31));
@@ -123,7 +123,7 @@ public class ProfilePanel extends javax.swing.JPanel {
         newPasswordLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         newPasswordLabel.setForeground(new java.awt.Color(204, 204, 204));
         newPasswordLabel.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        newPasswordLabel.setText("Password:");
+        newPasswordLabel.setText("New password:");
         newPasswordLabelPanel.add(newPasswordLabel, java.awt.BorderLayout.CENTER);
         newPasswordLabelPanel.add(filler51, java.awt.BorderLayout.EAST);
 
@@ -131,7 +131,7 @@ public class ProfilePanel extends javax.swing.JPanel {
         newPasswordPanel.add(newPasswordField, java.awt.BorderLayout.CENTER);
         newPasswordPanel.add(filler52, java.awt.BorderLayout.SOUTH);
 
-        loginInnerPanel.add(newPasswordPanel);
+        changePasswordInnerPanel.add(newPasswordPanel);
 
         confirmNewPasswordPanel.setBackground(Theme.getBgColor());
         confirmNewPasswordPanel.setMaximumSize(new java.awt.Dimension(2147483647, 31));
@@ -147,7 +147,7 @@ public class ProfilePanel extends javax.swing.JPanel {
         confirmNewPasswordLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         confirmNewPasswordLabel.setForeground(new java.awt.Color(204, 204, 204));
         confirmNewPasswordLabel.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        confirmNewPasswordLabel.setText("Password:");
+        confirmNewPasswordLabel.setText("Confirm password:");
         confirmNewPasswordLabelPanel.add(confirmNewPasswordLabel, java.awt.BorderLayout.CENTER);
         confirmNewPasswordLabelPanel.add(filler53, java.awt.BorderLayout.EAST);
 
@@ -155,15 +155,15 @@ public class ProfilePanel extends javax.swing.JPanel {
         confirmNewPasswordPanel.add(confirmNewPasswordField, java.awt.BorderLayout.CENTER);
         confirmNewPasswordPanel.add(filler54, java.awt.BorderLayout.SOUTH);
 
-        loginInnerPanel.add(confirmNewPasswordPanel);
+        changePasswordInnerPanel.add(confirmNewPasswordPanel);
 
-        loginMainPanel.add(loginInnerPanel, java.awt.BorderLayout.CENTER);
-        loginMainPanel.add(filler59, java.awt.BorderLayout.NORTH);
-        loginMainPanel.add(filler60, java.awt.BorderLayout.SOUTH);
-        loginMainPanel.add(filler61, java.awt.BorderLayout.WEST);
-        loginMainPanel.add(filler62, java.awt.BorderLayout.EAST);
+        changePasswordMainPanel.add(changePasswordInnerPanel, java.awt.BorderLayout.CENTER);
+        changePasswordMainPanel.add(filler59, java.awt.BorderLayout.NORTH);
+        changePasswordMainPanel.add(filler60, java.awt.BorderLayout.SOUTH);
+        changePasswordMainPanel.add(filler61, java.awt.BorderLayout.WEST);
+        changePasswordMainPanel.add(filler62, java.awt.BorderLayout.EAST);
 
-        changePasswordPanel.add(loginMainPanel, java.awt.BorderLayout.CENTER);
+        changePasswordPanel.add(changePasswordMainPanel, java.awt.BorderLayout.CENTER);
 
         innerPanel.add(changePasswordPanel);
         innerPanel.add(filler1);
@@ -188,7 +188,9 @@ public class ProfilePanel extends javax.swing.JPanel {
     // </editor-fold>
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel changePasswordInnerPanel;
     private javax.swing.JLabel changePasswordLabel;
+    private javax.swing.JPanel changePasswordMainPanel;
     private javax.swing.JPanel changePasswordPanel;
     private javax.swing.JPasswordField confirmNewPasswordField;
     private javax.swing.JLabel confirmNewPasswordLabel;
@@ -211,8 +213,6 @@ public class ProfilePanel extends javax.swing.JPanel {
     private javax.swing.Box.Filler filler62;
     private javax.swing.JPanel innerPanel;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JPanel loginInnerPanel;
-    private javax.swing.JPanel loginMainPanel;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JScrollPane mainScrollPane;
     private javax.swing.JPasswordField newPasswordField;
