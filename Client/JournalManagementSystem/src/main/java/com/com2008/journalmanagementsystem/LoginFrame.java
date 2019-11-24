@@ -54,10 +54,19 @@ public class LoginFrame extends javax.swing.JFrame {
         filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         registerPanel = new javax.swing.JPanel();
-        registerReviewerBtn = new javax.swing.JPanel();
-        registerReviewerLabel = new javax.swing.JLabel();
+        registerAuthorBtn = new javax.swing.JPanel();
+        registerAuthorLabel = new javax.swing.JLabel();
         registerJournalBtn = new javax.swing.JPanel();
         registerJournalLabel = new javax.swing.JLabel();
+        regAuthorPanel = new javax.swing.JPanel();
+        regAuthorToobarPanel = new javax.swing.JPanel();
+        regAuthorBackBtn = new javax.swing.JPanel();
+        regAuthorBackLabel = new javax.swing.JLabel();
+        registerAuthorPanel = new com.com2008.journalmanagementsystem.RegisterPanel();
+        regAuthorBtnPanel = new javax.swing.JPanel();
+        regAuthorBtn = new javax.swing.JPanel();
+        regAuthorLabel = new javax.swing.JLabel();
+        filler66 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 20), new java.awt.Dimension(32767, 20));
         regJournalPanel = new javax.swing.JPanel();
         regJournalToobarPanel = new javax.swing.JPanel();
         regJournalbackBtn = new javax.swing.JPanel();
@@ -309,13 +318,13 @@ public class LoginFrame extends javax.swing.JFrame {
         registerPanel.setBackground(Theme.getBgColor());
         registerPanel.setLayout(new java.awt.GridLayout(1, 2));
 
-        registerReviewerBtn.setBackground(Theme.getFgColor());
-        registerReviewerBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        registerReviewerBtn.setMaximumSize(new java.awt.Dimension(100, 30));
-        registerReviewerBtn.setPreferredSize(new java.awt.Dimension(100, 30));
-        registerReviewerBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+        registerAuthorBtn.setBackground(Theme.getFgColor());
+        registerAuthorBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        registerAuthorBtn.setMaximumSize(new java.awt.Dimension(100, 30));
+        registerAuthorBtn.setPreferredSize(new java.awt.Dimension(100, 30));
+        registerAuthorBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                registerReviewerBtnMouseClicked(evt);
+                registerAuthorBtnMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnMouseEntered(evt);
@@ -324,15 +333,15 @@ public class LoginFrame extends javax.swing.JFrame {
                 btnMouseExited(evt);
             }
         });
-        registerReviewerBtn.setLayout(new java.awt.BorderLayout());
+        registerAuthorBtn.setLayout(new java.awt.BorderLayout());
 
-        registerReviewerLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        registerReviewerLabel.setForeground(new java.awt.Color(204, 204, 204));
-        registerReviewerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        registerReviewerLabel.setText("I want to be a reviewer");
-        registerReviewerBtn.add(registerReviewerLabel, java.awt.BorderLayout.CENTER);
+        registerAuthorLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        registerAuthorLabel.setForeground(new java.awt.Color(204, 204, 204));
+        registerAuthorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        registerAuthorLabel.setText("I want to be a author");
+        registerAuthorBtn.add(registerAuthorLabel, java.awt.BorderLayout.CENTER);
 
-        registerPanel.add(registerReviewerBtn);
+        registerPanel.add(registerAuthorBtn);
 
         registerJournalBtn.setBackground(Theme.getFgColor());
         registerJournalBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -362,6 +371,76 @@ public class LoginFrame extends javax.swing.JFrame {
         startupPanel.add(registerPanel, java.awt.BorderLayout.SOUTH);
 
         mainPanel.add(startupPanel, "startupPanel");
+
+        regAuthorPanel.setBackground(Theme.getBgColor());
+        regAuthorPanel.setLayout(new java.awt.BorderLayout());
+
+        regAuthorToobarPanel.setBackground(Theme.getBgColor());
+        regAuthorToobarPanel.setPreferredSize(new java.awt.Dimension(400, 30));
+        regAuthorToobarPanel.setLayout(new javax.swing.BoxLayout(regAuthorToobarPanel, javax.swing.BoxLayout.LINE_AXIS));
+
+        regAuthorBackBtn.setBackground(Theme.getFgColor());
+        regAuthorBackBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        regAuthorBackBtn.setMaximumSize(new java.awt.Dimension(60, 30));
+        regAuthorBackBtn.setPreferredSize(new java.awt.Dimension(60, 30));
+        regAuthorBackBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backBtnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMouseExited(evt);
+            }
+        });
+        regAuthorBackBtn.setLayout(new java.awt.BorderLayout());
+
+        regAuthorBackLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        regAuthorBackLabel.setForeground(new java.awt.Color(255, 255, 255));
+        regAuthorBackLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        regAuthorBackLabel.setText("< Back");
+        regAuthorBackBtn.add(regAuthorBackLabel, java.awt.BorderLayout.CENTER);
+
+        regAuthorToobarPanel.add(regAuthorBackBtn);
+
+        regAuthorPanel.add(regAuthorToobarPanel, java.awt.BorderLayout.NORTH);
+        regAuthorPanel.add(registerAuthorPanel, java.awt.BorderLayout.CENTER);
+
+        regAuthorBtnPanel.setBackground(Theme.getBgColor());
+        regAuthorBtnPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        regAuthorBtnPanel.setMaximumSize(new java.awt.Dimension(100, 60));
+        regAuthorBtnPanel.setLayout(new java.awt.BorderLayout());
+
+        regAuthorBtn.setBackground(Theme.getFgColor());
+        regAuthorBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        regAuthorBtn.setMaximumSize(new java.awt.Dimension(100, 40));
+        regAuthorBtn.setPreferredSize(new java.awt.Dimension(100, 40));
+        regAuthorBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                regAuthorBtnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMouseExited(evt);
+            }
+        });
+        regAuthorBtn.setLayout(new java.awt.BorderLayout());
+
+        regAuthorLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        regAuthorLabel.setForeground(new java.awt.Color(204, 204, 204));
+        regAuthorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        regAuthorLabel.setText("Register");
+        regAuthorBtn.add(regAuthorLabel, java.awt.BorderLayout.CENTER);
+
+        regAuthorBtnPanel.add(regAuthorBtn, java.awt.BorderLayout.CENTER);
+        regAuthorBtnPanel.add(filler66, java.awt.BorderLayout.SOUTH);
+
+        regAuthorPanel.add(regAuthorBtnPanel, java.awt.BorderLayout.SOUTH);
+
+        mainPanel.add(regAuthorPanel, "regAuthorPanel");
 
         regJournalPanel.setBackground(Theme.getBgColor());
         regJournalPanel.setLayout(new java.awt.BorderLayout());
@@ -905,9 +984,10 @@ public class LoginFrame extends javax.swing.JFrame {
         // TODO : Login as Reader
     }//GEN-LAST:event_loginReaderBtnMouseClicked
 
-    private void registerReviewerBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerReviewerBtnMouseClicked
-        // TODO : Jump to register reviewer panel
-    }//GEN-LAST:event_registerReviewerBtnMouseClicked
+    private void registerAuthorBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerAuthorBtnMouseClicked
+        CardLayout card = (CardLayout)mainPanel.getLayout();
+        card.show(mainPanel, "regAuthorPanel");
+    }//GEN-LAST:event_registerAuthorBtnMouseClicked
 
     private void registerJournalBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerJournalBtnMouseClicked
         CardLayout card = (CardLayout)mainPanel.getLayout();
@@ -933,6 +1013,10 @@ public class LoginFrame extends javax.swing.JFrame {
     private void loginBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnMouseClicked
         // TODO : Login
     }//GEN-LAST:event_loginBtnMouseClicked
+
+    private void regAuthorBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regAuthorBtnMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_regAuthorBtnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1014,6 +1098,7 @@ public class LoginFrame extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler61;
     private javax.swing.Box.Filler filler62;
     private javax.swing.Box.Filler filler63;
+    private javax.swing.Box.Filler filler66;
     private javax.swing.Box.Filler filler7;
     private javax.swing.Box.Filler filler8;
     private javax.swing.Box.Filler filler9;
@@ -1045,6 +1130,13 @@ public class LoginFrame extends javax.swing.JFrame {
     private javax.swing.JLabel loginUserLabel;
     private javax.swing.JPanel loginbackBtn;
     private javax.swing.JPanel mainPanel;
+    private javax.swing.JPanel regAuthorBackBtn;
+    private javax.swing.JLabel regAuthorBackLabel;
+    private javax.swing.JPanel regAuthorBtn;
+    private javax.swing.JPanel regAuthorBtnPanel;
+    private javax.swing.JLabel regAuthorLabel;
+    private javax.swing.JPanel regAuthorPanel;
+    private javax.swing.JPanel regAuthorToobarPanel;
     private javax.swing.JPanel regJournalBtn;
     private javax.swing.JPanel regJournalBtnPanel;
     private javax.swing.JLabel regJournalEmailLabel;
@@ -1092,11 +1184,12 @@ public class LoginFrame extends javax.swing.JFrame {
     private javax.swing.JPanel regJournalbackBtn;
     private javax.swing.JLabel regJournalbackLabel;
     private javax.swing.JLabel regJournalbackLabel1;
+    private javax.swing.JPanel registerAuthorBtn;
+    private javax.swing.JLabel registerAuthorLabel;
+    private com.com2008.journalmanagementsystem.RegisterPanel registerAuthorPanel;
     private javax.swing.JPanel registerJournalBtn;
     private javax.swing.JLabel registerJournalLabel;
     private javax.swing.JPanel registerPanel;
-    private javax.swing.JPanel registerReviewerBtn;
-    private javax.swing.JLabel registerReviewerLabel;
     private javax.swing.JPanel selePanel;
     private javax.swing.JPanel startupPanel;
     private javax.swing.JLabel titleLabel;
