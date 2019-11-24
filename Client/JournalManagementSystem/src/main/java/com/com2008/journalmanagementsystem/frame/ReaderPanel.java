@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.com2008.journalmanagementsystem;
+package com.com2008.journalmanagementsystem.frame;
 
 /**
  *
@@ -30,7 +30,7 @@ public class ReaderPanel extends javax.swing.JPanel {
         jSplitPane1 = new javax.swing.JSplitPane();
         JournalScrollPane = new javax.swing.JScrollPane();
         JournalTree = new javax.swing.JTree();
-        articlePanel = new com.com2008.journalmanagementsystem.ArticlePanel();
+        articlePanel = new com.com2008.journalmanagementsystem.frame.ArticlePanel();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -86,7 +86,7 @@ public class ReaderPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane JournalScrollPane;
     private javax.swing.JTree JournalTree;
-    private com.com2008.journalmanagementsystem.ArticlePanel articlePanel;
+    private com.com2008.journalmanagementsystem.frame.ArticlePanel articlePanel;
     private javax.swing.JSplitPane jSplitPane1;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.com2008.journalmanagementsystem;
+package com.com2008.journalmanagementsystem.frame;
 
 import java.awt.*;
 import javax.swing.*;
@@ -62,7 +62,7 @@ public class LoginFrame extends javax.swing.JFrame {
         regAuthorToobarPanel = new javax.swing.JPanel();
         regAuthorBackBtn = new javax.swing.JPanel();
         regAuthorBackLabel = new javax.swing.JLabel();
-        registerAuthorPanel = new com.com2008.journalmanagementsystem.RegisterPanel();
+        registerAuthorPanel = new com.com2008.journalmanagementsystem.frame.RegisterPanel();
         regAuthorBtnPanel = new javax.swing.JPanel();
         regAuthorBtn = new javax.swing.JPanel();
         regAuthorLabel = new javax.swing.JLabel();
@@ -1186,7 +1186,7 @@ public class LoginFrame extends javax.swing.JFrame {
     private javax.swing.JLabel regJournalbackLabel1;
     private javax.swing.JPanel registerAuthorBtn;
     private javax.swing.JLabel registerAuthorLabel;
-    private com.com2008.journalmanagementsystem.RegisterPanel registerAuthorPanel;
+    private com.com2008.journalmanagementsystem.frame.RegisterPanel registerAuthorPanel;
     private javax.swing.JPanel registerJournalBtn;
     private javax.swing.JLabel registerJournalLabel;
     private javax.swing.JPanel registerPanel;

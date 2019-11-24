@@ -1,4 +1,4 @@
-package com.com2008.journalmanagementsystem;
+package com.com2008.journalmanagementsystem.frame;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

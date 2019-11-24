@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.com2008.journalmanagementsystem;
+package com.com2008.journalmanagementsystem.frame;
 
 /**
  *
@@ -27,7 +27,7 @@ public class DemoJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        readerPanel1 = new com.com2008.journalmanagementsystem.ReaderPanel();
+        readerPanel1 = new com.com2008.journalmanagementsystem.frame.ReaderPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,6 +74,6 @@ public class DemoJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.com2008.journalmanagementsystem.ReaderPanel readerPanel1;
+    private com.com2008.journalmanagementsystem.frame.ReaderPanel readerPanel1;
     // End of variables declaration//GEN-END:variables
 }
