@@ -5,12 +5,15 @@
  */
 package com.com2008.journalmanagementsystem.frame;
 
-import java.io.Reader;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.com2008.journalmanagementsystem.model.Account;
+import com.com2008.journalmanagementsystem.model.Author;
 import com.com2008.journalmanagementsystem.model.Review;
 import com.com2008.journalmanagementsystem.model.Submission;
+import com.com2008.journalmanagementsystem.model.SubmissionAuthor;
 import com.com2008.journalmanagementsystem.util.database.Database;
 
 /**
@@ -40,11 +43,46 @@ public class ArticlePanel extends javax.swing.JPanel {
 
         titleLabel.setText(submission.getTitle());
         statusLabel.setText(submission.getStatus().toString());
+
         abstractTextArea.setText(submission.getContentAbstract());
         if (submission.getFinalID() == null)
             linkLabel.setText(submission.getDraftID());
         else
             linkLabel.setText(submission.getFinalID());
+
+        try {
+            Account mainAuthor = Database.read("Account", new Account(submission.getMainAuthor(), null, null, null, null)).get(0);
+            Account corrAuthor = Database.read("Account", new Account(submission.getCorrAuthor(), null, null, null, null)).get(0);
+            List<SubmissionAuthor> submissionAuthors = Database.read("SubmissionAuthor", new SubmissionAuthor(submission.getIssn(), submission.getSubmissionID(), null));
+            List<String> coAuthorEmails = new ArrayList<String>();
+            for (SubmissionAuthor submissionAuthor : submissionAuthors) {
+                if(!submissionAuthor.getEmail().equals(submission.getMainAuthor()) && !submissionAuthor.getEmail().equals(submission.getCorrAuthor()))
+                    coAuthorEmails.add(submissionAuthor.getEmail());
+            }
+            List<Account> coAuthors = new ArrayList<Account>();
+            for (String email : coAuthorEmails) {
+                coAuthors.add(Database.read("Account", new Account(email, null, null, null, null)).get(0));
+            }
+
+            mainAuthorLabel.setText(mainAuthor.toString());
+            corrAuthorLabel.setText(corrAuthor.toString());
+
+            StringBuilder coAuthorBuilder = new StringBuilder();
+            boolean isFirst = true;
+            for (Account account : coAuthors) {
+                if(isFirst)
+                    isFirst = false;
+                else
+                    coAuthorBuilder.append("<br/>");
+                coAuthorBuilder.append(account.toString());
+            }
+
+            coAuthorLabel.setText("<html>" + coAuthorBuilder.toString().replace("<", "&lt;").replace(">", "&gt;") + "</html>");
+        } catch (SQLException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        
 
         if(decisionPanel.isVisible()){
             innerReviewPanel.removeAll();
@@ -87,6 +125,18 @@ public class ArticlePanel extends javax.swing.JPanel {
         abstractTextArea = new javax.swing.JTextArea();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         jSeparator1 = new javax.swing.JSeparator();
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
+        authorPanel = new javax.swing.JPanel();
+        innerAuthorPanel = new javax.swing.JPanel();
+        authorsLabel = new javax.swing.JLabel();
+        mainAuthorHeaderLabel = new javax.swing.JLabel();
+        mainAuthorLabel = new javax.swing.JLabel();
+        corrAuthorHeaderLabel = new javax.swing.JLabel();
+        corrAuthorLabel = new javax.swing.JLabel();
+        coAuthorHeaderLabel = new javax.swing.JLabel();
+        coAuthorLabel = new javax.swing.JLabel();
+        filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
+        jSeparator4 = new javax.swing.JSeparator();
         filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         pdfPanel = new javax.swing.JPanel();
         innerPdfPanel = new javax.swing.JPanel();
@@ -97,7 +147,7 @@ public class ArticlePanel extends javax.swing.JPanel {
         jSeparator2 = new javax.swing.JSeparator();
         filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         reviewPanel = new javax.swing.JPanel();
-        ReviewsLabel = new javax.swing.JLabel();
+        reviewsLabel = new javax.swing.JLabel();
         filler12 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         innerReviewPanel = new javax.swing.JPanel();
         filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
@@ -165,6 +215,46 @@ public class ArticlePanel extends javax.swing.JPanel {
         innerPanel.add(abstructPanel);
         innerPanel.add(filler1);
         innerPanel.add(jSeparator1);
+        innerPanel.add(filler2);
+
+        authorPanel.setLayout(new java.awt.BorderLayout());
+
+        innerAuthorPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        innerAuthorPanel.setLayout(new javax.swing.BoxLayout(innerAuthorPanel, javax.swing.BoxLayout.PAGE_AXIS));
+
+        authorsLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        authorsLabel.setText("Authors");
+        innerAuthorPanel.add(authorsLabel);
+
+        mainAuthorHeaderLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        mainAuthorHeaderLabel.setText("Main author:");
+        innerAuthorPanel.add(mainAuthorHeaderLabel);
+
+        mainAuthorLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        mainAuthorLabel.setText("mainAuthor <email@email.com>");
+        innerAuthorPanel.add(mainAuthorLabel);
+
+        corrAuthorHeaderLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        corrAuthorHeaderLabel.setText("Corresponding author:");
+        innerAuthorPanel.add(corrAuthorHeaderLabel);
+
+        corrAuthorLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        corrAuthorLabel.setText("mainAuthor <email@email.com>");
+        innerAuthorPanel.add(corrAuthorLabel);
+
+        coAuthorHeaderLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        coAuthorHeaderLabel.setText("Co-author:");
+        innerAuthorPanel.add(coAuthorHeaderLabel);
+
+        coAuthorLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        coAuthorLabel.setText("mainAuthor <email@email.com>");
+        innerAuthorPanel.add(coAuthorLabel);
+
+        authorPanel.add(innerAuthorPanel, java.awt.BorderLayout.CENTER);
+
+        innerPanel.add(authorPanel);
+        innerPanel.add(filler11);
+        innerPanel.add(jSeparator4);
         innerPanel.add(filler7);
 
         pdfPanel.setLayout(new java.awt.BorderLayout());
@@ -193,9 +283,9 @@ public class ArticlePanel extends javax.swing.JPanel {
 
         reviewPanel.setLayout(new java.awt.BorderLayout());
 
-        ReviewsLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        ReviewsLabel.setText("Reviews");
-        reviewPanel.add(ReviewsLabel, java.awt.BorderLayout.NORTH);
+        reviewsLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        reviewsLabel.setText("Reviews");
+        reviewPanel.add(reviewsLabel, java.awt.BorderLayout.NORTH);
         reviewPanel.add(filler12, java.awt.BorderLayout.PAGE_END);
 
         innerReviewPanel.setLayout(new javax.swing.BoxLayout(innerReviewPanel, javax.swing.BoxLayout.PAGE_AXIS));
@@ -218,16 +308,23 @@ public class ArticlePanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel ReviewsLabel;
     private javax.swing.JTextArea abstractTextArea;
     private javax.swing.JLabel abstructLabel;
     private javax.swing.JPanel abstructPanel;
     private javax.swing.JButton acceptBtn;
+    private javax.swing.JPanel authorPanel;
+    private javax.swing.JLabel authorsLabel;
+    private javax.swing.JLabel coAuthorHeaderLabel;
+    private javax.swing.JLabel coAuthorLabel;
     private javax.swing.JButton copyLinkBtn;
+    private javax.swing.JLabel corrAuthorHeaderLabel;
+    private javax.swing.JLabel corrAuthorLabel;
     private javax.swing.JPanel decisionPanel;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler10;
+    private javax.swing.Box.Filler filler11;
     private javax.swing.Box.Filler filler12;
+    private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
     private javax.swing.Box.Filler filler4;
     private javax.swing.Box.Filler filler5;
@@ -236,6 +333,7 @@ public class ArticlePanel extends javax.swing.JPanel {
     private javax.swing.Box.Filler filler8;
     private javax.swing.Box.Filler filler9;
     private javax.swing.JPanel headerPanel;
+    private javax.swing.JPanel innerAuthorPanel;
     private javax.swing.JPanel innerPanel;
     private javax.swing.JPanel innerPdfPanel;
     private javax.swing.JPanel innerReviewPanel;
@@ -243,13 +341,17 @@ public class ArticlePanel extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JLabel linkLabel;
+    private javax.swing.JLabel mainAuthorHeaderLabel;
+    private javax.swing.JLabel mainAuthorLabel;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JScrollPane mainScrollPane;
     private javax.swing.JLabel pdfLabel;
     private javax.swing.JPanel pdfPanel;
     private javax.swing.JButton rejectBtn;
     private javax.swing.JPanel reviewPanel;
+    private javax.swing.JLabel reviewsLabel;
     private javax.swing.JLabel statusLabel;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JScrollPane titleScrollPane;

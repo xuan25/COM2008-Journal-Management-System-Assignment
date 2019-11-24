@@ -61,4 +61,9 @@ public class Account implements IDataRow{
     public void setUniversity(String university) {
         this.university = university;
     }
+
+    @Override
+    public String toString() {
+        return title + " " + forename + " " + surname + " <" + email + "> from " + university;
+    }
 }

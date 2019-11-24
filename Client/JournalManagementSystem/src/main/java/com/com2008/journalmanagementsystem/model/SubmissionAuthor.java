@@ -17,4 +17,28 @@ public class SubmissionAuthor implements IDataRow{
         this.submissionID = submissionID;
         this.email = email;
     }
+
+    public String getIssn() {
+        return issn;
+    }
+
+    public void setIssn(String issn) {
+        this.issn = issn;
+    }
+
+    public String getSubmissionID() {
+        return submissionID;
+    }
+
+    public void setSubmissionID(String submissionID) {
+        this.submissionID = submissionID;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
