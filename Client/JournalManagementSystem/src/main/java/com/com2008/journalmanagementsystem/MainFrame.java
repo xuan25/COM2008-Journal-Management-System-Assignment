@@ -39,6 +39,13 @@ public class MainFrame extends javax.swing.JFrame {
                 updateMainPanel(new ProgressManagementPanel());
             }
         }));
+        
+        selectionsPanel.add(new SidePanelButton("Profile", new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                activeSidePanelBtn((SidePanelButton)evt.getSource());
+                updateMainPanel(new ProfilePanel());
+            }
+        }));
     }
     
     private void activeSidePanelBtn(SidePanelButton btn){
