@@ -64,7 +64,7 @@
             <Component class="javax.swing.JLabel" name="statusLabel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="&#x5b8b;&#x4f53;" size="14" style="0"/>
+                  <Font name="Segoe UI" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Status"/>
               </Properties>
@@ -75,11 +75,17 @@
               <SubComponents>
                 <Component class="javax.swing.JButton" name="acceptBtn">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="12" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Accept"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="rejectBtn">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="12" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Reject"/>
                   </Properties>
                 </Component>
@@ -145,6 +151,9 @@
                         <Component class="javax.swing.JTextArea" name="abstractTextArea">
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Segoe UI" size="13" style="0"/>
+                            </Property>
                             <Property name="lineWrap" type="boolean" value="true"/>
                             <Property name="rows" type="int" value="5"/>
                             <Property name="text" type="java.lang.String" value="This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  "/>
@@ -219,11 +228,17 @@
                         </Component>
                         <Component class="javax.swing.JLabel" name="linkLabel">
                           <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Segoe UI" size="12" style="0"/>
+                            </Property>
                             <Property name="text" type="java.lang.String" value="https://link.pdf.here"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JButton" name="copyLinkBtn">
                           <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Segoe UI" size="12" style="0"/>
+                            </Property>
                             <Property name="text" type="java.lang.String" value="Copy Link"/>
                           </Properties>
                         </Component>

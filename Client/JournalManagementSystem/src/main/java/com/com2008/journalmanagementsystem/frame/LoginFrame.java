@@ -506,6 +506,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
         regJournalJournalNamePanel.add(regJournalJournalNameLabelPanel, java.awt.BorderLayout.WEST);
 
+        regJournalJournalNameTextField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         regJournalJournalNameTextField.setMaximumSize(new java.awt.Dimension(2147483647, 21));
         regJournalJournalNamePanel.add(regJournalJournalNameTextField, java.awt.BorderLayout.CENTER);
         regJournalJournalNamePanel.add(filler15, java.awt.BorderLayout.SOUTH);
@@ -532,6 +533,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
         regJournalISSNPanel.add(regJournalISSNLabelPanel, java.awt.BorderLayout.WEST);
 
+        regJournalISSNTextField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         regJournalISSNTextField.setMaximumSize(new java.awt.Dimension(2147483647, 21));
         regJournalISSNPanel.add(regJournalISSNTextField, java.awt.BorderLayout.CENTER);
         regJournalISSNPanel.add(filler32, java.awt.BorderLayout.SOUTH);
@@ -558,6 +560,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
         regJournalEmailPanel.add(regJournalEmailLabelPanel, java.awt.BorderLayout.WEST);
 
+        regJournalEmailTextField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         regJournalEmailTextField.setMaximumSize(new java.awt.Dimension(2147483647, 21));
         regJournalEmailPanel.add(regJournalEmailTextField, java.awt.BorderLayout.CENTER);
         regJournalEmailPanel.add(filler17, java.awt.BorderLayout.SOUTH);
@@ -583,6 +586,8 @@ public class LoginFrame extends javax.swing.JFrame {
         regJournalPasswordLabelPanel.add(filler18, java.awt.BorderLayout.EAST);
 
         regJournalPasswordPanel.add(regJournalPasswordLabelPanel, java.awt.BorderLayout.WEST);
+
+        regJournalPasswordField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         regJournalPasswordPanel.add(regJournalPasswordField, java.awt.BorderLayout.CENTER);
         regJournalPasswordPanel.add(filler19, java.awt.BorderLayout.SOUTH);
 
@@ -607,6 +612,8 @@ public class LoginFrame extends javax.swing.JFrame {
         regJournalRePasswordLabelPanel.add(filler20, java.awt.BorderLayout.EAST);
 
         regJournalRePasswordPanel.add(regJournalRePasswordLabelPanel, java.awt.BorderLayout.WEST);
+
+        regJournalRePasswordField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         regJournalRePasswordPanel.add(regJournalRePasswordField, java.awt.BorderLayout.CENTER);
         regJournalRePasswordPanel.add(filler21, java.awt.BorderLayout.SOUTH);
 
@@ -632,6 +639,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
         regJournalUniversityPanel.add(regJournalUniversityLabelPanel, java.awt.BorderLayout.WEST);
 
+        regJournalUniversityTextField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         regJournalUniversityTextField.setMaximumSize(new java.awt.Dimension(2147483647, 21));
         regJournalUniversityPanel.add(regJournalUniversityTextField, java.awt.BorderLayout.CENTER);
         regJournalUniversityPanel.add(filler23, java.awt.BorderLayout.SOUTH);
@@ -658,6 +666,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
         regJournalTitlePanel.add(regJournalTitleLabelPanel, java.awt.BorderLayout.WEST);
 
+        regJournalTitleComboBox.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         regJournalTitleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Prof", "Dr", "Mr", "Ms" }));
         regJournalTitlePanel.add(regJournalTitleComboBox, java.awt.BorderLayout.CENTER);
         regJournalTitlePanel.add(filler30, java.awt.BorderLayout.SOUTH);
@@ -684,6 +693,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
         regJournalForenamePanel.add(regJournalForenameLabelPanel, java.awt.BorderLayout.WEST);
 
+        regJournalForenameTextField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         regJournalForenameTextField.setMaximumSize(new java.awt.Dimension(2147483647, 21));
         regJournalForenamePanel.add(regJournalForenameTextField, java.awt.BorderLayout.CENTER);
         regJournalForenamePanel.add(filler25, java.awt.BorderLayout.SOUTH);
@@ -710,6 +720,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
         regJournalSurnamePanel.add(regJournalSurnameLabelPanel, java.awt.BorderLayout.WEST);
 
+        regJournalSurnameTextField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         regJournalSurnameTextField.setMaximumSize(new java.awt.Dimension(2147483647, 21));
         regJournalSurnamePanel.add(regJournalSurnameTextField, java.awt.BorderLayout.CENTER);
         regJournalSurnamePanel.add(filler28, java.awt.BorderLayout.SOUTH);
@@ -822,6 +833,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
         loginRolePanel.add(loginRoleLabelPanel, java.awt.BorderLayout.WEST);
 
+        loginRoleComboBox.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         loginRoleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Editor", "Author", "Reviewer" }));
         loginRolePanel.add(loginRoleComboBox, java.awt.BorderLayout.CENTER);
         loginRolePanel.add(filler37, java.awt.BorderLayout.SOUTH);
@@ -848,6 +860,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
         loginEmailPanel.add(loginEmailLabelPanel, java.awt.BorderLayout.WEST);
 
+        loginEmailTextField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         loginEmailTextField.setMaximumSize(new java.awt.Dimension(2147483647, 21));
         loginEmailPanel.add(loginEmailTextField, java.awt.BorderLayout.CENTER);
         loginEmailPanel.add(filler39, java.awt.BorderLayout.SOUTH);
@@ -873,6 +886,8 @@ public class LoginFrame extends javax.swing.JFrame {
         loginPasswordLabelPanel.add(filler51, java.awt.BorderLayout.EAST);
 
         loginPasswordPanel.add(loginPasswordLabelPanel, java.awt.BorderLayout.WEST);
+
+        loginPasswordField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         loginPasswordPanel.add(loginPasswordField, java.awt.BorderLayout.CENTER);
         loginPasswordPanel.add(filler52, java.awt.BorderLayout.SOUTH);
 
@@ -1037,13 +1052,13 @@ public class LoginFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DemoJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DemoJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DemoJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DemoJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>

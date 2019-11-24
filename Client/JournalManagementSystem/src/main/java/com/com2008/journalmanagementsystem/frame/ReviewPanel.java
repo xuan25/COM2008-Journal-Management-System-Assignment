@@ -113,6 +113,7 @@ public class ReviewPanel extends javax.swing.JPanel {
         mainPanel.add(summaryLabel);
 
         summaryTextArea.setColumns(20);
+        summaryTextArea.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         summaryTextArea.setLineWrap(true);
         summaryTextArea.setRows(5);
         summaryTextArea.setText("Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  ");
@@ -125,6 +126,7 @@ public class ReviewPanel extends javax.swing.JPanel {
         typoErrorsLabel.setText("Typo errors");
         mainPanel.add(typoErrorsLabel);
 
+        typoErrorsList.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         typoErrorsList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Typo error 1", "Typo error 2", "Typo error 3", "Typo error 4", "Typo error 5" };
             public int getSize() { return strings.length; }
@@ -138,6 +140,7 @@ public class ReviewPanel extends javax.swing.JPanel {
         criticismsLabel.setText("Criticisms");
         mainPanel.add(criticismsLabel);
 
+        criticismsList.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         criticismsList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Cristicisms 1", "Cristicisms 2", "Cristicisms 3", "Cristicisms 4", "Cristicisms 5" };
             public int getSize() { return strings.length; }

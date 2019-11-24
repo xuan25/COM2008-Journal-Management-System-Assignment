@@ -103,6 +103,7 @@ public class ProfilePanel extends javax.swing.JPanel {
 
         oldPasswordPanel.add(oldPasswordLabelPanel, java.awt.BorderLayout.WEST);
 
+        oldPasswordlTextField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         oldPasswordlTextField.setMaximumSize(new java.awt.Dimension(2147483647, 21));
         oldPasswordPanel.add(oldPasswordlTextField, java.awt.BorderLayout.CENTER);
         oldPasswordPanel.add(filler39, java.awt.BorderLayout.SOUTH);
@@ -128,6 +129,8 @@ public class ProfilePanel extends javax.swing.JPanel {
         newPasswordLabelPanel.add(filler51, java.awt.BorderLayout.EAST);
 
         newPasswordPanel.add(newPasswordLabelPanel, java.awt.BorderLayout.WEST);
+
+        newPasswordField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         newPasswordPanel.add(newPasswordField, java.awt.BorderLayout.CENTER);
         newPasswordPanel.add(filler52, java.awt.BorderLayout.SOUTH);
 
@@ -152,6 +155,8 @@ public class ProfilePanel extends javax.swing.JPanel {
         confirmNewPasswordLabelPanel.add(filler53, java.awt.BorderLayout.EAST);
 
         confirmNewPasswordPanel.add(confirmNewPasswordLabelPanel, java.awt.BorderLayout.WEST);
+
+        confirmNewPasswordField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         confirmNewPasswordPanel.add(confirmNewPasswordField, java.awt.BorderLayout.CENTER);
         confirmNewPasswordPanel.add(filler54, java.awt.BorderLayout.SOUTH);
 

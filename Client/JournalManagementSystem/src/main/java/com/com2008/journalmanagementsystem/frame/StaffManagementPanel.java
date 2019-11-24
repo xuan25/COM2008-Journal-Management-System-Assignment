@@ -39,14 +39,17 @@ public class StaffManagementPanel extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
+        journalComboBox.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         journalComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Journal 1", "Journal 2", "Journal 3", "Journal 4" }));
         add(journalComboBox, java.awt.BorderLayout.NORTH);
 
         leftPanel.setLayout(new java.awt.BorderLayout());
 
+        searchTextField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         searchTextField.setText("Search bar");
         leftPanel.add(searchTextField, java.awt.BorderLayout.NORTH);
 
+        editorsList.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         editorsList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Editor 1", "Editor 2", "Editor 3", "Editor 4", "Editor 5" };
             public int getSize() { return strings.length; }
@@ -60,12 +63,15 @@ public class StaffManagementPanel extends javax.swing.JPanel {
 
         rightPanel.setLayout(new javax.swing.BoxLayout(rightPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
+        addStaffBtn.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         addStaffBtn.setText("Add staff");
         rightPanel.add(addStaffBtn);
 
+        removeStaffBtn.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         removeStaffBtn.setText("Remove staff");
         rightPanel.add(removeStaffBtn);
 
+        transferCheifBtn.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         transferCheifBtn.setText("Transfer cheif");
         rightPanel.add(transferCheifBtn);
 

@@ -37,14 +37,17 @@ public class ProgressManagementPanel extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
+        journalComboBox.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         journalComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Journal 1", "Journal 2", "Journal 3", "Journal 4" }));
         add(journalComboBox, java.awt.BorderLayout.NORTH);
 
         leftPanel.setLayout(new java.awt.BorderLayout());
 
-        infoLabel.setText("Vol. xx, Edition yy.  Article count：5");
+        infoLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        infoLabel.setText("Vol. xx, Edition yy.  Article count: 5");
         leftPanel.add(infoLabel, java.awt.BorderLayout.NORTH);
 
+        articlesList.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         articlesList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Article 1", "Article 2", "Article 3", "Article 4", "Article 5" };
             public int getSize() { return strings.length; }
@@ -58,6 +61,7 @@ public class ProgressManagementPanel extends javax.swing.JPanel {
 
         rightPanel.setLayout(new javax.swing.BoxLayout(rightPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
+        publishBtn.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         publishBtn.setText("Publish");
         rightPanel.add(publishBtn);
 

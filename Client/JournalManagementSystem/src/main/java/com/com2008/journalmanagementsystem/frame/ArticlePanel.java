@@ -116,15 +116,17 @@ public class ArticlePanel extends javax.swing.JPanel {
 
         toolbarPanel.setLayout(new java.awt.GridLayout(2, 1, 0, 8));
 
-        statusLabel.setFont(new java.awt.Font("宋体", 0, 14)); // NOI18N
+        statusLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         statusLabel.setText("Status");
         toolbarPanel.add(statusLabel);
 
         decisionPanel.setLayout(new javax.swing.BoxLayout(decisionPanel, javax.swing.BoxLayout.LINE_AXIS));
 
+        acceptBtn.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         acceptBtn.setText("Accept");
         decisionPanel.add(acceptBtn);
 
+        rejectBtn.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         rejectBtn.setText("Reject");
         decisionPanel.add(rejectBtn);
 
@@ -145,6 +147,7 @@ public class ArticlePanel extends javax.swing.JPanel {
         abstructPanel.add(abstructLabel, java.awt.BorderLayout.NORTH);
 
         abstractTextArea.setColumns(20);
+        abstractTextArea.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         abstractTextArea.setLineWrap(true);
         abstractTextArea.setRows(5);
         abstractTextArea.setText("This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  This is abstruct area  ");
@@ -167,9 +170,11 @@ public class ArticlePanel extends javax.swing.JPanel {
         pdfLabel.setText("PDF link");
         innerPdfPanel.add(pdfLabel);
 
+        linkLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         linkLabel.setText("https://link.pdf.here");
         innerPdfPanel.add(linkLabel);
 
+        copyLinkBtn.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         copyLinkBtn.setText("Copy Link");
         innerPdfPanel.add(copyLinkBtn);
 

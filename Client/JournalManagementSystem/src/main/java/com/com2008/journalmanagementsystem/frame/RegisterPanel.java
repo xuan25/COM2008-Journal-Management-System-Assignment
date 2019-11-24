@@ -110,6 +110,7 @@ public class RegisterPanel extends javax.swing.JPanel {
 
         regEmailPanel.add(regJournalEmailLabelPanel, java.awt.BorderLayout.WEST);
 
+        regJournalEmailTextField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         regJournalEmailTextField.setMaximumSize(new java.awt.Dimension(2147483647, 21));
         regEmailPanel.add(regJournalEmailTextField, java.awt.BorderLayout.CENTER);
         regEmailPanel.add(filler17, java.awt.BorderLayout.SOUTH);
@@ -135,6 +136,8 @@ public class RegisterPanel extends javax.swing.JPanel {
         regJournalPasswordLabelPanel.add(filler18, java.awt.BorderLayout.EAST);
 
         regPasswordPanel.add(regJournalPasswordLabelPanel, java.awt.BorderLayout.WEST);
+
+        regJournalPasswordField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         regPasswordPanel.add(regJournalPasswordField, java.awt.BorderLayout.CENTER);
         regPasswordPanel.add(filler19, java.awt.BorderLayout.SOUTH);
 
@@ -159,6 +162,8 @@ public class RegisterPanel extends javax.swing.JPanel {
         regJournalRePasswordLabelPanel.add(filler20, java.awt.BorderLayout.EAST);
 
         regRePasswordPanel.add(regJournalRePasswordLabelPanel, java.awt.BorderLayout.WEST);
+
+        regJournalRePasswordField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         regRePasswordPanel.add(regJournalRePasswordField, java.awt.BorderLayout.CENTER);
         regRePasswordPanel.add(filler21, java.awt.BorderLayout.SOUTH);
 
@@ -184,6 +189,7 @@ public class RegisterPanel extends javax.swing.JPanel {
 
         regUniversityPanel.add(regJournalUniversityLabelPanel, java.awt.BorderLayout.WEST);
 
+        regJournalUniversityTextField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         regJournalUniversityTextField.setMaximumSize(new java.awt.Dimension(2147483647, 21));
         regUniversityPanel.add(regJournalUniversityTextField, java.awt.BorderLayout.CENTER);
         regUniversityPanel.add(filler23, java.awt.BorderLayout.SOUTH);
@@ -210,6 +216,7 @@ public class RegisterPanel extends javax.swing.JPanel {
 
         regTitlePanel.add(regJournalTitleLabelPanel, java.awt.BorderLayout.WEST);
 
+        regJournalTitleComboBox.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         regJournalTitleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Prof", "Dr", "Mr", "Ms" }));
         regTitlePanel.add(regJournalTitleComboBox, java.awt.BorderLayout.CENTER);
         regTitlePanel.add(filler30, java.awt.BorderLayout.SOUTH);
@@ -236,6 +243,7 @@ public class RegisterPanel extends javax.swing.JPanel {
 
         regForenamePanel.add(regJournalForenameLabelPanel, java.awt.BorderLayout.WEST);
 
+        regJournalForenameTextField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         regJournalForenameTextField.setMaximumSize(new java.awt.Dimension(2147483647, 21));
         regForenamePanel.add(regJournalForenameTextField, java.awt.BorderLayout.CENTER);
         regForenamePanel.add(filler25, java.awt.BorderLayout.SOUTH);
@@ -262,6 +270,7 @@ public class RegisterPanel extends javax.swing.JPanel {
 
         regSurnamePanel.add(regJournalSurnameLabelPanel, java.awt.BorderLayout.WEST);
 
+        regJournalSurnameTextField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         regJournalSurnameTextField.setMaximumSize(new java.awt.Dimension(2147483647, 21));
         regSurnamePanel.add(regJournalSurnameTextField, java.awt.BorderLayout.CENTER);
         regSurnamePanel.add(filler28, java.awt.BorderLayout.SOUTH);
