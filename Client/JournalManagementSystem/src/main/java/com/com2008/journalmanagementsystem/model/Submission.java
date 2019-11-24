@@ -27,7 +27,8 @@ public class Submission implements IDataRow{
         this.contentAbstract = contentAbstract;
         this.draftID = draftID;
         this.finalID = finalID;
-        this.status = status.value();
+        if(status != null)
+            this.status = status.value();
     }
 
     public enum Status {
