@@ -38,17 +38,17 @@ INSERT INTO Account (email, title, forename, surname, university) VALUES ("testR
 INSERT INTO Reviewer (email, hashedPassword) VALUES ("testReviewer3@test.com", "hashedPassword");
 
 -- Add Reviews
-INSERT INTO Review (email, issn, submissionID, summary, verdict, timestamp) VALUES ("testReviewer1@test.com", "ISSN 0000-0000", "001", "testSummary1", 5, 100);
+INSERT INTO Review (email, issn, submissionID, summary, verdict, timestamp) VALUES ("testReviewer1@test.com", "ISSN 0000-0000", "001", "testSummary1", 3, 100);
 INSERT INTO TypoError (email, issn, submissionID, num, content) VALUES ("testReviewer1@test.com", "ISSN 0000-0000", "001", 1, "testTypoError1");
 INSERT INTO TypoError (email, issn, submissionID, num, content) VALUES ("testReviewer1@test.com", "ISSN 0000-0000", "001", 2, "testTypoError2");
 INSERT INTO Criticism (email, issn, submissionID, num, content) VALUES ("testReviewer1@test.com", "ISSN 0000-0000", "001", 1, "testCriticism1");
 INSERT INTO Criticism (email, issn, submissionID, num, content) VALUES ("testReviewer1@test.com", "ISSN 0000-0000", "001", 2, "testCriticism2");
-INSERT INTO Review (email, issn, submissionID, summary, verdict, timestamp) VALUES ("testReviewer2@test.com", "ISSN 0000-0000", "001", "testSummary2", 5, 200);
+INSERT INTO Review (email, issn, submissionID, summary, verdict, timestamp) VALUES ("testReviewer2@test.com", "ISSN 0000-0000", "001", "testSummary2", 3, 200);
 INSERT INTO TypoError (email, issn, submissionID, num, content) VALUES ("testReviewer2@test.com", "ISSN 0000-0000", "001", 1, "testTypoError1");
 INSERT INTO TypoError (email, issn, submissionID, num, content) VALUES ("testReviewer2@test.com", "ISSN 0000-0000", "001", 2, "testTypoError2");
 INSERT INTO Criticism (email, issn, submissionID, num, content) VALUES ("testReviewer2@test.com", "ISSN 0000-0000", "001", 1, "testCriticism1");
 INSERT INTO Criticism (email, issn, submissionID, num, content) VALUES ("testReviewer2@test.com", "ISSN 0000-0000", "001", 2, "testCriticism2");
-INSERT INTO Review (email, issn, submissionID, summary, verdict, timestamp) VALUES ("testReviewer3@test.com", "ISSN 0000-0000", "001", "testSummary3", 5, 300);
+INSERT INTO Review (email, issn, submissionID, summary, verdict, timestamp) VALUES ("testReviewer3@test.com", "ISSN 0000-0000", "001", "testSummary3", 3, 300);
 INSERT INTO TypoError (email, issn, submissionID, num, content) VALUES ("testReviewer3@test.com", "ISSN 0000-0000", "001", 1, "testTypoError1");
 INSERT INTO TypoError (email, issn, submissionID, num, content) VALUES ("testReviewer3@test.com", "ISSN 0000-0000", "001", 2, "testTypoError2");
 INSERT INTO Criticism (email, issn, submissionID, num, content) VALUES ("testReviewer3@test.com", "ISSN 0000-0000", "001", 1, "testCriticism1");

@@ -18,7 +18,7 @@ public class Submission implements IDataRow{
         
     }
 
-    public Submission(String issn, String submissionID, String title, String mainAuthor, String coAuthor, String contentAbstract, String draftID, String finalID, Integer status){
+    public Submission(String issn, String submissionID, String title, String mainAuthor, String coAuthor, String contentAbstract, String draftID, String finalID, Status status){
         this.issn = issn;
         this.submissionID = submissionID;
         this.title = title;
@@ -27,7 +27,40 @@ public class Submission implements IDataRow{
         this.contentAbstract = contentAbstract;
         this.draftID = draftID;
         this.finalID = finalID;
-        this.status = status;
+        this.status = status.value();
+    }
+
+    public enum Status {
+        SUBMITTED(0),
+        REVIEWED(1),
+        ACCEPTED(2),
+        REJECTED(3),
+        UNKNOW(-1);
+
+        private int value = 0;
+
+        private Status(int value) {
+            this.value = value;
+        }
+
+        public static Status valueOf(int value) {
+            switch (value) {
+            case 0:
+                return SUBMITTED;
+            case 1:
+                return REVIEWED;
+            case 2:
+                return ACCEPTED;
+            case 3:
+                return REJECTED;
+            default:
+                return UNKNOW;
+            }
+        }
+     
+        public int value() {
+            return this.value;
+        }    
     }
 
     public String getIssn() {
@@ -94,12 +127,12 @@ public class Submission implements IDataRow{
         this.finalID = finalID;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Status getStatus() {
+        return Status.valueOf(status);
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setStatus(Status status) {
+        this.status = status.value();
     }
 
     @Override

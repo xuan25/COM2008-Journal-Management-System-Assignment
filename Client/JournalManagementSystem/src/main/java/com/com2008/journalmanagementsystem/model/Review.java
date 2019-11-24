@@ -15,13 +15,47 @@ public class Review implements IDataRow{
         
     }
 
-    public Review(String email, String issn, String submissionID, String summary, Integer verdict, Integer timestamp){
+    public Review(String email, String issn, String submissionID, String summary, Verdict verdict, Integer timestamp){
         this.email = email;
         this.issn = issn;
         this.submissionID = submissionID;
         this.summary = summary;
-        this.verdict = verdict;
+        if(verdict != null)
+            this.verdict = verdict.value();
         this.timestamp = timestamp;
+    } 
+
+    public enum Verdict {
+        STRONG_ACCEPT(3),
+        WEAK_ACCEPT(2),
+        WEAK_REJECT(1),
+        STRONG_REJECT(0),
+        UNKNOW(-1);
+
+        private int value = 0;
+
+        private Verdict(int value) {
+            this.value = value;
+        }
+
+        public static Verdict valueOf(int value) {
+            switch (value) {
+            case 3:
+                return STRONG_ACCEPT;
+            case 2:
+                return WEAK_ACCEPT;
+            case 1:
+                return WEAK_REJECT;
+            case 0:
+                return STRONG_REJECT;
+            default:
+                return UNKNOW;
+            }
+        }
+     
+        public int value() {
+            return this.value;
+        }    
     }
 
     public String getEmail() {
@@ -56,12 +90,12 @@ public class Review implements IDataRow{
         this.summary = summary;
     }
 
-    public Integer getVerdict() {
-        return verdict;
+    public Verdict getVerdict() {
+        return Verdict.valueOf(verdict);
     }
 
-    public void setVerdict(Integer verdict) {
-        this.verdict = verdict;
+    public void setVerdict(Verdict verdict) {
+        this.verdict = verdict.value();
     }
 
     public Integer getTimestamp() {
