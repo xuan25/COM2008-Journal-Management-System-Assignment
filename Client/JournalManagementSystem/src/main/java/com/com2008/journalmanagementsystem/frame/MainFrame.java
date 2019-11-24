@@ -28,7 +28,7 @@ public class MainFrame extends javax.swing.JFrame {
         selectionsPanel.add(new SidePanelButton("Journals", new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
                 activeSidePanelBtn((SidePanelButton) evt.getSource());
-                updateMainPanel(new ReaderPanel());
+                updateMainPanel(new ReaderPanel(UserRole.EDITOR));
             }
         }));
 
@@ -79,7 +79,7 @@ public class MainFrame extends javax.swing.JFrame {
                 selectionsPanel.add(new SidePanelButton("Journals", new MouseAdapter() {
                     public void mousePressed(MouseEvent evt) {
                         activeSidePanelBtn((SidePanelButton)evt.getSource());
-                        updateMainPanel(new ReaderPanel());
+                        updateMainPanel(new ReaderPanel(userRole));
                     }
                 }));
                 break;

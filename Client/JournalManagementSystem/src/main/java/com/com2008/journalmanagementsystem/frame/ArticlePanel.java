@@ -5,6 +5,7 @@
  */
 package com.com2008.journalmanagementsystem.frame;
 
+import java.io.Reader;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -25,10 +26,17 @@ public class ArticlePanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public ArticlePanel(Submission submission) {
+    public ArticlePanel(Submission submission, UserRole userRole) {
         initComponents();
 
-        innerReviewPanel.removeAll();
+        switch(userRole){
+            case READER:
+                decisionPanel.setVisible(false);
+                reviewPanel.setVisible(false);
+                break;
+            default:
+                break;
+        }
 
         titleLabel.setText(submission.getTitle());
         statusLabel.setText(submission.getStatus().toString());
@@ -38,18 +46,19 @@ public class ArticlePanel extends javax.swing.JPanel {
         else
             linkLabel.setText(submission.getFinalID());
 
-        try {
-            List<Review> reviews = Database.read("Review", new Review(null, submission.getIssn(), submission.getSubmissionID(), null, null, null));
-            for(int i = 0; i < reviews.size(); i++){
-                ReviewPanel reviewPanel = new ReviewPanel("Reviewer" + (i + 1), reviews.get(i));
-                innerReviewPanel.add(reviewPanel);
+        if(decisionPanel.isVisible()){
+            innerReviewPanel.removeAll();
+            try {
+                List<Review> reviews = Database.read("Review", new Review(null, submission.getIssn(), submission.getSubmissionID(), null, null, null));
+                for(int i = 0; i < reviews.size(); i++){
+                    ReviewPanel reviewPanel = new ReviewPanel("Reviewer" + (i + 1), reviews.get(i));
+                    innerReviewPanel.add(reviewPanel);
+                }
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         }
-
-        
     }
 
     /**

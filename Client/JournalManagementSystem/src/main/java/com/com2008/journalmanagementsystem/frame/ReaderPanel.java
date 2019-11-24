@@ -22,8 +22,11 @@ public class ReaderPanel extends javax.swing.JPanel {
     /**
      * Creates new form ReaderPanel
      */
-    public ReaderPanel() {
+    private UserRole userRole;
+    public ReaderPanel(UserRole userRole) {
         initComponents();
+
+        this.userRole = userRole;
 
         articalOutterPanel.removeAll();
 
@@ -134,7 +137,7 @@ public class ReaderPanel extends javax.swing.JPanel {
         if(userObject.getClass() == Submission.class){
             Submission submission = (Submission)userObject;
             articalOutterPanel.removeAll();
-            articalOutterPanel.add(new ArticlePanel(submission), java.awt.BorderLayout.CENTER);
+            articalOutterPanel.add(new ArticlePanel(submission, userRole), java.awt.BorderLayout.CENTER);
             articalOutterPanel.revalidate();
         }
     }//GEN-LAST:event_journalTreeValueChanged
