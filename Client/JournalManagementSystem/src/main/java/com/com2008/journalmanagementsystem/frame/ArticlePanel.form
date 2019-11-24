@@ -328,14 +328,6 @@
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
                         <Property name="axis" type="int" value="3"/>
                       </Layout>
-                      <SubComponents>
-                        <Component class="com.com2008.journalmanagementsystem.frame.ReviewPanel" name="reviewPanel1">
-                        </Component>
-                        <Component class="com.com2008.journalmanagementsystem.frame.ReviewPanel" name="reviewPanel2">
-                        </Component>
-                        <Component class="com.com2008.journalmanagementsystem.frame.ReviewPanel" name="reviewPanel3">
-                        </Component>
-                      </SubComponents>
                     </Container>
                   </SubComponents>
                 </Container>

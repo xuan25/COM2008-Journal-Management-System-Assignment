@@ -91,9 +91,6 @@ public class ArticlePanel extends javax.swing.JPanel {
         ReviewsLabel = new javax.swing.JLabel();
         filler12 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         innerReviewPanel = new javax.swing.JPanel();
-        reviewPanel1 = new com.com2008.journalmanagementsystem.frame.ReviewPanel();
-        reviewPanel2 = new com.com2008.journalmanagementsystem.frame.ReviewPanel();
-        reviewPanel3 = new com.com2008.journalmanagementsystem.frame.ReviewPanel();
         filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         jSeparator3 = new javax.swing.JSeparator();
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
@@ -193,10 +190,6 @@ public class ArticlePanel extends javax.swing.JPanel {
         reviewPanel.add(filler12, java.awt.BorderLayout.PAGE_END);
 
         innerReviewPanel.setLayout(new javax.swing.BoxLayout(innerReviewPanel, javax.swing.BoxLayout.PAGE_AXIS));
-        innerReviewPanel.add(reviewPanel1);
-        innerReviewPanel.add(reviewPanel2);
-        innerReviewPanel.add(reviewPanel3);
-
         reviewPanel.add(innerReviewPanel, java.awt.BorderLayout.CENTER);
 
         innerPanel.add(reviewPanel);
@@ -248,9 +241,6 @@ public class ArticlePanel extends javax.swing.JPanel {
     private javax.swing.JPanel pdfPanel;
     private javax.swing.JButton rejectBtn;
     private javax.swing.JPanel reviewPanel;
-    private com.com2008.journalmanagementsystem.frame.ReviewPanel reviewPanel1;
-    private com.com2008.journalmanagementsystem.frame.ReviewPanel reviewPanel2;
-    private com.com2008.journalmanagementsystem.frame.ReviewPanel reviewPanel3;
     private javax.swing.JLabel statusLabel;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JScrollPane titleScrollPane;

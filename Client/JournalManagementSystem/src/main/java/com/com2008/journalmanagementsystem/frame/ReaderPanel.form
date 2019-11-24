@@ -42,6 +42,9 @@
           <SubComponents>
             <Component class="javax.swing.JTree" name="journalTree">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="12" style="0"/>
+                </Property>
                 <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.editors2.TreeModelEditor">
                   <TreeModel code="Journals&#xa; Journal1&#xa;  Vol.1&#xa;   Edition1&#xa;   Edition2&#xa;  Vol.2&#xa;   Edition1&#xa;  Vol.3&#xa;   Edition1&#xa; Journal2&#xa;  Vol.1&#xa;   Edition1&#xa;   Edition2&#xa;   Edition3&#xa;  Vol.2&#xa;   Edition1&#xa; Journal3&#xa;  Vol.1&#xa;   Edition1"/>
                 </Property>
@@ -60,15 +63,6 @@
           </Constraints>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
-          <SubComponents>
-            <Component class="com.com2008.journalmanagementsystem.frame.ArticlePanel" name="articlePanel">
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-                  <BorderConstraints direction="Center"/>
-                </Constraint>
-              </Constraints>
-            </Component>
-          </SubComponents>
         </Container>
       </SubComponents>
     </Container>

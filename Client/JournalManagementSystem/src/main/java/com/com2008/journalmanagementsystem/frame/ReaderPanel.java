@@ -69,12 +69,12 @@ public class ReaderPanel extends javax.swing.JPanel {
         journalScrollPane = new javax.swing.JScrollPane();
         journalTree = new javax.swing.JTree();
         articalOutterPanel = new javax.swing.JPanel();
-        articlePanel = new com.com2008.journalmanagementsystem.frame.ArticlePanel();
 
         setLayout(new java.awt.BorderLayout());
 
         jSplitPane1.setDividerLocation(200);
 
+        journalTree.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Journals");
         javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Journal1");
         javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Vol.1");
@@ -123,8 +123,6 @@ public class ReaderPanel extends javax.swing.JPanel {
         jSplitPane1.setLeftComponent(journalScrollPane);
 
         articalOutterPanel.setLayout(new java.awt.BorderLayout());
-        articalOutterPanel.add(articlePanel, java.awt.BorderLayout.CENTER);
-
         jSplitPane1.setRightComponent(articalOutterPanel);
 
         add(jSplitPane1, java.awt.BorderLayout.CENTER);
@@ -144,7 +142,6 @@ public class ReaderPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel articalOutterPanel;
-    private com.com2008.journalmanagementsystem.frame.ArticlePanel articlePanel;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JScrollPane journalScrollPane;
     private javax.swing.JTree journalTree;
