@@ -319,20 +319,20 @@ public class Database {
             Database.connect("jdbc:mysql://stusql.dcs.shef.ac.uk/team018", "team018", "9ae70ba0");
             
             // Write & Read
-            write("Account", new Account("bshan3@sheffield.ac.uk", "Mr.", "Boxuan", "Shan", "UoS"));
-            write("Account", new Account("jqi6@sheffield.ac.uk", "Mr.", "Jingxiang", "Qi", "UoS"));
-            List<Account> a = read("Account", new Account(null, null, null, null, "UoS"));
+            write("Account", new com.com2008.journalmanagementsystem.model.Account("bshan3@sheffield.ac.uk", "Mr.", "Boxuan", "Shan", "UoS"));
+            write("Account", new com.com2008.journalmanagementsystem.model.Account("jqi6@sheffield.ac.uk", "Mr.", "Jingxiang", "Qi", "UoS"));
+            List<com.com2008.journalmanagementsystem.model.Account> a = read("Account", new com.com2008.journalmanagementsystem.model.Account(null, null, null, null, "UoS"));
             System.out.println("Result count 1: " + a.size());
 
             // Update & Read
-            update("Account", new Account("bshan3@sheffield.ac.uk", null,null, null, null), new Account("bshan3@sheffield.ac.uk", null, "Boxuan1", null, "UoS"), false);
-            update("Account", new Account("jqi6@sheffield.ac.uk", null, null, null, null), new Account("jqi6@sheffield.ac.uk", null, "Jingxiang1", null, "UoS"), true);
-            List<Account> b = read("Account", new Account(null, null, null, null, "UoS"));
+            update("Account", new com.com2008.journalmanagementsystem.model.Account("bshan3@sheffield.ac.uk", null,null, null, null), new com.com2008.journalmanagementsystem.model.Account("bshan3@sheffield.ac.uk", null, "Boxuan1", null, "UoS"), false);
+            update("Account", new com.com2008.journalmanagementsystem.model.Account("jqi6@sheffield.ac.uk", null, null, null, null), new com.com2008.journalmanagementsystem.model.Account("jqi6@sheffield.ac.uk", null, "Jingxiang1", null, "UoS"), true);
+            List<com.com2008.journalmanagementsystem.model.Account> b = read("Account", new com.com2008.journalmanagementsystem.model.Account(null, null, null, null, "UoS"));
             System.out.println("Result count 2: " + b.size());
 
             // Delete & Read
-            delete("Account", new Account(null, null, null, null, "UoS"));
-            List<Account> c = read("Account", new Account(null, null, null, null, "UoS"));
+            delete("Account", new com.com2008.journalmanagementsystem.model.Account(null, null, null, null, "UoS"));
+            List<com.com2008.journalmanagementsystem.model.Account> c = read("Account", new com.com2008.journalmanagementsystem.model.Account(null, null, null, null, "UoS"));
             System.out.println("Result count 3: " + c.size());
 
 
