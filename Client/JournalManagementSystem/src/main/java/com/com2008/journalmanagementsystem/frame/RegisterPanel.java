@@ -43,6 +43,10 @@ public class RegisterPanel extends javax.swing.JPanel {
         return account;
     }
 
+    public void setEmail(String email){
+        emailTextField.setText(email);
+    }
+
     public String getHashedPassword(){
         char[] password = passwordField.getPassword();
         String hashedPassword = Password.generateHash(new String(password));
