@@ -52,6 +52,14 @@ public class MainFrame extends javax.swing.JFrame {
                 updateMainPanel(new ProfilePanel());
             }
         }));
+        
+        selectionsPanel.add(new SidePanelButton("Reviewer", new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                activeSidePanelBtn((SidePanelButton) evt.getSource());
+                updateMainPanel(new ReviewerPanel());
+            }
+        }));
+        
     }
 
     private LoginFrame parent;
