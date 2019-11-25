@@ -12,6 +12,7 @@ import javax.swing.*;
 
 import com.com2008.journalmanagementsystem.model.Account;
 import com.com2008.journalmanagementsystem.model.Author;
+import com.com2008.journalmanagementsystem.util.Password;
 import com.com2008.journalmanagementsystem.util.database.Database;
 
 /**
@@ -694,6 +695,7 @@ public class LoginFrame extends javax.swing.JFrame {
     }// GEN-LAST:event_backBtnMouseClicked
 
     private void loginReaderBtnMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_loginReaderBtnMouseClicked
+        // Login as Reader
         new MainFrame(this, UserRole.READER, null).setVisible(true);
         this.setVisible(false);
     }// GEN-LAST:event_loginReaderBtnMouseClicked
@@ -726,6 +728,37 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void loginBtnMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_loginBtnMouseClicked
         // TODO : Login
+
+        String email = loginEmailTextField.getText();
+        String hashedPassword = Password.generateHash(new String(loginPasswordField.getPassword()));
+
+        switch(loginRoleComboBox.getSelectedIndex()){
+            case 0: //Editor
+                break;
+            case 1: //Author
+                try {
+                    java.util.List<Author> authors = Database.read("Author", new Author(email, null));
+                    if(authors.size() > 0){
+                        if(authors.get(0).getHashedPassword().equals(hashedPassword)){
+                            new MainFrame(this, UserRole.AUTHOR, email).setVisible(true);
+                            this.setVisible(false);
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(null, "Password incorrect.", "Login", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "User not found.", "Login", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                
+                break;
+            case 2: //Reviewer
+                break;
+        }
     }// GEN-LAST:event_loginBtnMouseClicked
 
     private void regAuthorBtnMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_regAuthorBtnMouseClicked
