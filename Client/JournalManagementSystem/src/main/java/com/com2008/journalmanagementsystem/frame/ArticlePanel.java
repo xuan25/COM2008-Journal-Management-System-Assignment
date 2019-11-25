@@ -43,6 +43,9 @@ public class ArticlePanel extends javax.swing.JPanel {
                     // TODO : Permissions for main author
                 }
                 break;
+            case REVIEWER:
+                toolbarPanel.setVisible(false);
+                reviewPanel.setVisible(true);
             default:
                 break;
         }

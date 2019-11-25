@@ -5,6 +5,19 @@
  */
 package com.com2008.journalmanagementsystem.frame;
 
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.swing.DefaultListModel;
+
+import com.com2008.journalmanagementsystem.model.Account;
+import com.com2008.journalmanagementsystem.model.Author;
+import com.com2008.journalmanagementsystem.model.Review;
+import com.com2008.journalmanagementsystem.model.Submission;
+import com.com2008.journalmanagementsystem.model.SubmissionAuthor;
+import com.com2008.journalmanagementsystem.model.Submission.Status;
+import com.com2008.journalmanagementsystem.util.database.Database;
+
 /**
  *
  * @author harix
@@ -14,8 +27,20 @@ public class ReviewerPanel extends javax.swing.JPanel {
     /**
      * Creates new form ReviewerPanel
      */
-    public ReviewerPanel() {
+    private String email;
+    public ReviewerPanel(String email) {
         initComponents();
+        try {
+            List<Submission> sub = Database.read("Submission",new Submission(null, null, null, null, null, null, null, null, Status.SUBMITTED));
+            DefaultListModel defaultListModel = new DefaultListModel<Submission>(); 
+            for (Submission submission : sub) {
+                defaultListModel.addElement(submission);
+            }
+            selectList.setModel(defaultListModel);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -28,32 +53,95 @@ public class ReviewerPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jSplitPane1 = new javax.swing.JSplitPane();
-        articlePanel1 = new com.com2008.journalmanagementsystem.frame.ArticlePanel();
+        list = new javax.swing.JPanel();
+        selectPanel = new javax.swing.JPanel();
+        selectLable = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        selectList = new javax.swing.JList<>();
+        addToSelectedButton = new javax.swing.JButton();
+        selectedPanel = new javax.swing.JPanel();
+        selectedLable = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        selectedList = new javax.swing.JList<>();
+        finishButton = new javax.swing.JButton();
+        reviewPanel = new javax.swing.JPanel();
 
         setLayout(new java.awt.BorderLayout());
 
         jSplitPane1.setDividerLocation(200);
-        jSplitPane1.setRightComponent(articlePanel1);
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        list.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        list.setLayout(new java.awt.BorderLayout());
+
+        selectPanel.setLayout(new java.awt.BorderLayout());
+
+        selectLable.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        selectLable.setText("Select here:");
+        selectLable.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        selectPanel.add(selectLable, java.awt.BorderLayout.PAGE_START);
+
+        selectList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                selectListValueChanged(evt);
+            }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(selectList);
 
-        jSplitPane1.setLeftComponent(jScrollPane1);
+        selectPanel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        addToSelectedButton.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        addToSelectedButton.setText("Add to review");
+        selectPanel.add(addToSelectedButton, java.awt.BorderLayout.PAGE_END);
+
+        list.add(selectPanel, java.awt.BorderLayout.CENTER);
+
+        selectedPanel.setLayout(new java.awt.BorderLayout());
+
+        selectedLable.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        selectedLable.setText("Selected:");
+        selectedLable.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        selectedPanel.add(selectedLable, java.awt.BorderLayout.PAGE_START);
+
+        jScrollPane2.setViewportView(selectedList);
+
+        selectedPanel.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+
+        finishButton.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        finishButton.setText("Finish review");
+        selectedPanel.add(finishButton, java.awt.BorderLayout.PAGE_END);
+
+        list.add(selectedPanel, java.awt.BorderLayout.SOUTH);
+
+        jSplitPane1.setLeftComponent(list);
+
+        reviewPanel.setLayout(new java.awt.BorderLayout());
+        jSplitPane1.setRightComponent(reviewPanel);
 
         add(jSplitPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void selectListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_selectListValueChanged
+        // TODO add your handling code here:
+        ArticlePanel articlePanel = new ArticlePanel(selectList.getSelectedValue(), UserRole.REVIEWER, email);
+        reviewPanel.removeAll();
+        reviewPanel.add(articlePanel);
+        reviewPanel.revalidate();
+    }//GEN-LAST:event_selectListValueChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.com2008.journalmanagementsystem.frame.ArticlePanel articlePanel1;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JButton addToSelectedButton;
+    private javax.swing.JButton finishButton;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JPanel list;
+    private javax.swing.JPanel reviewPanel;
+    private javax.swing.JLabel selectLable;
+    private javax.swing.JList<Submission> selectList;
+    private javax.swing.JPanel selectPanel;
+    private javax.swing.JLabel selectedLable;
+    private javax.swing.JList<String> selectedList;
+    private javax.swing.JPanel selectedPanel;
     // End of variables declaration//GEN-END:variables
 }

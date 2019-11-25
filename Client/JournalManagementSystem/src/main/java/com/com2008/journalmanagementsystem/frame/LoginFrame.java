@@ -12,6 +12,7 @@ import javax.swing.*;
 
 import com.com2008.journalmanagementsystem.model.Account;
 import com.com2008.journalmanagementsystem.model.Author;
+import com.com2008.journalmanagementsystem.model.Reviewer;
 import com.com2008.journalmanagementsystem.util.Password;
 import com.com2008.journalmanagementsystem.util.database.Database;
 
@@ -757,6 +758,29 @@ public class LoginFrame extends javax.swing.JFrame {
                 
                 break;
             case 2: //Reviewer
+                try {
+                    java.util.List<Reviewer> reviewer = Database.read("Reviewer", new Reviewer(email, null));
+                    if(reviewer.size() > 0){
+                        if(reviewer.get(0).getHashedPassword().equals(hashedPassword)){
+                            new MainFrame(this, UserRole.REVIEWER, email).setVisible(true);
+                            this.setVisible(false);
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(null, "Password incorrect.", "Login", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "User not found.", "Login", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+
+
+
+
                 break;
         }
     }// GEN-LAST:event_loginBtnMouseClicked
