@@ -229,7 +229,7 @@
                         <Component class="javax.swing.JLabel" name="mainAuthorHeaderLabel">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Segoe UI" size="14" style="0"/>
+                              <Font name="Segoe UI" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Main author:"/>
                           </Properties>
@@ -245,7 +245,7 @@
                         <Component class="javax.swing.JLabel" name="corrAuthorHeaderLabel">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Segoe UI" size="14" style="0"/>
+                              <Font name="Segoe UI" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Corresponding author:"/>
                           </Properties>
@@ -261,7 +261,7 @@
                         <Component class="javax.swing.JLabel" name="coAuthorHeaderLabel">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Segoe UI" size="14" style="0"/>
+                              <Font name="Segoe UI" size="14" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Co-author:"/>
                           </Properties>

@@ -29,13 +29,19 @@ public class ArticlePanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public ArticlePanel(Submission submission, UserRole userRole) {
+    public ArticlePanel(Submission submission, UserRole userRole, String email) {
         initComponents();
 
         switch(userRole){
             case READER:
                 decisionPanel.setVisible(false);
                 reviewPanel.setVisible(false);
+                break;
+            case AUTHOR:
+                decisionPanel.setVisible(false);
+                if(submission.getMainAuthor().equals(email)){
+                    // TODO : Permissions for main author
+                }
                 break;
             default:
                 break;
@@ -60,8 +66,8 @@ public class ArticlePanel extends javax.swing.JPanel {
                     coAuthorEmails.add(submissionAuthor.getEmail());
             }
             List<Account> coAuthors = new ArrayList<Account>();
-            for (String email : coAuthorEmails) {
-                coAuthors.add(Database.read("Account", new Account(email, null, null, null, null)).get(0));
+            for (String coAuthoremail : coAuthorEmails) {
+                coAuthors.add(Database.read("Account", new Account(coAuthoremail, null, null, null, null)).get(0));
             }
 
             mainAuthorLabel.setText(mainAuthor.toString());
@@ -84,7 +90,7 @@ public class ArticlePanel extends javax.swing.JPanel {
         }
         
 
-        if(decisionPanel.isVisible()){
+        if(reviewPanel.isVisible()){
             innerReviewPanel.removeAll();
             try {
                 List<Review> reviews = Database.read("Review", new Review(null, submission.getIssn(), submission.getSubmissionID(), null, null, null));
@@ -226,7 +232,7 @@ public class ArticlePanel extends javax.swing.JPanel {
         authorsLabel.setText("Authors");
         innerAuthorPanel.add(authorsLabel);
 
-        mainAuthorHeaderLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        mainAuthorHeaderLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         mainAuthorHeaderLabel.setText("Main author:");
         innerAuthorPanel.add(mainAuthorHeaderLabel);
 
@@ -234,7 +240,7 @@ public class ArticlePanel extends javax.swing.JPanel {
         mainAuthorLabel.setText("mainAuthor <email@email.com>");
         innerAuthorPanel.add(mainAuthorLabel);
 
-        corrAuthorHeaderLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        corrAuthorHeaderLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         corrAuthorHeaderLabel.setText("Corresponding author:");
         innerAuthorPanel.add(corrAuthorHeaderLabel);
 
@@ -242,7 +248,7 @@ public class ArticlePanel extends javax.swing.JPanel {
         corrAuthorLabel.setText("mainAuthor <email@email.com>");
         innerAuthorPanel.add(corrAuthorLabel);
 
-        coAuthorHeaderLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        coAuthorHeaderLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         coAuthorHeaderLabel.setText("Co-author:");
         innerAuthorPanel.add(coAuthorHeaderLabel);
 

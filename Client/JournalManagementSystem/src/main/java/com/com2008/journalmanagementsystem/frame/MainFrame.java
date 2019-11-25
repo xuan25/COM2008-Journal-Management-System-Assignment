@@ -28,7 +28,7 @@ public class MainFrame extends javax.swing.JFrame {
         selectionsPanel.add(new SidePanelButton("Journals", new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
                 activeSidePanelBtn((SidePanelButton) evt.getSource());
-                updateMainPanel(new ReaderPanel(UserRole.EDITOR));
+                updateMainPanel(new ReaderPanel());
             }
         }));
 
@@ -55,11 +55,13 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     private LoginFrame parent;
+    private String email;
 
     public MainFrame(LoginFrame parent, UserRole userRole, String email) {
         initComponents();
 
         this.parent = parent;
+        this.email = email;
 
         if (email != null) {
             try {
@@ -79,7 +81,15 @@ public class MainFrame extends javax.swing.JFrame {
                 selectionsPanel.add(new SidePanelButton("Journals", new MouseAdapter() {
                     public void mousePressed(MouseEvent evt) {
                         activeSidePanelBtn((SidePanelButton)evt.getSource());
-                        updateMainPanel(new ReaderPanel(userRole));
+                        updateMainPanel(new ReaderPanel());
+                    }
+                }));
+                break;
+            case AUTHOR:
+                selectionsPanel.add(new SidePanelButton("Submissions", new MouseAdapter() {
+                    public void mousePressed(MouseEvent evt) {
+                        activeSidePanelBtn((SidePanelButton)evt.getSource());
+                        updateMainPanel(new AuthorPanel(email));
                     }
                 }));
                 break;
