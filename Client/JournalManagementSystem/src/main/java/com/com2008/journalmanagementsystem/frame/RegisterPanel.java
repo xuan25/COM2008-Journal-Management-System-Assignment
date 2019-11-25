@@ -58,7 +58,7 @@ public class RegisterPanel extends javax.swing.JPanel {
         char[] password = passwordField.getPassword();
         char[] rePassword = rePasswordField.getPassword();
 
-        if(email.isBlank() || title.isBlank() || forename.isBlank() || surname.isBlank() || university.isBlank() || new String(password).isBlank() || new String(rePassword).isBlank()){
+        if(email.isEmpty() || title.isEmpty() || forename.isEmpty() || surname.isEmpty() || university.isEmpty() || new String(password).isEmpty() || new String(rePassword).isEmpty()){
             JOptionPane.showMessageDialog(null, "Please complete all the fileds.", "Register", JOptionPane.ERROR_MESSAGE);
             return false;
         }
