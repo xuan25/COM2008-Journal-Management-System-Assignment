@@ -276,7 +276,7 @@ public class RegisterPanel extends javax.swing.JPanel {
         titlePanel.add(titleLabelPanel, java.awt.BorderLayout.WEST);
 
         titleComboBox.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        titleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Prof", "Dr", "Mr", "Ms" }));
+        titleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Prof.", "Dr.", "Mr.", "Ms." }));
         titlePanel.add(titleComboBox, java.awt.BorderLayout.CENTER);
         titlePanel.add(filler30, java.awt.BorderLayout.SOUTH);
 
