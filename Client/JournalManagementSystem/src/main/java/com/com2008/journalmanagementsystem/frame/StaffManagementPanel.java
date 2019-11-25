@@ -36,6 +36,7 @@ public class StaffManagementPanel extends javax.swing.JPanel {
         addStaffBtn = new javax.swing.JButton();
         removeStaffBtn = new javax.swing.JButton();
         transferCheifBtn = new javax.swing.JButton();
+        retireBtn = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -75,6 +76,10 @@ public class StaffManagementPanel extends javax.swing.JPanel {
         transferCheifBtn.setText("Transfer cheif");
         rightPanel.add(transferCheifBtn);
 
+        retireBtn.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        retireBtn.setText("Retire");
+        rightPanel.add(retireBtn);
+
         add(rightPanel, java.awt.BorderLayout.EAST);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -86,6 +91,7 @@ public class StaffManagementPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> journalComboBox;
     private javax.swing.JPanel leftPanel;
     private javax.swing.JButton removeStaffBtn;
+    private javax.swing.JButton retireBtn;
     private javax.swing.JPanel rightPanel;
     private javax.swing.JTextField searchTextField;
     private javax.swing.JButton transferCheifBtn;
