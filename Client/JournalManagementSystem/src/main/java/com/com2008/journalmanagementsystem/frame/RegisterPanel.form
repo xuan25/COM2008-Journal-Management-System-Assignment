@@ -16,7 +16,7 @@
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
   <SubComponents>
-    <Container class="javax.swing.JScrollPane" name="regMainScrollPane">
+    <Container class="javax.swing.JScrollPane" name="mainScrollPane">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Theme.getBgColor()" type="code"/>
@@ -33,7 +33,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="regMainPanel">
+        <Container class="javax.swing.JPanel" name="mainPanel">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="Theme.getBgColor()" type="code"/>
@@ -42,7 +42,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="regInnerPanel">
+            <Container class="javax.swing.JPanel" name="innerPanel">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="Theme.getBgColor()" type="code"/>
@@ -58,7 +58,7 @@
                 <Property name="axis" type="int" value="3"/>
               </Layout>
               <SubComponents>
-                <Container class="javax.swing.JPanel" name="regEmailPanel">
+                <Container class="javax.swing.JPanel" name="emailPanel">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="Theme.getBgColor()" type="code"/>
@@ -76,7 +76,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
                   <SubComponents>
-                    <Container class="javax.swing.JPanel" name="regJournalEmailLabelPanel">
+                    <Container class="javax.swing.JPanel" name="emailLabelPanel">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="Theme.getBgColor()" type="code"/>
@@ -96,7 +96,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JLabel" name="regJournalEmailLabel">
+                        <Component class="javax.swing.JLabel" name="emailLabel">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Segoe UI" size="12" style="0"/>
@@ -136,7 +136,7 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JTextField" name="regJournalEmailTextField">
+                    <Component class="javax.swing.JTextField" name="emailTextField">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="12" style="0"/>
@@ -174,7 +174,7 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Container class="javax.swing.JPanel" name="regPasswordPanel">
+                <Container class="javax.swing.JPanel" name="passwordPanel">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="Theme.getBgColor()" type="code"/>
@@ -192,7 +192,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
                   <SubComponents>
-                    <Container class="javax.swing.JPanel" name="regJournalPasswordLabelPanel">
+                    <Container class="javax.swing.JPanel" name="passwordLabelPanel">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="Theme.getBgColor()" type="code"/>
@@ -212,7 +212,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JLabel" name="regJournalPasswordLabel">
+                        <Component class="javax.swing.JLabel" name="passwordLabel">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Segoe UI" size="12" style="0"/>
@@ -252,7 +252,7 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JPasswordField" name="regJournalPasswordField">
+                    <Component class="javax.swing.JPasswordField" name="passwordField">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="12" style="0"/>
@@ -287,7 +287,7 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Container class="javax.swing.JPanel" name="regRePasswordPanel">
+                <Container class="javax.swing.JPanel" name="rePasswordPanel">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="Theme.getBgColor()" type="code"/>
@@ -305,7 +305,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
                   <SubComponents>
-                    <Container class="javax.swing.JPanel" name="regJournalRePasswordLabelPanel">
+                    <Container class="javax.swing.JPanel" name="rePasswordLabelPanel">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="Theme.getBgColor()" type="code"/>
@@ -325,7 +325,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JLabel" name="regJournalRePasswordLabel">
+                        <Component class="javax.swing.JLabel" name="rePasswordLabel">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Segoe UI" size="12" style="0"/>
@@ -365,7 +365,7 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JPasswordField" name="regJournalRePasswordField">
+                    <Component class="javax.swing.JPasswordField" name="rePasswordField">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="12" style="0"/>
@@ -400,7 +400,7 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Container class="javax.swing.JPanel" name="regUniversityPanel">
+                <Container class="javax.swing.JPanel" name="universityPanel">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="Theme.getBgColor()" type="code"/>
@@ -418,7 +418,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
                   <SubComponents>
-                    <Container class="javax.swing.JPanel" name="regJournalUniversityLabelPanel">
+                    <Container class="javax.swing.JPanel" name="universityLabelPanel">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="Theme.getBgColor()" type="code"/>
@@ -438,7 +438,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JLabel" name="regJournalUniversityLabel">
+                        <Component class="javax.swing.JLabel" name="universityLabel">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Segoe UI" size="12" style="0"/>
@@ -478,7 +478,7 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JTextField" name="regJournalUniversityTextField">
+                    <Component class="javax.swing.JTextField" name="universityTextField">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="12" style="0"/>
@@ -516,7 +516,7 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Container class="javax.swing.JPanel" name="regTitlePanel">
+                <Container class="javax.swing.JPanel" name="titlePanel">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="Theme.getBgColor()" type="code"/>
@@ -534,7 +534,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
                   <SubComponents>
-                    <Container class="javax.swing.JPanel" name="regJournalTitleLabelPanel">
+                    <Container class="javax.swing.JPanel" name="titleLabelPanel">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="Theme.getBgColor()" type="code"/>
@@ -554,7 +554,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JLabel" name="regJournalTitleLabel">
+                        <Component class="javax.swing.JLabel" name="titleLabel">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Segoe UI" size="12" style="0"/>
@@ -594,7 +594,7 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JComboBox" name="regJournalTitleComboBox">
+                    <Component class="javax.swing.JComboBox" name="titleComboBox">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="12" style="0"/>
@@ -640,7 +640,7 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Container class="javax.swing.JPanel" name="regForenamePanel">
+                <Container class="javax.swing.JPanel" name="forenamePanel">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="Theme.getBgColor()" type="code"/>
@@ -658,7 +658,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
                   <SubComponents>
-                    <Container class="javax.swing.JPanel" name="regJournalForenameLabelPanel">
+                    <Container class="javax.swing.JPanel" name="forenameLabelPanel">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="Theme.getBgColor()" type="code"/>
@@ -678,7 +678,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JLabel" name="regJournalForenameLabel">
+                        <Component class="javax.swing.JLabel" name="forenameLabel">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Segoe UI" size="12" style="0"/>
@@ -718,7 +718,7 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JTextField" name="regJournalForenameTextField">
+                    <Component class="javax.swing.JTextField" name="forenameTextField">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="12" style="0"/>
@@ -756,7 +756,7 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Container class="javax.swing.JPanel" name="regSurnamePanel">
+                <Container class="javax.swing.JPanel" name="surnamePanel">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="Theme.getBgColor()" type="code"/>
@@ -774,7 +774,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
                   <SubComponents>
-                    <Container class="javax.swing.JPanel" name="regJournalSurnameLabelPanel">
+                    <Container class="javax.swing.JPanel" name="surnameLabelPanel">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="Theme.getBgColor()" type="code"/>
@@ -794,7 +794,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JLabel" name="regJournalSurnameLabel">
+                        <Component class="javax.swing.JLabel" name="surnameLabel">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Segoe UI" size="12" style="0"/>
@@ -834,7 +834,7 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JTextField" name="regJournalSurnameTextField">
+                    <Component class="javax.swing.JTextField" name="surnameTextField">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="12" style="0"/>

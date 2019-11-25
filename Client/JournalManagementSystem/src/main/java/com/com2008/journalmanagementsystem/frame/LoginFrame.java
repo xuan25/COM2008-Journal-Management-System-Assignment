@@ -1032,7 +1032,7 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_loginBtnMouseClicked
 
     private void regAuthorBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regAuthorBtnMouseClicked
-        // TODO add your handling code here:
+        registerAuthorPanel.verify();
     }//GEN-LAST:event_regAuthorBtnMouseClicked
 
     /**
