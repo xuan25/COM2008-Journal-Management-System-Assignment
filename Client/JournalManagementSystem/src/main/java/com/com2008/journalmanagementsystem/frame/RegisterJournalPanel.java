@@ -81,6 +81,7 @@ public class RegisterJournalPanel extends javax.swing.JPanel {
         filler13 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         filler14 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
 
+        setMinimumSize(new java.awt.Dimension(21, 82));
         setLayout(new java.awt.BorderLayout());
 
         mainScrollPane.setBackground(Theme.getBgColor());

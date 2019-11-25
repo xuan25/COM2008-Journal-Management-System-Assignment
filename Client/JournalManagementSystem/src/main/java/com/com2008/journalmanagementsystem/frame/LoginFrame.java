@@ -79,15 +79,9 @@ public class LoginFrame extends javax.swing.JFrame {
         regJournalToobarPanel = new javax.swing.JPanel();
         regJournalbackBtn = new javax.swing.JPanel();
         regJournalbackLabel = new javax.swing.JLabel();
-        regJournalMainScrollPane = new javax.swing.JScrollPane();
-        regJournalMainPanel = new javax.swing.JPanel();
         regJournalInnerPanel = new javax.swing.JPanel();
         registerJournalPanel = new com.com2008.journalmanagementsystem.frame.RegisterJournalPanel();
         registerPanelForJournal = new com.com2008.journalmanagementsystem.frame.RegisterPanel();
-        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
-        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
-        filler13 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
-        filler14 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         regJournalBtnPanel = new javax.swing.JPanel();
         regJournalBtn = new javax.swing.JPanel();
         regJournalLabel = new javax.swing.JLabel();
@@ -432,26 +426,12 @@ public class LoginFrame extends javax.swing.JFrame {
 
         regJournalPanel.add(regJournalToobarPanel, java.awt.BorderLayout.NORTH);
 
-        regJournalMainScrollPane.setBackground(Theme.getBgColor());
-        regJournalMainScrollPane.setBorder(null);
-
-        regJournalMainPanel.setBackground(Theme.getBgColor());
-        regJournalMainPanel.setLayout(new java.awt.BorderLayout());
-
         regJournalInnerPanel.setBackground(Theme.getBgColor());
         regJournalInnerPanel.setLayout(new javax.swing.BoxLayout(regJournalInnerPanel, javax.swing.BoxLayout.PAGE_AXIS));
         regJournalInnerPanel.add(registerJournalPanel);
         regJournalInnerPanel.add(registerPanelForJournal);
 
-        regJournalMainPanel.add(regJournalInnerPanel, java.awt.BorderLayout.CENTER);
-        regJournalMainPanel.add(filler2, java.awt.BorderLayout.NORTH);
-        regJournalMainPanel.add(filler3, java.awt.BorderLayout.SOUTH);
-        regJournalMainPanel.add(filler13, java.awt.BorderLayout.WEST);
-        regJournalMainPanel.add(filler14, java.awt.BorderLayout.EAST);
-
-        regJournalMainScrollPane.setViewportView(regJournalMainPanel);
-
-        regJournalPanel.add(regJournalMainScrollPane, java.awt.BorderLayout.CENTER);
+        regJournalPanel.add(regJournalInnerPanel, java.awt.BorderLayout.CENTER);
 
         regJournalBtnPanel.setBackground(Theme.getBgColor());
         regJournalBtnPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -827,11 +807,7 @@ public class LoginFrame extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler10;
     private javax.swing.Box.Filler filler11;
     private javax.swing.Box.Filler filler12;
-    private javax.swing.Box.Filler filler13;
-    private javax.swing.Box.Filler filler14;
-    private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler26;
-    private javax.swing.Box.Filler filler3;
     private javax.swing.Box.Filler filler37;
     private javax.swing.Box.Filler filler38;
     private javax.swing.Box.Filler filler39;
@@ -889,8 +865,6 @@ public class LoginFrame extends javax.swing.JFrame {
     private javax.swing.JPanel regJournalBtnPanel;
     private javax.swing.JPanel regJournalInnerPanel;
     private javax.swing.JLabel regJournalLabel;
-    private javax.swing.JPanel regJournalMainPanel;
-    private javax.swing.JScrollPane regJournalMainScrollPane;
     private javax.swing.JPanel regJournalPanel;
     private javax.swing.JPanel regJournalToobarPanel;
     private javax.swing.JPanel regJournalbackBtn;
