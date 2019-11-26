@@ -6,12 +6,13 @@
 package com.com2008.journalmanagementsystem.frame;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
 
 import com.com2008.journalmanagementsystem.model.Account;
-import com.com2008.journalmanagementsystem.model.Author;
 import com.com2008.journalmanagementsystem.model.Review;
 import com.com2008.journalmanagementsystem.model.Submission;
 import com.com2008.journalmanagementsystem.model.SubmissionAuthor;
@@ -28,16 +29,39 @@ public class ReviewerPanel extends javax.swing.JPanel {
      * Creates new form ReviewerPanel
      */
     private String email;
-    DefaultListModel selectListModel = new DefaultListModel<Submission>();  
+    // DefaultListModel selectListModel = new DefaultListModel<Submission>();
     public ReviewerPanel(String email) {
         initComponents();
 
         this.email = email;
 
+        refreshList();
+    }
+
+    private void refreshList(){
         try {
+            DefaultListModel selectListModel = new DefaultListModel<Submission>();
             List<Submission> sub = Database.read("Submission",new Submission(null, null, null, null, null, null, null, null, Status.SUBMITTED));
             for (Submission submission : sub) {
-                selectListModel.addElement(submission);
+                
+                List<SubmissionAuthor> submissionAuthors = Database.read("SubmissionAuthor", new SubmissionAuthor(submission.getIssn(), submission.getSubmissionID(), null));
+
+                List<Account> accounts = new ArrayList<Account>();
+
+                for (SubmissionAuthor submissionAuthor : submissionAuthors)
+                    accounts.add(Database.read("Account", new Account(submissionAuthor.getEmail(), null, null, null, null)).get(0));
+
+                HashSet<String> universitySet = new HashSet<String>();
+                for (Account account : accounts)
+                    universitySet.add(account.getUniversity());
+
+                String reviewerUniversity = Database.read("Account", new Account(email, null, null, null, null)).get(0).getUniversity();
+
+                if(!universitySet.contains(reviewerUniversity)){
+                    if(Database.read("Review", new Review(email, submission.getIssn(), submission.getSubmissionID(), null, null, null)).size() == 0)
+                        selectListModel.addElement(submission);
+                }
+
             }
             selectList.setModel(selectListModel);
         } catch (SQLException e) {
@@ -61,6 +85,7 @@ public class ReviewerPanel extends javax.swing.JPanel {
         selectLable = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         selectList = new javax.swing.JList<>();
+        refreshButton = new javax.swing.JButton();
         reviewPanel = new javax.swing.JPanel();
 
         setLayout(new java.awt.BorderLayout());
@@ -86,6 +111,14 @@ public class ReviewerPanel extends javax.swing.JPanel {
 
         selectPanel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
+        refreshButton.setText("Refresh list");
+        refreshButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshButtonActionPerformed(evt);
+            }
+        });
+        selectPanel.add(refreshButton, java.awt.BorderLayout.PAGE_END);
+
         list.add(selectPanel, java.awt.BorderLayout.CENTER);
 
         jSplitPane1.setLeftComponent(list);
@@ -97,7 +130,7 @@ public class ReviewerPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void selectListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_selectListValueChanged
-        // TODO add your handling code here:
+        selectList.setEnabled(false);
         Submission submission = selectList.getSelectedValue();
         if(submission == null){
             return;
@@ -108,10 +141,25 @@ public class ReviewerPanel extends javax.swing.JPanel {
         reviewPanel.revalidate();
     }//GEN-LAST:event_selectListValueChanged
 
+    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
+        // TODO add your handling code here:
+        // Submission submissionNow = selectList.getSelectedValue();
+        // selectListModel.removeElement(submissionNow);
+        reviewPanel.removeAll();
+        reviewPanel.repaint();
+        reviewPanel.revalidate();
+        refreshList();
+        selectList.setEnabled(true);
+
+
+
+    }//GEN-LAST:event_refreshButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JPanel list;
+    private javax.swing.JButton refreshButton;
     private javax.swing.JPanel reviewPanel;
     private javax.swing.JLabel selectLable;
     private javax.swing.JList<Submission> selectList;

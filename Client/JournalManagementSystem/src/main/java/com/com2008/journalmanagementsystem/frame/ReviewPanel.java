@@ -319,6 +319,8 @@ public class ReviewPanel extends javax.swing.JPanel {
                 e.printStackTrace();
             }
         }
+
+        
         
     }//GEN-LAST:event_submitButtonActionPerformed
 
@@ -326,7 +328,7 @@ public class ReviewPanel extends javax.swing.JPanel {
 
         TypoError typoError = new TypoError(review.getEmail(), review.getIssn(), review.getSubmissionID(), typoErrorListModel.getSize(), typoErrorsTextArea.getText());
         typoErrorListModel.addElement(typoError);
-        typoErrorsTextArea.removeAll();
+        typoErrorsTextArea.setText("");
 
     }//GEN-LAST:event_typoErrorAddButtonActionPerformed
 
@@ -334,7 +336,7 @@ public class ReviewPanel extends javax.swing.JPanel {
 
         Criticism criticism = new Criticism(review.getEmail(), review.getIssn(), review.getSubmissionID(), criticismsListModel.getSize(), criticsmsTextArea.getText());
         criticismsListModel.addElement(criticism);
-        criticsmsTextArea.removeAll();
+        criticsmsTextArea.setText("");
 
     }//GEN-LAST:event_criticismsAddButtonActionPerformed
 
