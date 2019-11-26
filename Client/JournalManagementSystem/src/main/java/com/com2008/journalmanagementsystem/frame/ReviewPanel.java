@@ -3,7 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.com2008.journalmanagementsystem;
+package com.com2008.journalmanagementsystem.frame;
+
+import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.List;
+
+import javax.swing.DefaultListModel;
+
+import com.com2008.journalmanagementsystem.model.*;
+import com.com2008.journalmanagementsystem.util.database.Database;
 
 /**
  *
@@ -16,6 +25,39 @@ public class ReviewPanel extends javax.swing.JPanel {
      */
     public ReviewPanel() {
         initComponents();
+    }
+
+    public ReviewPanel(String name, Review review) {
+        initComponents();
+
+        reviewerLabel.setText(name);
+        acceptableLabel.setText(review.getVerdict().toString());
+        summaryTextArea.setText(review.getSummary());
+
+        try {
+            typoErrorsList.removeAll();
+            typoErrorsList.removeAll();
+
+            List<TypoError> typoErrors = Database.read("TypoError", new TypoError(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
+            DefaultListModel typoErrorListModel = new DefaultListModel();
+            for(TypoError typoError : typoErrors){
+                typoErrorListModel.addElement(typoError.getContent());
+            }
+            typoErrorsList.setModel(typoErrorListModel);
+
+            List<Criticism> criticisms = Database.read("Criticism", new Criticism(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
+            DefaultListModel cristicismsListModel = new DefaultListModel();
+            for(Criticism criticism : criticisms){
+                cristicismsListModel.addElement(criticism.getContent());
+            }
+            typoErrorsList.setModel(cristicismsListModel);
+            
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+
     }
 
     /**
@@ -37,12 +79,12 @@ public class ReviewPanel extends javax.swing.JPanel {
         summaryLabel = new javax.swing.JLabel();
         summaryScrollPane = new javax.swing.JScrollPane();
         summaryTextArea = new javax.swing.JTextArea();
-        TypoErrorsLabel = new javax.swing.JLabel();
-        TypoErrorsScrollPane = new javax.swing.JScrollPane();
-        TypoErrorsList = new javax.swing.JList<>();
-        CristicismsLabel = new javax.swing.JLabel();
-        CristicismsScrollPane = new javax.swing.JScrollPane();
-        CristicismsList = new javax.swing.JList<>();
+        typoErrorsLabel = new javax.swing.JLabel();
+        typoErrorsScrollPane = new javax.swing.JScrollPane();
+        typoErrorsList = new javax.swing.JList<>();
+        criticismsLabel = new javax.swing.JLabel();
+        criticismsScrollPane = new javax.swing.JScrollPane();
+        criticismsList = new javax.swing.JList<>();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         jSeparator1 = new javax.swing.JSeparator();
 
@@ -71,6 +113,7 @@ public class ReviewPanel extends javax.swing.JPanel {
         mainPanel.add(summaryLabel);
 
         summaryTextArea.setColumns(20);
+        summaryTextArea.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         summaryTextArea.setLineWrap(true);
         summaryTextArea.setRows(5);
         summaryTextArea.setText("Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  Review summary  ");
@@ -79,31 +122,33 @@ public class ReviewPanel extends javax.swing.JPanel {
 
         mainPanel.add(summaryScrollPane);
 
-        TypoErrorsLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        TypoErrorsLabel.setText("Typo errors");
-        mainPanel.add(TypoErrorsLabel);
+        typoErrorsLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        typoErrorsLabel.setText("Typo errors");
+        mainPanel.add(typoErrorsLabel);
 
-        TypoErrorsList.setModel(new javax.swing.AbstractListModel<String>() {
+        typoErrorsList.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        typoErrorsList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Typo error 1", "Typo error 2", "Typo error 3", "Typo error 4", "Typo error 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        TypoErrorsScrollPane.setViewportView(TypoErrorsList);
+        typoErrorsScrollPane.setViewportView(typoErrorsList);
 
-        mainPanel.add(TypoErrorsScrollPane);
+        mainPanel.add(typoErrorsScrollPane);
 
-        CristicismsLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        CristicismsLabel.setText("Cristicisms");
-        mainPanel.add(CristicismsLabel);
+        criticismsLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        criticismsLabel.setText("Criticisms");
+        mainPanel.add(criticismsLabel);
 
-        CristicismsList.setModel(new javax.swing.AbstractListModel<String>() {
+        criticismsList.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        criticismsList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Cristicisms 1", "Cristicisms 2", "Cristicisms 3", "Cristicisms 4", "Cristicisms 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        CristicismsScrollPane.setViewportView(CristicismsList);
+        criticismsScrollPane.setViewportView(criticismsList);
 
-        mainPanel.add(CristicismsScrollPane);
+        mainPanel.add(criticismsScrollPane);
         mainPanel.add(filler2);
         mainPanel.add(jSeparator1);
 
@@ -112,13 +157,10 @@ public class ReviewPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel CristicismsLabel;
-    private javax.swing.JList<String> CristicismsList;
-    private javax.swing.JScrollPane CristicismsScrollPane;
-    private javax.swing.JLabel TypoErrorsLabel;
-    private javax.swing.JList<String> TypoErrorsList;
-    private javax.swing.JScrollPane TypoErrorsScrollPane;
     private javax.swing.JLabel acceptableLabel;
+    private javax.swing.JLabel criticismsLabel;
+    private javax.swing.JList<String> criticismsList;
+    private javax.swing.JScrollPane criticismsScrollPane;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
@@ -130,5 +172,8 @@ public class ReviewPanel extends javax.swing.JPanel {
     private javax.swing.JLabel summaryLabel;
     private javax.swing.JScrollPane summaryScrollPane;
     private javax.swing.JTextArea summaryTextArea;
+    private javax.swing.JLabel typoErrorsLabel;
+    private javax.swing.JList<String> typoErrorsList;
+    private javax.swing.JScrollPane typoErrorsScrollPane;
     // End of variables declaration//GEN-END:variables
 }
