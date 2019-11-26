@@ -119,16 +119,16 @@
                 <Property name="axis" type="int" value="3"/>
               </Layout>
               <SubComponents>
-                <Container class="javax.swing.JPanel" name="abstructPanel">
+                <Container class="javax.swing.JPanel" name="abstractPanel">
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JLabel" name="abstructLabel">
+                    <Component class="javax.swing.JLabel" name="abstractLabel">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="24" style="0"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Abstruct"/>
+                        <Property name="text" type="java.lang.String" value="Abstract"/>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
