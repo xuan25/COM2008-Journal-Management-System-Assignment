@@ -42,7 +42,7 @@ CREATE TABLE Journal(
 );
 
 CREATE TABLE EditorOnBoard(
-    issn    VARCHAR(255),
+    issn    VARCHAR(14),
     email   VARCHAR(255),
     PRIMARY KEY (issn, email),
     FOREIGN KEY (issn) REFERENCES Journal(issn),
@@ -68,7 +68,7 @@ CREATE TABLE Document(
 
 CREATE TABLE Submission(
     issn            VARCHAR(14),
-    submissionID    VARCHAR(14),
+    submissionID    VARCHAR(255),
     title           VARCHAR(255),
     mainAuthor      VARCHAR(255),
     corrAuthor      VARCHAR(255),
@@ -106,11 +106,11 @@ CREATE TABLE Article(
 
 CREATE TABLE Review(
     email           VARCHAR(255),
-    issn            VARCHAR(255),
+    issn            VARCHAR(14),
     submissionID    VARCHAR(255),
     summary         VARCHAR(255),
     verdict         INT,
-    timestamp       INT,
+    timestamp       BIGINT,
     PRIMARY KEY (email, issn, submissionID),
     FOREIGN KEY (email) REFERENCES Reviewer(email),
     FOREIGN KEY (issn, submissionID) REFERENCES Submission(issn, submissionID)
@@ -118,7 +118,7 @@ CREATE TABLE Review(
 
 CREATE TABLE TypoError(
     email           VARCHAR(255),
-    issn            VARCHAR(255),
+    issn            VARCHAR(14),
     submissionID    VARCHAR(255),
     num             INT,
     content         VARCHAR(255),
@@ -128,7 +128,7 @@ CREATE TABLE TypoError(
 
 CREATE TABLE Criticism(
     email           VARCHAR(255),
-    issn            VARCHAR(255),
+    issn            VARCHAR(14),
     submissionID    VARCHAR(255),
     num             INT,
     content         VARCHAR(255),
