@@ -41,7 +41,7 @@ CREATE TABLE Journal(
     FOREIGN KEY (cheifEmail) REFERENCES Editor(email)
 );
 
-CREATE TABLE JournalOnBoard(
+CREATE TABLE EditorOnBoard(
     issn    VARCHAR(255),
     email   VARCHAR(255),
     PRIMARY KEY (issn, email),
@@ -71,15 +71,15 @@ CREATE TABLE Submission(
     submissionID    VARCHAR(14),
     title           VARCHAR(255),
     mainAuthor      VARCHAR(255),
-    coAuthor        VARCHAR(255),
-    abstract        VARCHAR(255),
-    draft           VARCHAR(255),
-    final           VARCHAR(255),
-    currentStatus   INT,
+    corrAuthor      VARCHAR(255),
+    contentAbstract VARCHAR(255),
+    draftID         VARCHAR(255),
+    finalID         VARCHAR(255),
+    status          INT,
     PRIMARY KEY (issn, submissionID),
     FOREIGN KEY (issn) REFERENCES Journal(issn),
     FOREIGN KEY (mainAuthor) REFERENCES Author(email),
-    FOREIGN KEY (coAuthor) REFERENCES Author(email)
+    FOREIGN KEY (corrAuthor) REFERENCES Author(email)
 );
 
 CREATE TABLE SubmissionAuthor(
