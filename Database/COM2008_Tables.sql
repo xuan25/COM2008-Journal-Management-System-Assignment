@@ -110,7 +110,7 @@ CREATE TABLE Review(
     submissionID    VARCHAR(255),
     summary         VARCHAR(255),
     verdict         INT,
-    timestamp       INT,
+    timestamp       BIGINT,
     PRIMARY KEY (email, issn, submissionID),
     FOREIGN KEY (email) REFERENCES Reviewer(email),
     FOREIGN KEY (issn, submissionID) REFERENCES Submission(issn, submissionID)

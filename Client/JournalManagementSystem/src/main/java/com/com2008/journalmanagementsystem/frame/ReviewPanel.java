@@ -12,17 +12,21 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 
 import com.com2008.journalmanagementsystem.model.*;
+import com.com2008.journalmanagementsystem.model.Review.Verdict;
 import com.com2008.journalmanagementsystem.util.database.Database;
 
 /**
  *
- * @author Xuan
+ * @author Xuan, harix
  */
 public class ReviewPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form ReviewPanel
      */
+    private Review review;
+    DefaultListModel<TypoError> typoErrorListModel = new DefaultListModel<TypoError>();
+    DefaultListModel<Criticism> criticismsListModel = new DefaultListModel<Criticism>();
     public ReviewPanel() {
         initComponents();
     }
@@ -36,21 +40,21 @@ public class ReviewPanel extends javax.swing.JPanel {
 
         try {
             typoErrorsList.removeAll();
-            typoErrorsList.removeAll();
+            criticismsList.removeAll();
 
             List<TypoError> typoErrors = Database.read("TypoError", new TypoError(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
-            DefaultListModel typoErrorListModel = new DefaultListModel();
+            //DefaultListModel typoErrorListModel = new DefaultListModel();
             for(TypoError typoError : typoErrors){
-                typoErrorListModel.addElement(typoError.getContent());
+                typoErrorListModel.addElement(typoError);
             }
             typoErrorsList.setModel(typoErrorListModel);
 
             List<Criticism> criticisms = Database.read("Criticism", new Criticism(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
-            DefaultListModel cristicismsListModel = new DefaultListModel();
+            //DefaultListModel cristicismsListModel = new DefaultListModel();
             for(Criticism criticism : criticisms){
-                cristicismsListModel.addElement(criticism.getContent());
+                criticismsListModel.addElement(criticism);
             }
-            typoErrorsList.setModel(cristicismsListModel);
+            criticismsList.setModel(criticismsListModel);
             submitPannel.setVisible(false);
             
         } catch (SQLException e) {
@@ -64,32 +68,17 @@ public class ReviewPanel extends javax.swing.JPanel {
     public ReviewPanel(String name, Review review, UserRole userRole) {
         initComponents();
 
-        //reviewerLabel.setText(name);
-        //acceptableLabel.setText(review.getVerdict().toString());
-        //summaryTextArea.setText(review.getSummary());
-
-        try {
-            typoErrorsList.removeAll();
-            typoErrorsList.removeAll();
-
-            List<TypoError> typoErrors = Database.read("TypoError", new TypoError(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
-            DefaultListModel typoErrorListModel = new DefaultListModel();
-            for(TypoError typoError : typoErrors){
-                typoErrorListModel.addElement(typoError.getContent());
-            }
-            typoErrorsList.setModel(typoErrorListModel);
-
-            List<Criticism> criticisms = Database.read("Criticism", new Criticism(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
-            DefaultListModel cristicismsListModel = new DefaultListModel();
-            for(Criticism criticism : criticisms){
-                cristicismsListModel.addElement(criticism.getContent());
-            }
-            typoErrorsList.setModel(cristicismsListModel);
+        this.review = review;
+        reviewerLabel.setVisible(false);
+        acceptableLabel.setVisible(false);
+        summaryTextArea.setText("");
+        
+        typoErrorsList.removeAll();
+        criticismsList.removeAll(); 
+        
+        typoErrorsList.setModel(typoErrorListModel);
+        criticismsList.setModel(criticismsListModel);
             
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -127,18 +116,18 @@ public class ReviewPanel extends javax.swing.JPanel {
         typoCritismsAddPanel = new javax.swing.JPanel();
         typoErrorsAddPanel = new javax.swing.JPanel();
         addTypoText = new javax.swing.JLabel();
-        typoErrorAddTextArea = new javax.swing.JScrollPane();
-        jTextArea4 = new javax.swing.JTextArea();
+        typoErrorAddScrolpanel = new javax.swing.JScrollPane();
+        typoErrorsTextArea = new javax.swing.JTextArea();
         typoErrorAddButton = new javax.swing.JButton();
         criticismsAddPanel = new javax.swing.JPanel();
         criticismsAddText = new javax.swing.JLabel();
-        criticismsAddTextArea = new javax.swing.JScrollPane();
-        jTextArea5 = new javax.swing.JTextArea();
-        jButton2 = new javax.swing.JButton();
+        criticismsAddScrolPanel = new javax.swing.JScrollPane();
+        criticsmsTextArea = new javax.swing.JTextArea();
+        criticismsAddButton = new javax.swing.JButton();
         verdictPanel = new javax.swing.JPanel();
         verdictText = new javax.swing.JLabel();
         verdictList = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        verdictSelectList = new javax.swing.JList<>();
         submitButton = new javax.swing.JButton();
 
         jTextArea2.setColumns(20);
@@ -184,11 +173,6 @@ public class ReviewPanel extends javax.swing.JPanel {
         mainPanel.add(typoErrorsLabel);
 
         typoErrorsList.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        typoErrorsList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Typo error 1", "Typo error 2", "Typo error 3", "Typo error 4", "Typo error 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         typoErrorsScrollPane.setViewportView(typoErrorsList);
 
         mainPanel.add(typoErrorsScrollPane);
@@ -198,11 +182,6 @@ public class ReviewPanel extends javax.swing.JPanel {
         mainPanel.add(criticismsLabel);
 
         criticismsList.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        criticismsList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Cristicisms 1", "Cristicisms 2", "Cristicisms 3", "Cristicisms 4", "Cristicisms 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         criticismsScrollPane.setViewportView(criticismsList);
 
         mainPanel.add(criticismsScrollPane);
@@ -211,27 +190,34 @@ public class ReviewPanel extends javax.swing.JPanel {
 
         submitPannel.setLayout(new java.awt.BorderLayout());
 
-        SubmissionLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        SubmissionLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         SubmissionLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         SubmissionLabel.setText("Submit");
         submitPannel.add(SubmissionLabel, java.awt.BorderLayout.PAGE_START);
 
-        jSplitPane2.setDividerLocation(600);
+        jSplitPane2.setDividerLocation(500);
 
         typoCritismsAddPanel.setLayout(new java.awt.BorderLayout());
 
         typoErrorsAddPanel.setLayout(new java.awt.BorderLayout());
 
+        addTypoText.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         addTypoText.setText("Add Typo Error");
         typoErrorsAddPanel.add(addTypoText, java.awt.BorderLayout.NORTH);
 
-        jTextArea4.setColumns(20);
-        jTextArea4.setRows(5);
-        typoErrorAddTextArea.setViewportView(jTextArea4);
+        typoErrorsTextArea.setColumns(20);
+        typoErrorsTextArea.setRows(5);
+        typoErrorAddScrolpanel.setViewportView(typoErrorsTextArea);
 
-        typoErrorsAddPanel.add(typoErrorAddTextArea, java.awt.BorderLayout.CENTER);
+        typoErrorsAddPanel.add(typoErrorAddScrolpanel, java.awt.BorderLayout.CENTER);
 
+        typoErrorAddButton.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         typoErrorAddButton.setText("Add");
+        typoErrorAddButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                typoErrorAddButtonActionPerformed(evt);
+            }
+        });
         typoErrorsAddPanel.add(typoErrorAddButton, java.awt.BorderLayout.LINE_END);
 
         typoCritismsAddPanel.add(typoErrorsAddPanel, java.awt.BorderLayout.PAGE_START);
@@ -239,17 +225,24 @@ public class ReviewPanel extends javax.swing.JPanel {
         criticismsAddPanel.setMinimumSize(new java.awt.Dimension(120, 45));
         criticismsAddPanel.setLayout(new java.awt.BorderLayout());
 
+        criticismsAddText.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         criticismsAddText.setText("Add Criticisms");
         criticismsAddPanel.add(criticismsAddText, java.awt.BorderLayout.PAGE_START);
 
-        jTextArea5.setColumns(20);
-        jTextArea5.setRows(5);
-        criticismsAddTextArea.setViewportView(jTextArea5);
+        criticsmsTextArea.setColumns(20);
+        criticsmsTextArea.setRows(5);
+        criticismsAddScrolPanel.setViewportView(criticsmsTextArea);
 
-        criticismsAddPanel.add(criticismsAddTextArea, java.awt.BorderLayout.CENTER);
+        criticismsAddPanel.add(criticismsAddScrolPanel, java.awt.BorderLayout.CENTER);
 
-        jButton2.setText("Add");
-        criticismsAddPanel.add(jButton2, java.awt.BorderLayout.LINE_END);
+        criticismsAddButton.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        criticismsAddButton.setText("Add");
+        criticismsAddButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                criticismsAddButtonActionPerformed(evt);
+            }
+        });
+        criticismsAddPanel.add(criticismsAddButton, java.awt.BorderLayout.LINE_END);
 
         typoCritismsAddPanel.add(criticismsAddPanel, java.awt.BorderLayout.CENTER);
 
@@ -257,15 +250,22 @@ public class ReviewPanel extends javax.swing.JPanel {
 
         verdictPanel.setLayout(new java.awt.BorderLayout());
 
+        verdictText.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         verdictText.setText("Verdict");
         verdictPanel.add(verdictText, java.awt.BorderLayout.PAGE_START);
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+        verdictSelectList.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        verdictSelectList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "STRONG_REJECT", "WEAK_REJECT", "WEAK_ACCEPT", "STRONG_ACCEPT" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        verdictList.setViewportView(jList2);
+        verdictSelectList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                verdictSelectListValueChanged(evt);
+            }
+        });
+        verdictList.setViewportView(verdictSelectList);
 
         verdictPanel.add(verdictList, java.awt.BorderLayout.CENTER);
 
@@ -273,6 +273,7 @@ public class ReviewPanel extends javax.swing.JPanel {
 
         submitPannel.add(jSplitPane2, java.awt.BorderLayout.CENTER);
 
+        submitButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         submitButton.setText("Submit");
         submitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,39 +288,82 @@ public class ReviewPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        // TODO add your handling code here:
-        // acceptableLabel.getText();
-        // summaryTextArea.getText();
-        // typoErrorsList.getModel();
-
-
-
+        int verdictIndex = verdictSelectList.getSelectedIndex();
+        // TODO remind user if no verdict selected
+        Verdict verdict = Verdict.valueOf(verdictIndex);
+        review.setVerdict(verdict);
+        review.setSummary(summaryTextArea.getText());
+        review.setTimestampNow();
+        // review.setTimestamp(timestamp);
+        try {
+            Database.write("Review", review);
+        } catch (SQLException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        
+        for(int i = 0; i < typoErrorListModel.getSize(); i++){
+            try {
+                Database.write("TypoError", typoErrorListModel.get(i));
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        
+        for(int i = 0; i < criticismsListModel.getSize(); i++){
+            try {
+                Database.write("Criticism", criticismsListModel.get(i));
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        
     }//GEN-LAST:event_submitButtonActionPerformed
+
+    private void typoErrorAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typoErrorAddButtonActionPerformed
+
+        TypoError typoError = new TypoError(review.getEmail(), review.getIssn(), review.getSubmissionID(), typoErrorListModel.getSize(), typoErrorsTextArea.getText());
+        typoErrorListModel.addElement(typoError);
+        typoErrorsTextArea.removeAll();
+
+    }//GEN-LAST:event_typoErrorAddButtonActionPerformed
+
+    private void criticismsAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_criticismsAddButtonActionPerformed
+
+        Criticism criticism = new Criticism(review.getEmail(), review.getIssn(), review.getSubmissionID(), criticismsListModel.getSize(), criticsmsTextArea.getText());
+        criticismsListModel.addElement(criticism);
+        criticsmsTextArea.removeAll();
+
+    }//GEN-LAST:event_criticismsAddButtonActionPerformed
+
+    private void verdictSelectListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_verdictSelectListValueChanged
+        // TODO delet the func
+    }//GEN-LAST:event_verdictSelectListValueChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel SubmissionLabel;
     private javax.swing.JLabel acceptableLabel;
     private javax.swing.JLabel addTypoText;
+    private javax.swing.JButton criticismsAddButton;
     private javax.swing.JPanel criticismsAddPanel;
+    private javax.swing.JScrollPane criticismsAddScrolPanel;
     private javax.swing.JLabel criticismsAddText;
-    private javax.swing.JScrollPane criticismsAddTextArea;
     private javax.swing.JLabel criticismsLabel;
-    private javax.swing.JList<String> criticismsList;
+    private javax.swing.JList<Criticism> criticismsList;
     private javax.swing.JScrollPane criticismsScrollPane;
+    private javax.swing.JTextArea criticsmsTextArea;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
     private javax.swing.Box.Filler filler4;
     private javax.swing.JPanel infoPanel;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextArea jTextArea4;
-    private javax.swing.JTextArea jTextArea5;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JLabel reviewerLabel;
     private javax.swing.JButton submitButton;
@@ -329,13 +373,15 @@ public class ReviewPanel extends javax.swing.JPanel {
     private javax.swing.JTextArea summaryTextArea;
     private javax.swing.JPanel typoCritismsAddPanel;
     private javax.swing.JButton typoErrorAddButton;
-    private javax.swing.JScrollPane typoErrorAddTextArea;
+    private javax.swing.JScrollPane typoErrorAddScrolpanel;
     private javax.swing.JPanel typoErrorsAddPanel;
     private javax.swing.JLabel typoErrorsLabel;
-    private javax.swing.JList<String> typoErrorsList;
+    private javax.swing.JList<TypoError> typoErrorsList;
     private javax.swing.JScrollPane typoErrorsScrollPane;
+    private javax.swing.JTextArea typoErrorsTextArea;
     private javax.swing.JScrollPane verdictList;
     private javax.swing.JPanel verdictPanel;
+    private javax.swing.JList<String> verdictSelectList;
     private javax.swing.JLabel verdictText;
     // End of variables declaration//GEN-END:variables
 }

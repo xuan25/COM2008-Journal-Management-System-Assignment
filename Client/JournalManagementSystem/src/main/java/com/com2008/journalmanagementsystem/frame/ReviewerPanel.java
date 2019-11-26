@@ -31,6 +31,9 @@ public class ReviewerPanel extends javax.swing.JPanel {
     DefaultListModel selectListModel = new DefaultListModel<Submission>();  
     public ReviewerPanel(String email) {
         initComponents();
+
+        this.email = email;
+
         try {
             List<Submission> sub = Database.read("Submission",new Submission(null, null, null, null, null, null, null, null, Status.SUBMITTED));
             for (Submission submission : sub) {
