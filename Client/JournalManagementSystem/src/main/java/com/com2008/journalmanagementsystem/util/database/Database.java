@@ -233,9 +233,12 @@ public class Database {
             field.setAccessible(true);
             try {
                 String key = field.getName();
-                String value = (String) field.get(dataRowNew);
-
-                if (includeNull || value != null) {
+                Object obj = field.get(dataRowNew);
+                
+                if (includeNull || obj != null) {
+                    String value = null;
+                    if(obj != null)
+                        value = obj.toString();
                     if(firstItem)
                         firstItem = false;
                     else
@@ -325,7 +328,7 @@ public class Database {
 
 
             // Test Document
-            String documentFolder = "C:\\Users\\Xuan\\Documents\\Github\\COM2008Project\\";
+            String documentFolder = "/Users/boxuanshan/Documents/GitHub/COM2008Project/";
             String filename = "dummy.pdf";
 
             // Document upload
