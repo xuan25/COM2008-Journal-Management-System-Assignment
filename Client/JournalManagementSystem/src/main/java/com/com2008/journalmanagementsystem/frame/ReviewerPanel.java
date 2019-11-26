@@ -28,15 +28,16 @@ public class ReviewerPanel extends javax.swing.JPanel {
      * Creates new form ReviewerPanel
      */
     private String email;
+    DefaultListModel selectListModel = new DefaultListModel<Submission>(); 
+    DefaultListModel slectedListModel = new DefaultListModel<Submission>(); 
     public ReviewerPanel(String email) {
         initComponents();
         try {
             List<Submission> sub = Database.read("Submission",new Submission(null, null, null, null, null, null, null, null, Status.SUBMITTED));
-            DefaultListModel defaultListModel = new DefaultListModel<Submission>(); 
             for (Submission submission : sub) {
-                defaultListModel.addElement(submission);
+                selectListModel.addElement(submission);
             }
-            selectList.setModel(defaultListModel);
+            selectList.setModel(selectListModel);
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -91,6 +92,11 @@ public class ReviewerPanel extends javax.swing.JPanel {
 
         addToSelectedButton.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         addToSelectedButton.setText("Add to review");
+        addToSelectedButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addToSelectedButtonActionPerformed(evt);
+            }
+        });
         selectPanel.add(addToSelectedButton, java.awt.BorderLayout.PAGE_END);
 
         list.add(selectPanel, java.awt.BorderLayout.CENTER);
@@ -102,12 +108,22 @@ public class ReviewerPanel extends javax.swing.JPanel {
         selectedLable.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
         selectedPanel.add(selectedLable, java.awt.BorderLayout.PAGE_START);
 
+        selectedList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                selectedListValueChanged(evt);
+            }
+        });
         jScrollPane2.setViewportView(selectedList);
 
         selectedPanel.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
         finishButton.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         finishButton.setText("Finish review");
+        finishButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                finishButtonActionPerformed(evt);
+            }
+        });
         selectedPanel.add(finishButton, java.awt.BorderLayout.PAGE_END);
 
         list.add(selectedPanel, java.awt.BorderLayout.SOUTH);
@@ -128,6 +144,31 @@ public class ReviewerPanel extends javax.swing.JPanel {
         reviewPanel.revalidate();
     }//GEN-LAST:event_selectListValueChanged
 
+    private void addToSelectedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToSelectedButtonActionPerformed
+        // TODO add your handling code here:
+        Submission thisSubmission = selectList.getSelectedValue();
+        slectedListModel.addElement(thisSubmission);
+        selectedList.setModel(slectedListModel);
+        selectListModel.removeElement(thisSubmission);
+        selectList.setModel(selectListModel);
+    }//GEN-LAST:event_addToSelectedButtonActionPerformed
+
+    private void finishButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finishButtonActionPerformed
+        // TODO add your handling code here:
+        reviewPanel.removeAll();
+        Submission thisSubmission = selectedList.getSelectedValue();
+        slectedListModel.removeElement(thisSubmission);
+        selectedList.setModel(slectedListModel);
+    }//GEN-LAST:event_finishButtonActionPerformed
+
+    private void selectedListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_selectedListValueChanged
+        // TODO add your handling code here:
+        ArticlePanel articlePanel = new ArticlePanel(selectList.getSelectedValue(), UserRole.REVIEWER, email);
+        reviewPanel.removeAll();
+        reviewPanel.add(articlePanel);
+        reviewPanel.revalidate();
+    }//GEN-LAST:event_selectedListValueChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addToSelectedButton;
@@ -141,7 +182,7 @@ public class ReviewerPanel extends javax.swing.JPanel {
     private javax.swing.JList<Submission> selectList;
     private javax.swing.JPanel selectPanel;
     private javax.swing.JLabel selectedLable;
-    private javax.swing.JList<String> selectedList;
+    private javax.swing.JList<Submission> selectedList;
     private javax.swing.JPanel selectedPanel;
     // End of variables declaration//GEN-END:variables
 }
