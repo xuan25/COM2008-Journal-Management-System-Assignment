@@ -106,6 +106,21 @@ public class ArticlePanel extends javax.swing.JPanel {
                 e.printStackTrace();
             }
         }
+
+        if(reviewPanel.isVisible() && userRole==UserRole.REVIEWER){
+            innerReviewPanel.removeAll();
+            try {
+                List<Review> reviews = Database.read("Review", new Review(null, submission.getIssn(), submission.getSubmissionID(), null, null, null));
+                for(int i = 0; i < reviews.size(); i++){
+                    ReviewPanel reviewPanel = new ReviewPanel("Reviewer" + (i + 1), reviews.get(i),UserRole.REVIEWER);
+                    innerReviewPanel.add(reviewPanel);
+                }
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+        }
     }
 
     /**

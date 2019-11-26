@@ -51,6 +51,7 @@ public class ReviewPanel extends javax.swing.JPanel {
                 cristicismsListModel.addElement(criticism.getContent());
             }
             typoErrorsList.setModel(cristicismsListModel);
+            submitPannel.setVisible(false);
             
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -58,6 +59,37 @@ public class ReviewPanel extends javax.swing.JPanel {
         }
         
 
+    }
+
+    public ReviewPanel(String name, Review review, UserRole userRole) {
+        initComponents();
+
+        //reviewerLabel.setText(name);
+        //acceptableLabel.setText(review.getVerdict().toString());
+        //summaryTextArea.setText(review.getSummary());
+
+        try {
+            typoErrorsList.removeAll();
+            typoErrorsList.removeAll();
+
+            List<TypoError> typoErrors = Database.read("TypoError", new TypoError(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
+            DefaultListModel typoErrorListModel = new DefaultListModel();
+            for(TypoError typoError : typoErrors){
+                typoErrorListModel.addElement(typoError.getContent());
+            }
+            typoErrorsList.setModel(typoErrorListModel);
+
+            List<Criticism> criticisms = Database.read("Criticism", new Criticism(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
+            DefaultListModel cristicismsListModel = new DefaultListModel();
+            for(Criticism criticism : criticisms){
+                cristicismsListModel.addElement(criticism.getContent());
+            }
+            typoErrorsList.setModel(cristicismsListModel);
+            
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -69,6 +101,8 @@ public class ReviewPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         mainPanel = new javax.swing.JPanel();
@@ -87,6 +121,29 @@ public class ReviewPanel extends javax.swing.JPanel {
         criticismsList = new javax.swing.JList<>();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         jSeparator1 = new javax.swing.JSeparator();
+        submitPannel = new javax.swing.JPanel();
+        SubmissionLabel = new javax.swing.JLabel();
+        jSplitPane2 = new javax.swing.JSplitPane();
+        typoCritismsAddPanel = new javax.swing.JPanel();
+        typoErrorsAddPanel = new javax.swing.JPanel();
+        addTypoText = new javax.swing.JLabel();
+        typoErrorAddTextArea = new javax.swing.JScrollPane();
+        jTextArea4 = new javax.swing.JTextArea();
+        typoErrorAddButton = new javax.swing.JButton();
+        criticismsAddPanel = new javax.swing.JPanel();
+        criticismsAddText = new javax.swing.JLabel();
+        criticismsAddTextArea = new javax.swing.JScrollPane();
+        jTextArea5 = new javax.swing.JTextArea();
+        jButton2 = new javax.swing.JButton();
+        verdictPanel = new javax.swing.JPanel();
+        verdictText = new javax.swing.JLabel();
+        verdictList = new javax.swing.JScrollPane();
+        jList2 = new javax.swing.JList<>();
+        submitButton = new javax.swing.JButton();
+
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jScrollPane3.setViewportView(jTextArea2);
 
         setLayout(new java.awt.BorderLayout());
         add(filler3, java.awt.BorderLayout.WEST);
@@ -152,12 +209,101 @@ public class ReviewPanel extends javax.swing.JPanel {
         mainPanel.add(filler2);
         mainPanel.add(jSeparator1);
 
+        submitPannel.setLayout(new java.awt.BorderLayout());
+
+        SubmissionLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        SubmissionLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        SubmissionLabel.setText("Submit");
+        submitPannel.add(SubmissionLabel, java.awt.BorderLayout.PAGE_START);
+
+        jSplitPane2.setDividerLocation(600);
+
+        typoCritismsAddPanel.setLayout(new java.awt.BorderLayout());
+
+        typoErrorsAddPanel.setLayout(new java.awt.BorderLayout());
+
+        addTypoText.setText("Add Typo Error");
+        typoErrorsAddPanel.add(addTypoText, java.awt.BorderLayout.NORTH);
+
+        jTextArea4.setColumns(20);
+        jTextArea4.setRows(5);
+        typoErrorAddTextArea.setViewportView(jTextArea4);
+
+        typoErrorsAddPanel.add(typoErrorAddTextArea, java.awt.BorderLayout.CENTER);
+
+        typoErrorAddButton.setText("Add");
+        typoErrorsAddPanel.add(typoErrorAddButton, java.awt.BorderLayout.LINE_END);
+
+        typoCritismsAddPanel.add(typoErrorsAddPanel, java.awt.BorderLayout.PAGE_START);
+
+        criticismsAddPanel.setMinimumSize(new java.awt.Dimension(120, 45));
+        criticismsAddPanel.setLayout(new java.awt.BorderLayout());
+
+        criticismsAddText.setText("Add Criticisms");
+        criticismsAddPanel.add(criticismsAddText, java.awt.BorderLayout.PAGE_START);
+
+        jTextArea5.setColumns(20);
+        jTextArea5.setRows(5);
+        criticismsAddTextArea.setViewportView(jTextArea5);
+
+        criticismsAddPanel.add(criticismsAddTextArea, java.awt.BorderLayout.CENTER);
+
+        jButton2.setText("Add");
+        criticismsAddPanel.add(jButton2, java.awt.BorderLayout.LINE_END);
+
+        typoCritismsAddPanel.add(criticismsAddPanel, java.awt.BorderLayout.CENTER);
+
+        jSplitPane2.setLeftComponent(typoCritismsAddPanel);
+
+        verdictPanel.setLayout(new java.awt.BorderLayout());
+
+        verdictText.setText("Verdict");
+        verdictPanel.add(verdictText, java.awt.BorderLayout.PAGE_START);
+
+        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        verdictList.setViewportView(jList2);
+
+        verdictPanel.add(verdictList, java.awt.BorderLayout.CENTER);
+
+        jSplitPane2.setRightComponent(verdictPanel);
+
+        submitPannel.add(jSplitPane2, java.awt.BorderLayout.CENTER);
+
+        submitButton.setText("Submit");
+        submitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitButtonActionPerformed(evt);
+            }
+        });
+        submitPannel.add(submitButton, java.awt.BorderLayout.PAGE_END);
+
+        mainPanel.add(submitPannel);
+
         add(mainPanel, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
+        // TODO add your handling code here:
+        // acceptableLabel.getText();
+        // summaryTextArea.getText();
+        // typoErrorsList.getModel();
+
+
+
+    }//GEN-LAST:event_submitButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel SubmissionLabel;
     private javax.swing.JLabel acceptableLabel;
+    private javax.swing.JLabel addTypoText;
+    private javax.swing.JPanel criticismsAddPanel;
+    private javax.swing.JLabel criticismsAddText;
+    private javax.swing.JScrollPane criticismsAddTextArea;
     private javax.swing.JLabel criticismsLabel;
     private javax.swing.JList<String> criticismsList;
     private javax.swing.JScrollPane criticismsScrollPane;
@@ -166,14 +312,30 @@ public class ReviewPanel extends javax.swing.JPanel {
     private javax.swing.Box.Filler filler3;
     private javax.swing.Box.Filler filler4;
     private javax.swing.JPanel infoPanel;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JList<String> jList2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSplitPane jSplitPane2;
+    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JTextArea jTextArea4;
+    private javax.swing.JTextArea jTextArea5;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JLabel reviewerLabel;
+    private javax.swing.JButton submitButton;
+    private javax.swing.JPanel submitPannel;
     private javax.swing.JLabel summaryLabel;
     private javax.swing.JScrollPane summaryScrollPane;
     private javax.swing.JTextArea summaryTextArea;
+    private javax.swing.JPanel typoCritismsAddPanel;
+    private javax.swing.JButton typoErrorAddButton;
+    private javax.swing.JScrollPane typoErrorAddTextArea;
+    private javax.swing.JPanel typoErrorsAddPanel;
     private javax.swing.JLabel typoErrorsLabel;
     private javax.swing.JList<String> typoErrorsList;
     private javax.swing.JScrollPane typoErrorsScrollPane;
+    private javax.swing.JScrollPane verdictList;
+    private javax.swing.JPanel verdictPanel;
+    private javax.swing.JLabel verdictText;
     // End of variables declaration//GEN-END:variables
 }
