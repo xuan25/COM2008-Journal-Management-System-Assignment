@@ -72,7 +72,7 @@ CREATE TABLE Submission(
     title           VARCHAR(255),
     mainAuthor      VARCHAR(255),
     corrAuthor      VARCHAR(255),
-    contentAbstract VARCHAR(255),
+    contentAbstract TEXT,
     draftID         VARCHAR(255),
     finalID         VARCHAR(255),
     status          INT,
@@ -108,7 +108,7 @@ CREATE TABLE Review(
     email           VARCHAR(255),
     issn            VARCHAR(14),
     submissionID    VARCHAR(255),
-    summary         VARCHAR(255),
+    summary         TEXT,
     verdict         INT,
     timestamp       BIGINT,
     PRIMARY KEY (email, issn, submissionID),
@@ -121,7 +121,7 @@ CREATE TABLE TypoError(
     issn            VARCHAR(14),
     submissionID    VARCHAR(255),
     num             INT,
-    content         VARCHAR(255),
+    content         TEXT,
     PRIMARY KEY (email, issn, submissionID, num),
     FOREIGN KEY (email, issn, submissionID) REFERENCES Review(email, issn, submissionID)
 );
@@ -131,7 +131,7 @@ CREATE TABLE Criticism(
     issn            VARCHAR(14),
     submissionID    VARCHAR(255),
     num             INT,
-    content         VARCHAR(255),
+    content         TEXT,
     PRIMARY KEY (email, issn, submissionID, num),
     FOREIGN KEY (email, issn, submissionID) REFERENCES Review(email, issn, submissionID)
 );
@@ -141,7 +141,7 @@ CREATE TABLE Response(
     issn            VARCHAR(255),
     submissionID    VARCHAR(255),
     num             INT,
-    content         VARCHAR(255),
+    content         TEXT,
     PRIMARY KEY (email, issn, submissionID, num),
     FOREIGN KEY (email, issn, submissionID, num) REFERENCES Criticism(email, issn, submissionID, num)
 );
