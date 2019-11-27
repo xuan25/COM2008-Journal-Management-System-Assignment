@@ -135,3 +135,13 @@ CREATE TABLE Criticism(
     PRIMARY KEY (email, issn, submissionID, num),
     FOREIGN KEY (email, issn, submissionID) REFERENCES Review(email, issn, submissionID)
 );
+
+CREATE TABLE Response(
+    email           VARCHAR(255),
+    issn            VARCHAR(255),
+    submissionID    VARCHAR(255),
+    num             INT,
+    content         VARCHAR(255),
+    PRIMARY KEY (email, issn, submissionID, num),
+    FOREIGN KEY (email, issn, submissionID, num) REFERENCES Criticism(email, issn, submissionID, num)
+);
