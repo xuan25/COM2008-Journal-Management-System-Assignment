@@ -130,7 +130,7 @@ public class ReviewPanel extends javax.swing.JPanel {
         typoErrorsList = new javax.swing.JList<>();
         criticismsLabel = new javax.swing.JLabel();
         criticismsScrollPane = new javax.swing.JScrollPane();
-        javax.swing.JList<Criticism> criticismsList = new javax.swing.JList<>();
+        criticismsList = new javax.swing.JList<>();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         jSeparator1 = new javax.swing.JSeparator();
         submitPannel = new javax.swing.JPanel();
@@ -400,6 +400,7 @@ public class ReviewPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane criticismsAddScrolPanel;
     private javax.swing.JLabel criticismsAddText;
     private javax.swing.JLabel criticismsLabel;
+    private javax.swing.JList<Criticism> criticismsList;
     private javax.swing.JScrollPane criticismsScrollPane;
     private javax.swing.JTextArea criticsmsTextArea;
     private javax.swing.Box.Filler filler1;

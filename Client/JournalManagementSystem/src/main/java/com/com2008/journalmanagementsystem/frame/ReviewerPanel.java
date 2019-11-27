@@ -85,10 +85,17 @@ public class ReviewerPanel extends javax.swing.JPanel {
 
         jSplitPane1 = new javax.swing.JSplitPane();
         list = new javax.swing.JPanel();
+        SelectResponcePanel = new javax.swing.JPanel();
+        jSplitPane2 = new javax.swing.JSplitPane();
         selectPanel = new javax.swing.JPanel();
         selectLable = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         selectList = new javax.swing.JList<>();
+        AuthorResponsePanel = new javax.swing.JPanel();
+        ResponcedLable = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        ResponcedList = new javax.swing.JList<>();
+        RefreshButtonPanel = new javax.swing.JPanel();
         refreshButton = new javax.swing.JButton();
         reviewPanel = new javax.swing.JPanel();
 
@@ -97,7 +104,12 @@ public class ReviewerPanel extends javax.swing.JPanel {
         jSplitPane1.setDividerLocation(200);
 
         list.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        list.setLayout(new java.awt.BorderLayout());
+        list.setLayout(new javax.swing.BoxLayout(list, javax.swing.BoxLayout.PAGE_AXIS));
+
+        SelectResponcePanel.setLayout(new java.awt.BorderLayout());
+
+        jSplitPane2.setDividerLocation(500);
+        jSplitPane2.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
         selectPanel.setLayout(new java.awt.BorderLayout());
 
@@ -115,15 +127,40 @@ public class ReviewerPanel extends javax.swing.JPanel {
 
         selectPanel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
+        jSplitPane2.setLeftComponent(selectPanel);
+
+        AuthorResponsePanel.setLayout(new java.awt.BorderLayout());
+
+        ResponcedLable.setText("Responsed:");
+        AuthorResponsePanel.add(ResponcedLable, java.awt.BorderLayout.PAGE_START);
+
+        ResponcedList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(ResponcedList);
+
+        AuthorResponsePanel.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+
+        jSplitPane2.setRightComponent(AuthorResponsePanel);
+
+        SelectResponcePanel.add(jSplitPane2, java.awt.BorderLayout.CENTER);
+
+        list.add(SelectResponcePanel);
+
+        RefreshButtonPanel.setMaximumSize(new java.awt.Dimension(2147483647, 29));
+        RefreshButtonPanel.setLayout(new java.awt.BorderLayout());
+
         refreshButton.setText("Refresh list");
         refreshButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 refreshButtonActionPerformed(evt);
             }
         });
-        selectPanel.add(refreshButton, java.awt.BorderLayout.PAGE_END);
+        RefreshButtonPanel.add(refreshButton, java.awt.BorderLayout.PAGE_END);
 
-        list.add(selectPanel, java.awt.BorderLayout.CENTER);
+        list.add(RefreshButtonPanel);
 
         jSplitPane1.setLeftComponent(list);
 
@@ -160,8 +197,15 @@ public class ReviewerPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel AuthorResponsePanel;
+    private javax.swing.JPanel RefreshButtonPanel;
+    private javax.swing.JLabel ResponcedLable;
+    private javax.swing.JList<String> ResponcedList;
+    private javax.swing.JPanel SelectResponcePanel;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JPanel list;
     private javax.swing.JButton refreshButton;
     private javax.swing.JPanel reviewPanel;
