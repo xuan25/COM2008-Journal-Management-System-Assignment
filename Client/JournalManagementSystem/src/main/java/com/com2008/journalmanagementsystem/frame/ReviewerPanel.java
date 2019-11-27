@@ -29,7 +29,7 @@ public class ReviewerPanel extends javax.swing.JPanel {
      * Creates new form ReviewerPanel
      */
     private String email;
-    // DefaultListModel selectListModel = new DefaultListModel<Submission>();
+
     public ReviewerPanel(String email) {
         initComponents();
 
@@ -66,7 +66,6 @@ public class ReviewerPanel extends javax.swing.JPanel {
                             selectListModel.addElement(submission);
                     }
                 }
-
             }
             selectList.setModel(selectListModel);
         } catch (SQLException e) {
