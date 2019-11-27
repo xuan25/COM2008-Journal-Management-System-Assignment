@@ -42,7 +42,7 @@ CREATE TABLE Journal(
 );
 
 CREATE TABLE EditorOnBoard(
-    issn    VARCHAR(255),
+    issn    VARCHAR(14),
     email   VARCHAR(255),
     PRIMARY KEY (issn, email),
     FOREIGN KEY (issn) REFERENCES Journal(issn),
@@ -68,18 +68,20 @@ CREATE TABLE Document(
 
 CREATE TABLE Submission(
     issn            VARCHAR(14),
-    submissionID    VARCHAR(14),
+    submissionID    VARCHAR(255),
     title           VARCHAR(255),
     mainAuthor      VARCHAR(255),
     corrAuthor      VARCHAR(255),
-    contentAbstract VARCHAR(255),
+    contentAbstract TEXT,
     draftID         VARCHAR(255),
     finalID         VARCHAR(255),
     status          INT,
     PRIMARY KEY (issn, submissionID),
     FOREIGN KEY (issn) REFERENCES Journal(issn),
     FOREIGN KEY (mainAuthor) REFERENCES Author(email),
-    FOREIGN KEY (corrAuthor) REFERENCES Author(email)
+    FOREIGN KEY (corrAuthor) REFERENCES Author(email),
+    FOREIGN KEY (draftID) REFERENCES Document(uuid),
+    FOREIGN KEY (finalID) REFERENCES Document(uuid)
 );
 
 CREATE TABLE SubmissionAuthor(
@@ -106,9 +108,9 @@ CREATE TABLE Article(
 
 CREATE TABLE Review(
     email           VARCHAR(255),
-    issn            VARCHAR(255),
+    issn            VARCHAR(14),
     submissionID    VARCHAR(255),
-    summary         VARCHAR(255),
+    summary         TEXT,
     verdict         INT,
     timestamp       BIGINT,
     PRIMARY KEY (email, issn, submissionID),
@@ -118,20 +120,30 @@ CREATE TABLE Review(
 
 CREATE TABLE TypoError(
     email           VARCHAR(255),
-    issn            VARCHAR(255),
+    issn            VARCHAR(14),
     submissionID    VARCHAR(255),
     num             INT,
-    content         VARCHAR(255),
+    content         TEXT,
     PRIMARY KEY (email, issn, submissionID, num),
     FOREIGN KEY (email, issn, submissionID) REFERENCES Review(email, issn, submissionID)
 );
 
 CREATE TABLE Criticism(
     email           VARCHAR(255),
+    issn            VARCHAR(14),
+    submissionID    VARCHAR(255),
+    num             INT,
+    content         TEXT,
+    PRIMARY KEY (email, issn, submissionID, num),
+    FOREIGN KEY (email, issn, submissionID) REFERENCES Review(email, issn, submissionID)
+);
+
+CREATE TABLE Response(
+    email           VARCHAR(255),
     issn            VARCHAR(255),
     submissionID    VARCHAR(255),
     num             INT,
-    content         VARCHAR(255),
+    content         TEXT,
     PRIMARY KEY (email, issn, submissionID, num),
-    FOREIGN KEY (email, issn, submissionID) REFERENCES Review(email, issn, submissionID)
+    FOREIGN KEY (email, issn, submissionID, num) REFERENCES Criticism(email, issn, submissionID, num)
 );
