@@ -34,8 +34,10 @@ public class Submission implements IDataRow{
     public enum Status {
         SUBMITTED(0),
         REVIEWED(1),
-        ACCEPTED(2),
-        REJECTED(3),
+        RESPONSED(2),
+        VERDICTED(3),
+        ACCEPTED(4),
+        REJECTED(5),
         UNKNOW(-1);
 
         private int value = 0;
@@ -51,8 +53,12 @@ public class Submission implements IDataRow{
             case 1:
                 return REVIEWED;
             case 2:
-                return ACCEPTED;
+                return RESPONSED;
             case 3:
+                return VERDICTED;
+            case 4:
+                return ACCEPTED;
+            case 5:
                 return REJECTED;
             default:
                 return UNKNOW;
