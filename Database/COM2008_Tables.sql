@@ -79,7 +79,9 @@ CREATE TABLE Submission(
     PRIMARY KEY (issn, submissionID),
     FOREIGN KEY (issn) REFERENCES Journal(issn),
     FOREIGN KEY (mainAuthor) REFERENCES Author(email),
-    FOREIGN KEY (corrAuthor) REFERENCES Author(email)
+    FOREIGN KEY (corrAuthor) REFERENCES Author(email),
+    FOREIGN KEY (draftID) REFERENCES Document(uuid),
+    FOREIGN KEY (finalID) REFERENCES Document(uuid)
 );
 
 CREATE TABLE SubmissionAuthor(
