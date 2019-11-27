@@ -237,7 +237,9 @@ public class Database {
                 Object obj = field.get(dataRowNew);
                 
                 if (includeNull || obj != null) {
-                    String value = obj.toString();
+                    String value = null;
+                    if(obj != null)
+                        value = obj.toString();
                     if(firstItem)
                         firstItem = false;
                     else
@@ -337,7 +339,7 @@ public class Database {
 
 
             // Test Document
-            String documentFolder = "C:\\Users\\Xuan\\Documents\\Github\\COM2008Project\\";
+            String documentFolder = "/Users/boxuanshan/Documents/GitHub/COM2008Project/";
             String filename = "dummy.pdf";
 
             // Document upload
