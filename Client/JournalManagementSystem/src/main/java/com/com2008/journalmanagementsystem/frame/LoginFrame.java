@@ -12,6 +12,7 @@ import javax.swing.*;
 
 import com.com2008.journalmanagementsystem.model.Account;
 import com.com2008.journalmanagementsystem.model.Author;
+import com.com2008.journalmanagementsystem.model.Editor;
 import com.com2008.journalmanagementsystem.util.Password;
 import com.com2008.journalmanagementsystem.util.database.Database;
 
@@ -734,10 +735,31 @@ public class LoginFrame extends javax.swing.JFrame {
 
         switch(loginRoleComboBox.getSelectedIndex()){
             case 0: //Editor
+	            	try {
+	            		java.util.List<Editor> editors = Database.read("Editor", new Editor(email, null));
+	            		System.out.println(editors);
+	            		if(editors.size() > 0){
+	            			System.out.println(editors.get(0).getHashedPassword()+hashedPassword);
+	                        if(editors.get(0).getHashedPassword().equals(hashedPassword)){
+	                            new MainFrame(this, UserRole.EDITOR, email).setVisible(true);
+	                            this.setVisible(false);
+	                        }
+	                        else{
+	                            JOptionPane.showMessageDialog(null, "Password incorrect.", "Login", JOptionPane.ERROR_MESSAGE);
+	                        }
+	                    }
+	                    else{
+	                        JOptionPane.showMessageDialog(null, "User not found.", "Login", JOptionPane.ERROR_MESSAGE);
+	                    }
+	            	}
+	            	catch (SQLException e) {
+	            		e.printStackTrace();
+	            	}
                 break;
             case 1: //Author
                 try {
                     java.util.List<Author> authors = Database.read("Author", new Author(email, null));
+                    System.out.println(authors);
                     if(authors.size() > 0){
                         if(authors.get(0).getHashedPassword().equals(hashedPassword)){
                             new MainFrame(this, UserRole.AUTHOR, email).setVisible(true);

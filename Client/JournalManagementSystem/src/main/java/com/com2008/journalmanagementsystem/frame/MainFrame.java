@@ -9,6 +9,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import com.com2008.journalmanagementsystem.model.Account;
+import com.com2008.journalmanagementsystem.model.Journal;
 import com.com2008.journalmanagementsystem.util.database.Database;
 
 import java.awt.event.*;
@@ -113,6 +114,48 @@ public class MainFrame extends javax.swing.JFrame {
                     }
                 }));
                 break;
+            case EDITOR:
+            	selectionsPanel.add(new SidePanelButton("Change password", new MouseAdapter() {
+                    public void mousePressed(MouseEvent evt) {
+                        activeSidePanelBtn((SidePanelButton)evt.getSource());
+                        updateMainPanel(new ProfilePanel(userRole, email));
+                    }
+                }));
+        		selectionsPanel.add(new SidePanelButton("Retire", new MouseAdapter() {
+                    public void mousePressed(MouseEvent evt) {
+                        activeSidePanelBtn((SidePanelButton)evt.getSource());
+//                        updateMainPanel(new RetirePanel(email));
+                    }
+                }));
+                selectionsPanel.add(new SidePanelButton("Accept/Reject Articles", new MouseAdapter() {
+                    public void mousePressed(MouseEvent evt) {
+                        activeSidePanelBtn((SidePanelButton) evt.getSource());
+                        updateMainPanel(new ArticlePanel());
+                    }
+                }));
+            	try {
+                    java.util.List<Journal> journals = Database.read("Journal", new Journal(null, null, email, null, null));
+                	if (journals.size() > 0) {
+                        selectionsPanel.add(new SidePanelButton("Pass Chief Editor", new MouseAdapter() {
+                            public void mousePressed(MouseEvent evt) {
+                                activeSidePanelBtn((SidePanelButton) evt.getSource());
+//                                updateMainPanel(new PassChiefPanel());
+                            }
+                        }));
+                        selectionsPanel.add(new SidePanelButton("Publish Journal", new MouseAdapter() {
+                            public void mousePressed(MouseEvent evt) {
+                                activeSidePanelBtn((SidePanelButton) evt.getSource());
+//                                updateMainPanel(new PublishPanel());
+                            }
+                        }));
+                     
+                	}
+                    // TODO : If user not found
+                } catch (SQLException e) {
+                    // TODO : If user not found
+                    e.printStackTrace();
+                }
+            	break;
             default:
                 break;
         }
