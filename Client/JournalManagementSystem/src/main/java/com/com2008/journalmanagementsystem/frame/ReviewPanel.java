@@ -69,7 +69,7 @@ public class ReviewPanel extends javax.swing.JPanel {
         reviewerLabel.setVisible(false);
 
         try {
-            List<Review> reviews = Database.read("Review",new Review(reviewTemplate.getEmail(), reviewTemplate.getIssn(), reviewTemplate.getSubmissionID(), null, null, null));
+            List<Review> reviews = Database.read("Review",new Review(reviewTemplate.getEmail(), reviewTemplate.getIssn(), reviewTemplate.getSubmissionID(), null, null, null, null));
                 if (reviews.size() > 0){
                     this.review = reviews.get(0);
                     acceptableLabel.setVisible(true);
@@ -79,7 +79,7 @@ public class ReviewPanel extends javax.swing.JPanel {
                     
                     summaryTextArea.setEditable(false);
                     summaryTextArea.setText(review.getSummary());
-                    
+
                     acceptableLabel.setText(review.getVerdict().toString());
 
                     List<TypoError> typoErrors = Database.read("TypoError", new TypoError(reviewTemplate.getEmail(), reviewTemplate.getIssn(), reviewTemplate.getSubmissionID(), null, null));
@@ -343,37 +343,51 @@ public class ReviewPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        int verdictIndex = verdictSelectList.getSelectedIndex();
-        Verdict verdict = Verdict.valueOf(verdictIndex);
-        review.setVerdict(verdict);
-        review.setSummary(summaryTextArea.getText());
-        review.setTimestampNow();
-        // review.setTimestamp(timestamp);
+        
         try {
-            Database.write("Review", review);
-        } catch (SQLException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
-        
-        for(int i = 0; i < typoErrorListModel.getSize(); i++){
-            try {
-                Database.write("TypoError", typoErrorListModel.get(i));
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-        
-        for(int i = 0; i < criticismsListModel.getSize(); i++){
-            try {
-                Database.write("Criticism", criticismsListModel.get(i));
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
+            if (Database.read("Response",new Response(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null)).size() != 0) {
 
+                int verdictIndex = verdictSelectList.getSelectedIndex();
+                Verdict verdict = Verdict.valueOf(verdictIndex);
+                Database.update("Review", review, new Review(null, null, null, null, null, verdict, null), false);
+
+            } else {
+                int verdictIndex = verdictSelectList.getSelectedIndex();
+                Verdict verdict = Verdict.valueOf(verdictIndex);
+                review.setVerdict(verdict);
+                review.setSummary(summaryTextArea.getText());
+                review.setTimestampNow();
+                // review.setTimestamp(timestamp);
+                try {
+                    Database.write("Review", review);
+                } catch (SQLException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+
+                for (int i = 0; i < typoErrorListModel.getSize(); i++) {
+                    try {
+                        Database.write("TypoError", typoErrorListModel.get(i));
+                    } catch (SQLException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+
+                for (int i = 0; i < criticismsListModel.getSize(); i++) {
+                    try {
+                        Database.write("Criticism", criticismsListModel.get(i));
+                    } catch (SQLException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+              
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         
         
     }//GEN-LAST:event_submitButtonActionPerformed

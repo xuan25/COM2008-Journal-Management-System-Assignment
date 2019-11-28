@@ -60,12 +60,12 @@ public class ReviewerPanel extends javax.swing.JPanel {
 
                 String reviewerUniversity = Database.read("Account", new Account(email, null, null, null, null)).get(0).getUniversity();
 
-                int reviewSize = Database.read("Review", new Review(email, null, null, null, null, null)).size();
+                int reviewSize = Database.read("Review", new Review(email, null, null, null, null, null, null)).size();
                 int articleSize = Database.read("SubmissionAuthor", new SubmissionAuthor(null, null, email)).size();
 
                 if(!universitySet.contains(reviewerUniversity)){
                     if (reviewSize - (articleSize*3) < 0){
-                        if(Database.read("Review", new Review(email, submission.getIssn(), submission.getSubmissionID(), null, null, null)).size() == 0)
+                        if(Database.read("Review", new Review(email, submission.getIssn(), submission.getSubmissionID(), null, null, null, null)).size() == 0)
                             selectListModel.addElement(submission);
                     }
                 }
@@ -73,10 +73,12 @@ public class ReviewerPanel extends javax.swing.JPanel {
             selectList.setModel(selectListModel);
 
             DefaultListModel responsDefaultListModel = new DefaultListModel<Submission>();
-            List<Review> reviewList = Database.read("Review", new Review(email, null, null, null, null, null));
+            List<Review> reviewList = Database.read("Review", new Review(email, null, null, null, null, null, null));
             for (Review review : reviewList) {
                 if (Database.read("Response", new Response(email, review.getIssn(), review.getSubmissionID(), null, null)).size() != 0) {
-                    responsDefaultListModel.addElement(Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null, null, null)).get(0));
+                    if (review.getFinalVerdict() == null) {
+                        responsDefaultListModel.addElement(Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null, null, null)).get(0));
+                    }
                 }
             }
             responsedList.setModel(responsDefaultListModel);
@@ -207,6 +209,8 @@ public class ReviewerPanel extends javax.swing.JPanel {
         if(submission == null){
             return;
         }
+        selectList.setEnabled(false);
+        responsedList.setEnabled(false);
         ArticlePanel articlePanel = new ArticlePanel(submission, UserRole.REVIEWER, email);
         reviewPanel.removeAll();
         reviewPanel.add(articlePanel);

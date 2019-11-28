@@ -112,6 +112,7 @@ CREATE TABLE Review(
     submissionID    VARCHAR(255),
     summary         TEXT,
     verdict         INT,
+    finalVerdict    INT,
     timestamp       BIGINT,
     PRIMARY KEY (email, issn, submissionID),
     FOREIGN KEY (email) REFERENCES Reviewer(email),
