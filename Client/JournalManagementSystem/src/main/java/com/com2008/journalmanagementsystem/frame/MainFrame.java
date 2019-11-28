@@ -121,10 +121,10 @@ public class MainFrame extends javax.swing.JFrame {
                         updateMainPanel(new ProfilePanel(userRole, email));
                     }
                 }));
-        		selectionsPanel.add(new SidePanelButton("Retire", new MouseAdapter() {
+        	selectionsPanel.add(new SidePanelButton("Retire", new MouseAdapter() {
                     public void mousePressed(MouseEvent evt) {
                         activeSidePanelBtn((SidePanelButton)evt.getSource());
-//                        updateMainPanel(new RetirePanel(email));
+                        updateMainPanel(new RetirePanel());
                     }
                 }));
                 selectionsPanel.add(new SidePanelButton("Accept/Reject Articles", new MouseAdapter() {
@@ -139,13 +139,13 @@ public class MainFrame extends javax.swing.JFrame {
                         selectionsPanel.add(new SidePanelButton("Pass Chief Editor", new MouseAdapter() {
                             public void mousePressed(MouseEvent evt) {
                                 activeSidePanelBtn((SidePanelButton) evt.getSource());
-//                                updateMainPanel(new PassChiefPanel());
+                                updateMainPanel(new PassChiefPanel());
                             }
                         }));
                         selectionsPanel.add(new SidePanelButton("Publish Journal", new MouseAdapter() {
                             public void mousePressed(MouseEvent evt) {
                                 activeSidePanelBtn((SidePanelButton) evt.getSource());
-//                                updateMainPanel(new PublishPanel());
+                                updateMainPanel(new PublishPanel());
                             }
                         }));
                      
@@ -206,6 +206,7 @@ public class MainFrame extends javax.swing.JFrame {
         setLocation(getStartupLocation());
         setPreferredSize(getFrameSize());
         setSize(getFrameSize());
+        getContentPane().setLayout(new java.awt.BorderLayout());
 
         bg.setLayout(new javax.swing.BoxLayout(bg, javax.swing.BoxLayout.LINE_AXIS));
 
