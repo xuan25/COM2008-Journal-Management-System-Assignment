@@ -103,7 +103,7 @@ public class MainFrame extends javax.swing.JFrame {
                 selectionsPanel.add(new SidePanelButton("New submission", new MouseAdapter() {
                     public void mousePressed(MouseEvent evt) {
                         activeSidePanelBtn((SidePanelButton)evt.getSource());
-                        updateMainPanel(new SubmissionPanel());
+                        updateMainPanel(new SubmissionPanel(email));
                     }
                 }));
                 selectionsPanel.add(new SidePanelButton("Change password", new MouseAdapter() {
