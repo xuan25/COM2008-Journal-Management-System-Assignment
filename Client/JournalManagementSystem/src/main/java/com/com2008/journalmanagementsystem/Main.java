@@ -9,25 +9,26 @@ import com.com2008.journalmanagementsystem.frame.LoginFrame;
 import com.com2008.journalmanagementsystem.util.database.Database;
 
 public class Main {
-    public static void main(String args[]) {
+    public static void main(final String args[]) {
         try {
             Database.connect("jdbc:mysql://stusql.dcs.shef.ac.uk/team018", "team018", "9ae70ba0");
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Can not connect to the database", "The software will now exit", JOptionPane.ERROR_MESSAGE);
+        } catch (final SQLException e) {
+            JOptionPane.showMessageDialog(null, "Can not connect to the database", "The software will now exit",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+        for (final javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
             if ("Windows".equals(info.getName())) {
                 try {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                } catch (ClassNotFoundException e) {
+                } catch (final ClassNotFoundException e) {
                     e.printStackTrace();
-                } catch (InstantiationException e) {
+                } catch (final InstantiationException e) {
                     e.printStackTrace();
-                } catch (IllegalAccessException e) {
+                } catch (final IllegalAccessException e) {
                     e.printStackTrace();
-                } catch (UnsupportedLookAndFeelException e) {
+                } catch (final UnsupportedLookAndFeelException e) {
                     e.printStackTrace();
                 }
                 break;
