@@ -185,8 +185,25 @@ public class ReviewerPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void selectListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_selectListValueChanged
-        selectList.setEnabled(false);
+        responsedList.setSelectedValue(null, false);
+
         Submission submission = selectList.getSelectedValue();
+        if(submission == null){
+            return;
+        }
+        selectList.setEnabled(false);
+        responsedList.setEnabled(false);
+        ArticlePanel articlePanel = new ArticlePanel(submission, UserRole.REVIEWER, email);
+        reviewPanel.removeAll();
+        reviewPanel.add(articlePanel);
+        reviewPanel.revalidate();
+    }//GEN-LAST:event_selectListValueChanged
+
+    private void responsedListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_responsedListValueChanged
+        // TODO add your handling code here:
+        selectList.setSelectedValue(null, false);
+
+        Submission submission = responsedList.getSelectedValue();
         if(submission == null){
             return;
         }
@@ -194,7 +211,8 @@ public class ReviewerPanel extends javax.swing.JPanel {
         reviewPanel.removeAll();
         reviewPanel.add(articlePanel);
         reviewPanel.revalidate();
-    }//GEN-LAST:event_selectListValueChanged
+        selectList.setEnabled(true);
+    }//GEN-LAST:event_responsedListValueChanged
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
         // TODO add your handling code here:
@@ -205,26 +223,8 @@ public class ReviewerPanel extends javax.swing.JPanel {
         reviewPanel.revalidate();
         refreshList();
         selectList.setEnabled(true);
-
-
-
+        responsedList.setEnabled(true);
     }//GEN-LAST:event_refreshButtonActionPerformed
-
-    private void responsedListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_responsedListValueChanged
-        // TODO add your handling code here:
-        Submission submission = responsedList.getSelectedValue();
-        // if(submission == null){
-        //     return;
-        // }
-        ArticlePanel articlePanel = new ArticlePanel(submission, UserRole.REVIEWER, email);
-        reviewPanel.removeAll();
-        reviewPanel.add(articlePanel);
-        reviewPanel.revalidate();
-
-
-
-
-    }//GEN-LAST:event_responsedListValueChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel SelectResponcePanel;

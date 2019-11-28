@@ -62,4 +62,10 @@ public class Response implements IDataRow {
         this.content = content;
     }
 
+    @Override
+    public String toString() {
+        return content;
+    }
+
+    
 }

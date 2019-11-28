@@ -63,57 +63,56 @@ public class ReviewPanel extends javax.swing.JPanel {
 
     }
 
-    public ReviewPanel(String name, Review review, UserRole userRole) {
+    public ReviewPanel(String name, Review reviewTemplate, UserRole userRole) {
         initComponents();
-        this.review = review;
+        this.review = reviewTemplate;
         reviewerLabel.setVisible(false);
 
         try {
-            
-            
+            List<Review> reviews = Database.read("Review",new Review(reviewTemplate.getEmail(), reviewTemplate.getIssn(), reviewTemplate.getSubmissionID(), null, null, null));
+                if (reviews.size() > 0){
+                    this.review = reviews.get(0);
+                    acceptableLabel.setVisible(true);
+                    authorResponcePanel.setVisible(true);
+                    typoErrorsAddPanel.setVisible(false);
+                    criticismsAddPanel.setVisible(false);
+                    
+                    summaryTextArea.setEditable(false);
+                    summaryTextArea.setText(review.getSummary());
+                    
+                    acceptableLabel.setText(review.getVerdict().toString());
 
-     
-                if (Database.read("Review",new Review(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null, null)).size() == 0){
+                    List<TypoError> typoErrors = Database.read("TypoError", new TypoError(reviewTemplate.getEmail(), reviewTemplate.getIssn(), reviewTemplate.getSubmissionID(), null, null));
+                    for(TypoError typoError : typoErrors){
+                        typoErrorListModel.addElement(typoError);
+                    }
 
+                    List<Criticism> criticisms = Database.read("Criticism", new Criticism(reviewTemplate.getEmail(), reviewTemplate.getIssn(), reviewTemplate.getSubmissionID(), null, null));
+                    for(Criticism criticism : criticisms){
+                        criticismsListModel.addElement(criticism);
+                    }
+
+                    DefaultListModel<Response> responsesListModel = new DefaultListModel<Response>();
+                    List<Response> responses = Database.read("Response", new Response(reviewTemplate.getEmail(), reviewTemplate.getIssn(), reviewTemplate.getSubmissionID(), null, null));
+                    for (Response response : responses) {
+                        responsesListModel.addElement(response);
+                    }
+
+                    authorResponceList.setModel(responsesListModel);
+                    // typoErrorsList.setModel(typoErrorListModel);
+                    // criticismsList.setModel(criticismsListModel);
+                }
+                else{
                     acceptableLabel.setVisible(false);
                     authorResponcePanel.setVisible(false);
                     summaryTextArea.setText("");
             
                     typoErrorsList.removeAll();
                     criticismsList.removeAll(); 
-            
-
-                    if (Database.read("Response", new Response(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null)).size() != 0) {
-                        acceptableLabel.setVisible(true);
-                        authorResponcePanel.setVisible(true);
-                        typoErrorsAddPanel.setVisible(false);
-                        criticismsAddPanel.setVisible(false);
-                        
-                        summaryTextArea.setText(review.getSummary());
-
-                        List<TypoError> typoErrors = Database.read("TypoError", new TypoError(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
-                        for(TypoError typoError : typoErrors){
-                            typoErrorListModel.addElement(typoError);
-                        }
-
-                        List<Criticism> criticisms = Database.read("Criticism", new Criticism(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
-                        for(Criticism criticism : criticisms){
-                            criticismsListModel.addElement(criticism);
-                        }
-
-                        DefaultListModel<Response> responsesListModel = new DefaultListModel<Response>();
-                        List<Response> responses = Database.read("Response", new Response(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
-                        for (Response response : responses) {
-                            responsesListModel.addElement(response);
-                        }
-
-                        authorResponceList.setModel(responsesListModel);
-                
-                    }
-                    typoErrorsList.setModel(typoErrorListModel);
-                    criticismsList.setModel(criticismsListModel);
-    
                 } 
+                typoErrorsList.setModel(typoErrorListModel);
+                criticismsList.setModel(criticismsListModel);
+
         
             } 
                 catch (SQLException e) {
