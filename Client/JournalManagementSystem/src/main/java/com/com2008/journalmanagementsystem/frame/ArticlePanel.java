@@ -125,8 +125,8 @@ public class ArticlePanel extends javax.swing.JPanel {
         mainScrollPane = new javax.swing.JScrollPane();
         mainPanel = new javax.swing.JPanel();
         innerPanel = new javax.swing.JPanel();
-        abstructPanel = new javax.swing.JPanel();
-        abstructLabel = new javax.swing.JLabel();
+        abstractPanel = new javax.swing.JPanel();
+        abstractLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         abstractTextArea = new javax.swing.JTextArea();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
@@ -202,11 +202,11 @@ public class ArticlePanel extends javax.swing.JPanel {
 
         innerPanel.setLayout(new javax.swing.BoxLayout(innerPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
-        abstructPanel.setLayout(new java.awt.BorderLayout());
+        abstractPanel.setLayout(new java.awt.BorderLayout());
 
-        abstructLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        abstructLabel.setText("Abstruct");
-        abstructPanel.add(abstructLabel, java.awt.BorderLayout.NORTH);
+        abstractLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        abstractLabel.setText("Abstract");
+        abstractPanel.add(abstractLabel, java.awt.BorderLayout.NORTH);
 
         abstractTextArea.setColumns(20);
         abstractTextArea.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -216,9 +216,9 @@ public class ArticlePanel extends javax.swing.JPanel {
         abstractTextArea.setWrapStyleWord(true);
         jScrollPane1.setViewportView(abstractTextArea);
 
-        abstructPanel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        abstractPanel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        innerPanel.add(abstructPanel);
+        innerPanel.add(abstractPanel);
         innerPanel.add(filler1);
         innerPanel.add(jSeparator1);
         innerPanel.add(filler2);
@@ -314,9 +314,9 @@ public class ArticlePanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel abstractLabel;
+    private javax.swing.JPanel abstractPanel;
     private javax.swing.JTextArea abstractTextArea;
-    private javax.swing.JLabel abstructLabel;
-    private javax.swing.JPanel abstructPanel;
     private javax.swing.JButton acceptBtn;
     private javax.swing.JPanel authorPanel;
     private javax.swing.JLabel authorsLabel;
