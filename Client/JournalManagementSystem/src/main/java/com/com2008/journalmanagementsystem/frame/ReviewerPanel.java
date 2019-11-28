@@ -11,8 +11,11 @@ import java.util.HashSet;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
+import javax.xml.crypto.Data;
 
 import com.com2008.journalmanagementsystem.model.Account;
+import com.com2008.journalmanagementsystem.model.Criticism;
+import com.com2008.journalmanagementsystem.model.Response;
 import com.com2008.journalmanagementsystem.model.Review;
 import com.com2008.journalmanagementsystem.model.Submission;
 import com.com2008.journalmanagementsystem.model.SubmissionAuthor;
@@ -68,6 +71,16 @@ public class ReviewerPanel extends javax.swing.JPanel {
                 }
             }
             selectList.setModel(selectListModel);
+
+            DefaultListModel responsDefaultListModel = new DefaultListModel<Submission>();
+            List<Review> reviewList = Database.read("Review", new Review(email, null, null, null, null, null));
+            for (Review review : reviewList) {
+                if (Database.read("Response", new Response(email, review.getIssn(), review.getSubmissionID(), null, null)).size() != 0) {
+                    responsDefaultListModel.addElement(Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null, null, null)).get(0));
+                }
+            }
+            responsedList.setModel(responsDefaultListModel);
+
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -91,11 +104,11 @@ public class ReviewerPanel extends javax.swing.JPanel {
         selectLable = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         selectList = new javax.swing.JList<>();
-        AuthorResponsePanel = new javax.swing.JPanel();
-        ResponcedLable = new javax.swing.JLabel();
+        authorResponsePanel = new javax.swing.JPanel();
+        responsedLable = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        ResponcedList = new javax.swing.JList<>();
-        RefreshButtonPanel = new javax.swing.JPanel();
+        responsedList = new javax.swing.JList<>();
+        refreshButtonPanel = new javax.swing.JPanel();
         refreshButton = new javax.swing.JButton();
         reviewPanel = new javax.swing.JPanel();
 
@@ -129,28 +142,29 @@ public class ReviewerPanel extends javax.swing.JPanel {
 
         jSplitPane2.setLeftComponent(selectPanel);
 
-        AuthorResponsePanel.setLayout(new java.awt.BorderLayout());
+        authorResponsePanel.setLayout(new java.awt.BorderLayout());
 
-        ResponcedLable.setText("Responsed:");
-        AuthorResponsePanel.add(ResponcedLable, java.awt.BorderLayout.PAGE_START);
+        responsedLable.setText("Responsed:");
+        authorResponsePanel.add(responsedLable, java.awt.BorderLayout.PAGE_START);
 
-        ResponcedList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        responsedList.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        responsedList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                responsedListValueChanged(evt);
+            }
         });
-        jScrollPane2.setViewportView(ResponcedList);
+        jScrollPane2.setViewportView(responsedList);
 
-        AuthorResponsePanel.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+        authorResponsePanel.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
-        jSplitPane2.setRightComponent(AuthorResponsePanel);
+        jSplitPane2.setRightComponent(authorResponsePanel);
 
         SelectResponcePanel.add(jSplitPane2, java.awt.BorderLayout.CENTER);
 
         list.add(SelectResponcePanel);
 
-        RefreshButtonPanel.setMaximumSize(new java.awt.Dimension(2147483647, 29));
-        RefreshButtonPanel.setLayout(new java.awt.BorderLayout());
+        refreshButtonPanel.setMaximumSize(new java.awt.Dimension(2147483647, 29));
+        refreshButtonPanel.setLayout(new java.awt.BorderLayout());
 
         refreshButton.setText("Refresh list");
         refreshButton.addActionListener(new java.awt.event.ActionListener() {
@@ -158,9 +172,9 @@ public class ReviewerPanel extends javax.swing.JPanel {
                 refreshButtonActionPerformed(evt);
             }
         });
-        RefreshButtonPanel.add(refreshButton, java.awt.BorderLayout.PAGE_END);
+        refreshButtonPanel.add(refreshButton, java.awt.BorderLayout.PAGE_END);
 
-        list.add(RefreshButtonPanel);
+        list.add(refreshButtonPanel);
 
         jSplitPane1.setLeftComponent(list);
 
@@ -196,18 +210,34 @@ public class ReviewerPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_refreshButtonActionPerformed
 
+    private void responsedListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_responsedListValueChanged
+        // TODO add your handling code here:
+        Submission submission = responsedList.getSelectedValue();
+        // if(submission == null){
+        //     return;
+        // }
+        ArticlePanel articlePanel = new ArticlePanel(submission, UserRole.REVIEWER, email);
+        reviewPanel.removeAll();
+        reviewPanel.add(articlePanel);
+        reviewPanel.revalidate();
+
+
+
+
+    }//GEN-LAST:event_responsedListValueChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel AuthorResponsePanel;
-    private javax.swing.JPanel RefreshButtonPanel;
-    private javax.swing.JLabel ResponcedLable;
-    private javax.swing.JList<String> ResponcedList;
     private javax.swing.JPanel SelectResponcePanel;
+    private javax.swing.JPanel authorResponsePanel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JPanel list;
     private javax.swing.JButton refreshButton;
+    private javax.swing.JPanel refreshButtonPanel;
+    private javax.swing.JLabel responsedLable;
+    private javax.swing.JList<Submission> responsedList;
     private javax.swing.JPanel reviewPanel;
     private javax.swing.JLabel selectLable;
     private javax.swing.JList<Submission> selectList;

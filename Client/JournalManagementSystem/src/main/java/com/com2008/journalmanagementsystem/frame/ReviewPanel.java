@@ -42,18 +42,17 @@ public class ReviewPanel extends javax.swing.JPanel {
             criticismsList.removeAll();
 
             List<TypoError> typoErrors = Database.read("TypoError", new TypoError(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
-            //DefaultListModel typoErrorListModel = new DefaultListModel();
             for(TypoError typoError : typoErrors){
                 typoErrorListModel.addElement(typoError);
             }
             typoErrorsList.setModel(typoErrorListModel);
 
             List<Criticism> criticisms = Database.read("Criticism", new Criticism(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
-            //DefaultListModel cristicismsListModel = new DefaultListModel();
             for(Criticism criticism : criticisms){
                 criticismsListModel.addElement(criticism);
             }
             criticismsList.setModel(criticismsListModel);
+            
             submitPannel.setVisible(false);
             
         } catch (SQLException e) {
@@ -70,35 +69,54 @@ public class ReviewPanel extends javax.swing.JPanel {
         reviewerLabel.setVisible(false);
 
         try {
-            if (Database.read("Review",new Review(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null, null)).size() == 0){
+            
+            
 
-                acceptableLabel.setVisible(false);
-                summaryTextArea.setText("");
-        
-                typoErrorsList.removeAll();
-                criticismsList.removeAll(); 
-        
-                typoErrorsList.setModel(typoErrorListModel);
-                criticismsList.setModel(criticismsListModel);
+     
+                if (Database.read("Review",new Review(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null, null)).size() == 0){
 
-            }
-            //new Review(email, issn, submissionID, summary, verdict, timestamp)
-            if (Database.read("Review",new Review(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null, null)).size() == 0) {
-                acceptableLabel.setVisible(true);
+                    acceptableLabel.setVisible(false);
+                    authorResponcePanel.setVisible(false);
+                    summaryTextArea.setText("");
+            
+                    typoErrorsList.removeAll();
+                    criticismsList.removeAll(); 
+            
+
+                    if (Database.read("Response", new Response(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null)).size() != 0) {
+                        acceptableLabel.setVisible(true);
+                        authorResponcePanel.setVisible(true);
+                        typoErrorsAddPanel.setVisible(false);
+                        criticismsAddPanel.setVisible(false);
+                        
+                        summaryTextArea.setText(review.getSummary());
+
+                        List<TypoError> typoErrors = Database.read("TypoError", new TypoError(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
+                        for(TypoError typoError : typoErrors){
+                            typoErrorListModel.addElement(typoError);
+                        }
+
+                        List<Criticism> criticisms = Database.read("Criticism", new Criticism(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
+                        for(Criticism criticism : criticisms){
+                            criticismsListModel.addElement(criticism);
+                        }
+
+                        DefaultListModel<Response> responsesListModel = new DefaultListModel<Response>();
+                        List<Response> responses = Database.read("Response", new Response(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
+                        for (Response response : responses) {
+                            responsesListModel.addElement(response);
+                        }
+
+                        authorResponceList.setModel(responsesListModel);
                 
-                summaryTextArea.setText(review.getSummary());
-                summaryTextArea.revalidate();
-
-                
-                List<TypoError> typoError = Database.read("TypoError", new TypoError(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
-                for (TypoError typoError2 : typoError) {
-                    //TODO---
-                }
-
-            }
+                    }
+                    typoErrorsList.setModel(typoErrorListModel);
+                    criticismsList.setModel(criticismsListModel);
+    
+                } 
         
-        
-                } catch (SQLException e) {
+            } 
+                catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }     
@@ -147,10 +165,10 @@ public class ReviewPanel extends javax.swing.JPanel {
         criticismsAddScrolPanel = new javax.swing.JScrollPane();
         criticsmsTextArea = new javax.swing.JTextArea();
         criticismsAddButton = new javax.swing.JButton();
-        AuthorResponcePanel = new javax.swing.JPanel();
-        AuthorResponceLable = new javax.swing.JLabel();
-        AuthorResponceTextPanel = new javax.swing.JScrollPane();
-        AuthorResponceText = new javax.swing.JList<>();
+        authorResponcePanel = new javax.swing.JPanel();
+        authorResponceLable = new javax.swing.JLabel();
+        authorResponceTextPanel = new javax.swing.JScrollPane();
+        authorResponceList = new javax.swing.JList<>();
         verdictPanel = new javax.swing.JPanel();
         verdictText = new javax.swing.JLabel();
         verdictList = new javax.swing.JScrollPane();
@@ -273,21 +291,16 @@ public class ReviewPanel extends javax.swing.JPanel {
 
         typoCritismsAddPanel.add(criticismsAddPanel, java.awt.BorderLayout.CENTER);
 
-        AuthorResponcePanel.setLayout(new java.awt.BorderLayout());
+        authorResponcePanel.setLayout(new java.awt.BorderLayout());
 
-        AuthorResponceLable.setText("jLabel1");
-        AuthorResponcePanel.add(AuthorResponceLable, java.awt.BorderLayout.PAGE_START);
+        authorResponceLable.setText("Responses:");
+        authorResponcePanel.add(authorResponceLable, java.awt.BorderLayout.PAGE_START);
 
-        AuthorResponceText.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        AuthorResponceTextPanel.setViewportView(AuthorResponceText);
+        authorResponceTextPanel.setViewportView(authorResponceList);
 
-        AuthorResponcePanel.add(AuthorResponceTextPanel, java.awt.BorderLayout.PAGE_END);
+        authorResponcePanel.add(authorResponceTextPanel, java.awt.BorderLayout.PAGE_END);
 
-        typoCritismsAddPanel.add(AuthorResponcePanel, java.awt.BorderLayout.PAGE_END);
+        typoCritismsAddPanel.add(authorResponcePanel, java.awt.BorderLayout.PAGE_END);
 
         jSplitPane2.setLeftComponent(typoCritismsAddPanel);
 
@@ -388,13 +401,13 @@ public class ReviewPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel AuthorResponceLable;
-    private javax.swing.JPanel AuthorResponcePanel;
-    private javax.swing.JList<String> AuthorResponceText;
-    private javax.swing.JScrollPane AuthorResponceTextPanel;
     private javax.swing.JLabel SubmissionLabel;
     private javax.swing.JLabel acceptableLabel;
     private javax.swing.JLabel addTypoText;
+    private javax.swing.JLabel authorResponceLable;
+    private javax.swing.JList<Response> authorResponceList;
+    private javax.swing.JPanel authorResponcePanel;
+    private javax.swing.JScrollPane authorResponceTextPanel;
     private javax.swing.JButton criticismsAddButton;
     private javax.swing.JPanel criticismsAddPanel;
     private javax.swing.JScrollPane criticismsAddScrolPanel;
