@@ -737,9 +737,7 @@ public class LoginFrame extends javax.swing.JFrame {
             case 0: //Editor
 	            	try {
 	            		java.util.List<Editor> editors = Database.read("Editor", new Editor(email, null));
-	            		System.out.println(editors);
 	            		if(editors.size() > 0){
-	            			System.out.println(editors.get(0).getHashedPassword()+hashedPassword);
 	                        if(editors.get(0).getHashedPassword().equals(hashedPassword)){
 	                            new MainFrame(this, UserRole.EDITOR, email).setVisible(true);
 	                            this.setVisible(false);

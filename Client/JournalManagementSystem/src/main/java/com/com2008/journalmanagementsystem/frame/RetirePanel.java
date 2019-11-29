@@ -5,19 +5,127 @@
  */
 package com.com2008.journalmanagementsystem.frame;
 
+import com.com2008.journalmanagementsystem.model.Editor;
+import com.com2008.journalmanagementsystem.model.EditorOnBoard;
+import com.com2008.journalmanagementsystem.model.Journal;
+import com.com2008.journalmanagementsystem.util.database.Database;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author Jorda
+ * 
+ * Creates a Panel from which Editors can retire
  */
-public class RetirePanel extends javax.swing.JPanel {
 
+public class RetirePanel extends javax.swing.JPanel {
+	
     /**
      * Creates new form RetirePanel
      */
     public RetirePanel() {
         initComponents();
     }
+    
+    public RetirePanel(String email) {
+        initComponents();
+        //find the journals which this editor is working on
+        //and which other editors are in those journals
+        //store these in lists 
+        List<Journal> journals = new ArrayList<Journal>();
+        List<List<EditorOnBoard>> editorsOnBoardOf = new ArrayList<List<EditorOnBoard>>();
+        try {
+            List<EditorOnBoard> editorsOnBoard = Database.read("EditorOnBoard", new EditorOnBoard(null,email));
+            for (EditorOnBoard editorOnBoard:editorsOnBoard){
+                Journal currentJournal = Database.read("Journal", new Journal(editorOnBoard.getIssn(),null,null,null,null)).get(0);
+                journals.add(currentJournal);
+                List<EditorOnBoard> currentEditorsOnBoard = Database.read("EditorOnBoard", new EditorOnBoard(editorOnBoard.getIssn(),null));
+                editorsOnBoardOf.add(currentEditorsOnBoard);
+            }
+            
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        //turn editorPAnel into a new grid layout
+        String editorString = "";
+        editorPanel.setLayout(new GridLayout(2,2));
+        
+        //for each journal in journals
+        //add a label for: the journal name, the current editors, the chief editor
+        //add a button which has a custom action listener
+        for (int i=0; i<journals.size(); i++){
+            for (EditorOnBoard e:editorsOnBoardOf.get(i)) {
+            	editorString = editorString.concat(e.getEmail()+" ");
+            }
+            JLabel label = new JLabel(journals.get(i).getJournalName());
+            JLabel labelEditor = new JLabel("Editors on Project: "+editorString);
+            JLabel labelChief = new JLabel("Chief: "+journals.get(i).getCheifEmail());
+            JButton btnRetire = new JButton("Retire from "+journals.get(i).getJournalName());
+            //add button listener with information from the current journal
+            btnRetire.addActionListener(new RetireActionListener(editorsOnBoardOf.get(i),email,journals.get(i).getIssn(),journals.get(i).getCheifEmail()));
+            editorPanel.add(label);
+            editorPanel.add(labelEditor);
+            editorPanel.add(labelChief);
+            editorPanel.add(btnRetire);
+            
+        }
+        editorPanel.revalidate();
+        editorPanel.repaint();
+    }
+    
+    /*
+     * Custom action listener which takes values so that the buttons
+     * generated perform actions on the correct journal
+     */
+    private class RetireActionListener implements ActionListener {
+    	
+    	List<EditorOnBoard> eList;
+    	String email;
+    	String issn;
+		String cEmail;
+    	
+        public RetireActionListener(List<EditorOnBoard> list, String em, String is, String ce) {
+			// TODO Auto-generated constructor stub
+        	this.eList = list;
+        	this.email = em;
+        	this.issn = is;
+        	this.cEmail = ce;
+		}
 
+		public void actionPerformed(ActionEvent e) {
+			//if you are the chief editor or the only editor, generate an error
+            if (email.toLowerCase().equals(cEmail.toLowerCase())) {
+            	JOptionPane.showMessageDialog(null, "You are the chief editor \nPlease pass chief editor before retiring", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else {
+            	 if (eList.size() > 1) {
+                 	try {
+     					Database.delete("EditorOnBoard", new EditorOnBoard(issn, email));
+     				} catch (SQLException e1) {
+     					e1.printStackTrace();
+     				}
+                 }
+                 else {
+                 	JOptionPane.showMessageDialog(null, "Cannot remove the only Editor", "Error", JOptionPane.ERROR_MESSAGE);
+                 }
+            }  
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -25,27 +133,43 @@ public class RetirePanel extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+
     private void initComponents() {
 
-        btnRetire = new javax.swing.JButton();
         editorPanel = new javax.swing.JPanel();
-        lblCurrentEditors = new javax.swing.JLabel();
-
-        btnRetire.setText("Retire");
+        titlePanel = new javax.swing.JPanel();
+        lblTitle = new javax.swing.JLabel();
 
         javax.swing.GroupLayout editorPanelLayout = new javax.swing.GroupLayout(editorPanel);
         editorPanel.setLayout(editorPanelLayout);
         editorPanelLayout.setHorizontalGroup(
             editorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 405, Short.MAX_VALUE)
         );
         editorPanelLayout.setVerticalGroup(
             editorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 197, Short.MAX_VALUE)
+            .addGap(0, 26, Short.MAX_VALUE)
         );
 
-        lblCurrentEditors.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblCurrentEditors.setText("Current Editors");
+        lblTitle.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblTitle.setText("Retire From Journals");
+
+        javax.swing.GroupLayout titlePanelLayout = new javax.swing.GroupLayout(titlePanel);
+        titlePanel.setLayout(titlePanelLayout);
+        titlePanelLayout.setHorizontalGroup(
+            titlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(titlePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblTitle)
+                .addContainerGap(249, Short.MAX_VALUE))
+        );
+        titlePanelLayout.setVerticalGroup(
+            titlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(titlePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblTitle)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -53,30 +177,24 @@ public class RetirePanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(editorPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnRetire, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))
-                    .addComponent(lblCurrentEditors))
-                .addContainerGap(193, Short.MAX_VALUE))
+                .addComponent(editorPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(titlePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnRetire, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblCurrentEditors)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(titlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(editorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addContainerGap(240, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRetire;
     private javax.swing.JPanel editorPanel;
-    private javax.swing.JLabel lblCurrentEditors;
+    private javax.swing.JLabel lblTitle;
+    private javax.swing.JPanel titlePanel;
     // End of variables declaration//GEN-END:variables
 }

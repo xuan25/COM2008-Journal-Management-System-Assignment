@@ -124,7 +124,7 @@ public class MainFrame extends javax.swing.JFrame {
         	selectionsPanel.add(new SidePanelButton("Retire", new MouseAdapter() {
                     public void mousePressed(MouseEvent evt) {
                         activeSidePanelBtn((SidePanelButton)evt.getSource());
-                        updateMainPanel(new RetirePanel());
+                        updateMainPanel(new RetirePanel(email));
                     }
                 }));
                 selectionsPanel.add(new SidePanelButton("Accept/Reject Articles", new MouseAdapter() {
@@ -206,7 +206,6 @@ public class MainFrame extends javax.swing.JFrame {
         setLocation(getStartupLocation());
         setPreferredSize(getFrameSize());
         setSize(getFrameSize());
-        getContentPane().setLayout(new java.awt.BorderLayout());
 
         bg.setLayout(new javax.swing.BoxLayout(bg, javax.swing.BoxLayout.LINE_AXIS));
 
