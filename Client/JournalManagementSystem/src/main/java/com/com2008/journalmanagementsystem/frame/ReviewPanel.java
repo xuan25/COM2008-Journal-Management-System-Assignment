@@ -411,7 +411,8 @@ public class ReviewPanel extends javax.swing.JPanel {
                 Verdict verdict = Verdict.valueOf(verdictIndex);
                 Database.update("Review", review, new Review(null, null, null, null, null, verdict, null), false);
 
-            } else {
+            }
+            else {
                 int verdictIndex = verdictSelectList.getSelectedIndex();
                 Verdict verdict = Verdict.valueOf(verdictIndex);
                 review.setVerdict(verdict);
@@ -442,14 +443,14 @@ public class ReviewPanel extends javax.swing.JPanel {
                         e.printStackTrace();
                     }
                 }
-                
-                List<Review> reviewList= Database.read("Review", new Review(null, review.getIssn(), review.getSubmissionID(), null, null, null, null));
-                if (reviewList.size() > 2) {
-                    Database.update("Submission", Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null, null, null)).get(0), new Submission(null, null, null, null, null, null, null, null, Submission.Status.REVIEWED), false);
-                    boolean finalverdict = reviewList.get(0).getFinalVerdict() != null && reviewList.get(1).getFinalVerdict() != null && reviewList.get(2).getFinalVerdict() != null;
-                    if (finalverdict) {
-                        Database.update("Submission", Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null, null, null)).get(0), new Submission(null, null, null, null, null, null, null, null, Submission.Status.VERDICTED), false);
-                    }
+            }
+
+            List<Review> reviewList= Database.read("Review", new Review(null, review.getIssn(), review.getSubmissionID(), null, null, null, null));
+            if (reviewList.size() > 2) {
+                Database.update("Submission", Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null, null, null)).get(0), new Submission(null, null, null, null, null, null, null, null, Submission.Status.REVIEWED), false);
+                boolean finalverdict = reviewList.get(0).getFinalVerdict() != null && reviewList.get(1).getFinalVerdict() != null && reviewList.get(2).getFinalVerdict() != null;
+                if (finalverdict) {
+                    Database.update("Submission", Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null, null, null)).get(0), new Submission(null, null, null, null, null, null, null, null, Submission.Status.VERDICTED), false);
                 }
             }
 
