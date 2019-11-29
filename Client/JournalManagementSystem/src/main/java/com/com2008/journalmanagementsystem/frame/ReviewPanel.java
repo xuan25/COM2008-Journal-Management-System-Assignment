@@ -6,6 +6,7 @@
 package com.com2008.journalmanagementsystem.frame;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -118,15 +119,24 @@ public class ReviewPanel extends javax.swing.JPanel {
                             typoErrorListModel.addElement(typoError);
                         }
 
-                        List<Criticism> criticisms = Database.read("Criticism", new Criticism(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
-                        for(Criticism criticism : criticisms){
-                            criticismsListModel.addElement(criticism);
-                        }
 
                         DefaultListModel<Response> responsesListModel = new DefaultListModel<Response>();
                         List<Response> responses = Database.read("Response", new Response(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
+
+                        HashMap<Integer, Response> responseMap = new HashMap<Integer, Response>();
                         for (Response response : responses) {
-                            responsesListModel.addElement(response);
+                            responseMap.put(response.getNum(), response);
+                        }
+
+                        List<Criticism> criticisms = Database.read("Criticism", new Criticism(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
+                        for(Criticism criticism : criticisms){
+                            criticismsListModel.addElement(criticism);
+                            if(responseMap.containsKey(criticism.getNum())){
+                                responsesListModel.addElement(responseMap.get(criticism.getNum()));
+                            }
+                            else{
+                                responsesListModel.addElement(new Response(null, null, null, null, "<No RESPONSE!>"));
+                            }
                         }
 
                         authorResponceList.setModel(responsesListModel);
