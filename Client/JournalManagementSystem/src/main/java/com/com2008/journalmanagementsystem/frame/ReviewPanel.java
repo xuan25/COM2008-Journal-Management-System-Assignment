@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 
 import com.com2008.journalmanagementsystem.model.*;
 import com.com2008.journalmanagementsystem.model.Review.Verdict;
@@ -63,7 +64,6 @@ public class ReviewPanel extends javax.swing.JPanel {
 
     // }
 
-    // reviewer
     public ReviewPanel(String name, Review review, UserRole userRole) {
         initComponents();
 
@@ -96,9 +96,9 @@ public class ReviewPanel extends javax.swing.JPanel {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
+                break;
             case REVIEWER:
                 reviewerLabel.setVisible(false);
-                responsePanel.setVisible(false);
                 try {
                     List<Review> reviews = Database.read("Review",new Review(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null, null, null));
                     if (reviews.size() > 0){
@@ -153,6 +153,10 @@ public class ReviewPanel extends javax.swing.JPanel {
         }
     }
 
+    public JList<Criticism> getCriticismList(){
+        return criticismsList;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -205,11 +209,6 @@ public class ReviewPanel extends javax.swing.JPanel {
         verdictList = new javax.swing.JScrollPane();
         verdictSelectList = new javax.swing.JList<>();
         submitButton = new javax.swing.JButton();
-        responsePanel = new javax.swing.JPanel();
-        responseLabel = new javax.swing.JLabel();
-        responseScrolpanel = new javax.swing.JScrollPane();
-        responseTextArea = new javax.swing.JTextArea();
-        submitResponseBtn = new javax.swing.JButton();
 
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
@@ -376,29 +375,6 @@ public class ReviewPanel extends javax.swing.JPanel {
 
         mainPanel.add(submitPannel);
 
-        responsePanel.setLayout(new java.awt.BorderLayout());
-
-        responseLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        responseLabel.setText("Select an cirticsim and response here");
-        responsePanel.add(responseLabel, java.awt.BorderLayout.NORTH);
-
-        responseTextArea.setColumns(20);
-        responseTextArea.setRows(5);
-        responseScrolpanel.setViewportView(responseTextArea);
-
-        responsePanel.add(responseScrolpanel, java.awt.BorderLayout.CENTER);
-
-        submitResponseBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        submitResponseBtn.setText("Submit");
-        submitResponseBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitResponseBtnActionPerformed(evt);
-            }
-        });
-        responsePanel.add(submitResponseBtn, java.awt.BorderLayout.PAGE_END);
-
-        mainPanel.add(responsePanel);
-
         add(mainPanel, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -474,10 +450,6 @@ public class ReviewPanel extends javax.swing.JPanel {
         // TODO delet the func
     }//GEN-LAST:event_verdictSelectListValueChanged
 
-    private void submitResponseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitResponseBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_submitResponseBtnActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel SubmissionLabel;
@@ -505,14 +477,9 @@ public class ReviewPanel extends javax.swing.JPanel {
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JPanel mainPanel;
-    private javax.swing.JLabel responseLabel;
-    private javax.swing.JPanel responsePanel;
-    private javax.swing.JScrollPane responseScrolpanel;
-    private javax.swing.JTextArea responseTextArea;
     private javax.swing.JLabel reviewerLabel;
     private javax.swing.JButton submitButton;
     private javax.swing.JPanel submitPannel;
-    private javax.swing.JButton submitResponseBtn;
     private javax.swing.JLabel summaryLabel;
     private javax.swing.JScrollPane summaryScrollPane;
     private javax.swing.JTextArea summaryTextArea;

@@ -461,6 +461,22 @@
                     <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.VerticalStrut"/>
                   </AuxValues>
                 </Component>
+                <Container class="javax.swing.JPanel" name="submitResponsesPanel">
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JButton" name="submitAllResponsesBtn">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Submit all responses"/>
+                      </Properties>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+                          <BorderConstraints direction="Center"/>
+                        </Constraint>
+                      </Constraints>
+                    </Component>
+                  </SubComponents>
+                </Container>
                 <Component class="javax.swing.JSeparator" name="jSeparator3">
                 </Component>
               </SubComponents>

@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JButton;
+
 import com.com2008.journalmanagementsystem.model.Account;
 import com.com2008.journalmanagementsystem.model.Author;
 import com.com2008.journalmanagementsystem.model.Review;
@@ -32,6 +34,8 @@ public class ArticlePanel extends javax.swing.JPanel {
     public ArticlePanel(Submission submission, UserRole userRole, String email) {
         initComponents();
 
+        submitResponsesPanel.setVisible(false);
+
         // Load panels for each role
         switch(userRole){
             case READER:
@@ -40,9 +44,48 @@ public class ArticlePanel extends javax.swing.JPanel {
                 break;
             case AUTHOR:
                 decisionPanel.setVisible(false);
-                if(submission.getMainAuthor().equals(email)){
-                    // TODO : Permissions for main author
+                if(submission.getStatus() == Submission.Status.REVIEWED){
+                    if(submission.getMainAuthor().equals(email) || submission.getCorrAuthor().equals(email)){
+                        // TODO : Permissions for corr author (response)
+                        try {
+                            List<Review> reviews = Database.read("Review", new Review(null, submission.getIssn(), submission.getSubmissionID(), null, null, null, null));
+                            for(int i = 0; i < reviews.size(); i++){
+                                ResponsePanel responsePanel = new ResponsePanel("Reviewer" + (i + 1), reviews.get(i));
+                                innerReviewPanel.add(responsePanel);
+                            }
+                            submitResponsesPanel.setVisible(true);
+                        } catch (SQLException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+                    else{
+                        try {
+                            List<Review> reviews = Database.read("Review", new Review(null, submission.getIssn(), submission.getSubmissionID(), null, null, null, null));
+                            for(int i = 0; i < reviews.size(); i++){
+                                ReviewPanel reviewPanel = new ReviewPanel("Reviewer" + (i + 1), reviews.get(i), UserRole.AUTHOR);
+                                innerReviewPanel.add(reviewPanel);
+                            }
+                        } catch (SQLException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+                    
                 }
+                else{
+                    try {
+                        List<Review> reviews = Database.read("Review", new Review(null, submission.getIssn(), submission.getSubmissionID(), null, null, null, null));
+                        for(int i = 0; i < reviews.size(); i++){
+                            ReviewPanel reviewPanel = new ReviewPanel("Reviewer" + (i + 1), reviews.get(i), UserRole.AUTHOR);
+                            innerReviewPanel.add(reviewPanel);
+                        }
+                    } catch (SQLException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+                
                 break;
             case REVIEWER:
                 toolbarPanel.setVisible(false);
@@ -167,6 +210,8 @@ public class ArticlePanel extends javax.swing.JPanel {
         filler12 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         innerReviewPanel = new javax.swing.JPanel();
         filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
+        submitResponsesPanel = new javax.swing.JPanel();
+        submitAllResponsesBtn = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
@@ -309,6 +354,13 @@ public class ArticlePanel extends javax.swing.JPanel {
 
         innerPanel.add(reviewPanel);
         innerPanel.add(filler10);
+
+        submitResponsesPanel.setLayout(new java.awt.BorderLayout());
+
+        submitAllResponsesBtn.setText("Submit all responses");
+        submitResponsesPanel.add(submitAllResponsesBtn, java.awt.BorderLayout.CENTER);
+
+        innerPanel.add(submitResponsesPanel);
         innerPanel.add(jSeparator3);
 
         mainPanel.add(innerPanel, java.awt.BorderLayout.CENTER);
@@ -369,6 +421,8 @@ public class ArticlePanel extends javax.swing.JPanel {
     private javax.swing.JPanel reviewPanel;
     private javax.swing.JLabel reviewsLabel;
     private javax.swing.JLabel statusLabel;
+    private javax.swing.JButton submitAllResponsesBtn;
+    private javax.swing.JPanel submitResponsesPanel;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JScrollPane titleScrollPane;
     private javax.swing.JPanel toolbarPanel;
