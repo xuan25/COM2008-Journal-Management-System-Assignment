@@ -10,12 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import com.com2008.journalmanagementsystem.model.Account;
 import com.com2008.journalmanagementsystem.model.Author;
+import com.com2008.journalmanagementsystem.model.Response;
 import com.com2008.journalmanagementsystem.model.Review;
 import com.com2008.journalmanagementsystem.model.Submission;
 import com.com2008.journalmanagementsystem.model.SubmissionAuthor;
+import com.com2008.journalmanagementsystem.model.Submission.Status;
 import com.com2008.journalmanagementsystem.util.database.Database;
 
 /**
@@ -30,6 +33,9 @@ public class ArticlePanel extends javax.swing.JPanel {
     public ArticlePanel() {
         initComponents();
     }
+
+    private Submission submission;
+    private List<ResponsePanel> responsePanels;
 
     public ArticlePanel(Submission submission, UserRole userRole, String email) {
         initComponents();
@@ -46,12 +52,14 @@ public class ArticlePanel extends javax.swing.JPanel {
                 decisionPanel.setVisible(false);
                 if(submission.getStatus() == Submission.Status.REVIEWED){
                     if(submission.getMainAuthor().equals(email) || submission.getCorrAuthor().equals(email)){
-                        // TODO : Permissions for corr author (response)
+                        // Permissions for main&corr author (response)
                         try {
                             List<Review> reviews = Database.read("Review", new Review(null, submission.getIssn(), submission.getSubmissionID(), null, null, null, null));
+                            responsePanels = new ArrayList<>();
                             for(int i = 0; i < reviews.size(); i++){
                                 ResponsePanel responsePanel = new ResponsePanel("Reviewer" + (i + 1), reviews.get(i));
                                 innerReviewPanel.add(responsePanel);
+                                responsePanels.add(responsePanel);
                             }
                             submitResponsesPanel.setVisible(true);
                         } catch (SQLException e) {
@@ -358,6 +366,11 @@ public class ArticlePanel extends javax.swing.JPanel {
         submitResponsesPanel.setLayout(new java.awt.BorderLayout());
 
         submitAllResponsesBtn.setText("Submit all responses");
+        submitAllResponsesBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitAllResponsesBtnActionPerformed(evt);
+            }
+        });
         submitResponsesPanel.add(submitAllResponsesBtn, java.awt.BorderLayout.CENTER);
 
         innerPanel.add(submitResponsesPanel);
@@ -373,6 +386,27 @@ public class ArticlePanel extends javax.swing.JPanel {
 
         add(mainScrollPane, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void submitAllResponsesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitAllResponsesBtnActionPerformed
+        for (ResponsePanel responsePanel : responsePanels) {
+            for (Response response : responsePanel.getResponses()) {
+                try {
+                    Database.write("Response", response);
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            } 
+        }
+        try {
+            Database.update("Submission", submission, new Submission(null, null, null, null, null, null, null, null, Status.RESPONSED), false);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        JOptionPane.showMessageDialog(this, "Response success", "Response", JOptionPane.INFORMATION_MESSAGE);
+        submitAllResponsesBtn.setEnabled(false);
+    }//GEN-LAST:event_submitAllResponsesBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

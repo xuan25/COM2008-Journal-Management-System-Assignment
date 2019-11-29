@@ -5,6 +5,7 @@
  */
 package com.com2008.journalmanagementsystem.frame;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -46,6 +47,10 @@ public class ResponsePanel extends javax.swing.JPanel {
                 cirticsimListValueChanged(evt);
             }
         });
+    }
+
+    public Collection<Response> getResponses(){
+        return responseMap.values();
     }
 
     /**
