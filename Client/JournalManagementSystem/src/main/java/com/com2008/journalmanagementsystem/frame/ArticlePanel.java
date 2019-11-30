@@ -43,6 +43,9 @@ public class ArticlePanel extends javax.swing.JPanel {
                     // TODO : Permissions for main author
                 }
                 break;
+            case REVIEWER:
+                toolbarPanel.setVisible(false);
+                reviewPanel.setVisible(true);
             default:
                 break;
         }
@@ -89,18 +92,26 @@ public class ArticlePanel extends javax.swing.JPanel {
             e1.printStackTrace();
         }
         
-
-        if(reviewPanel.isVisible()){
+        if(reviewPanel.isVisible() && userRole==UserRole.REVIEWER){
             innerReviewPanel.removeAll();
-            try {
-                List<Review> reviews = Database.read("Review", new Review(null, submission.getIssn(), submission.getSubmissionID(), null, null, null));
-                for(int i = 0; i < reviews.size(); i++){
-                    ReviewPanel reviewPanel = new ReviewPanel("Reviewer" + (i + 1), reviews.get(i));
-                    innerReviewPanel.add(reviewPanel);
+            // List<Review> reviews = Database.read("Review", new Review(null,
+            // submission.getIssn(), submission.getSubmissionID(), null, null, null));
+            ReviewPanel reviewPanel = new ReviewPanel("Reviewer",new Review(email, submission.getIssn(), submission.getSubmissionID(), null, null, null), UserRole.REVIEWER);
+            innerReviewPanel.add(reviewPanel);
+
+        }else{
+            if(reviewPanel.isVisible()){
+                innerReviewPanel.removeAll();
+                try {
+                    List<Review> reviews = Database.read("Review", new Review(null, submission.getIssn(), submission.getSubmissionID(), null, null, null));
+                    for(int i = 0; i < reviews.size(); i++){
+                        ReviewPanel reviewPanel = new ReviewPanel("Reviewer" + (i + 1), reviews.get(i));
+                        innerReviewPanel.add(reviewPanel);
+                    }
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
                 }
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
             }
         }
     }

@@ -57,7 +57,7 @@ public class RegisterDialog extends javax.swing.JDialog {
         regAuthorBtnPanel.setLayout(new java.awt.BorderLayout());
 
         registerBtn.setBackground(Theme.getFgColor());
-        registerBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        registerBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         registerBtn.setMaximumSize(new java.awt.Dimension(100, 40));
         registerBtn.setPreferredSize(new java.awt.Dimension(100, 40));
         registerBtn.addMouseListener(new java.awt.event.MouseAdapter() {

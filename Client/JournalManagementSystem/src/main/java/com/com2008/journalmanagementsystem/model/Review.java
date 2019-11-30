@@ -1,5 +1,7 @@
 package com.com2008.journalmanagementsystem.model;
 
+import java.util.Date;
+
 import com.com2008.journalmanagementsystem.util.database.IDataRow;
 
 public class Review implements IDataRow{
@@ -9,13 +11,13 @@ public class Review implements IDataRow{
     private String submissionID;
     private String summary;
     private Integer verdict;
-    private Integer timestamp;
+    private Long timestamp;
 
     public Review(){
         
     }
 
-    public Review(String email, String issn, String submissionID, String summary, Verdict verdict, Integer timestamp){
+    public Review(String email, String issn, String submissionID, String summary, Verdict verdict, Long timestamp){
         this.email = email;
         this.issn = issn;
         this.submissionID = submissionID;
@@ -58,6 +60,10 @@ public class Review implements IDataRow{
         }    
     }
 
+    public void setTimestampNow(){
+        timestamp = new Date().getTime();
+    }
+
     public String getEmail() {
         return email;
     }
@@ -98,11 +104,11 @@ public class Review implements IDataRow{
         this.verdict = verdict.value();
     }
 
-    public Integer getTimestamp() {
+    public Long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Integer timestamp) {
+    public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
     }
 }
