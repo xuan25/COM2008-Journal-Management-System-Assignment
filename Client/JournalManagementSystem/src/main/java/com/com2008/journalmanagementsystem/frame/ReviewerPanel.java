@@ -61,6 +61,11 @@ public class ReviewerPanel extends javax.swing.JPanel {
                 String reviewerUniversity = Database.read("Account", new Account(email, null, null, null, null)).get(0).getUniversity();
 
                 int reviewSize = Database.read("Review", new Review(email, null, null, null, null, null, null)).size();
+
+                
+
+
+
                 int articleSize = Database.read("SubmissionAuthor", new SubmissionAuthor(null, null, email)).size();
 
                 if(!universitySet.contains(reviewerUniversity)){
