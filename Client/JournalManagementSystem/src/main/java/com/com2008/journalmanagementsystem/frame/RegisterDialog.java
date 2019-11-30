@@ -9,6 +9,9 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import java.awt.Toolkit;
+import java.awt.Dimension;
+import java.awt.Point;
 
 import com.com2008.journalmanagementsystem.model.Account;
 import com.com2008.journalmanagementsystem.util.database.Database;
@@ -25,12 +28,23 @@ public class RegisterDialog extends javax.swing.JDialog {
     public RegisterDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setLocation(getStartupLocation());
     }
 
     public RegisterDialog(java.awt.Frame parent, boolean modal, String email) {
         super(parent, modal);
         initComponents();
         registerPanel.setEmail(email);
+        this.setLocation(getStartupLocation());
+    }
+
+    private Point getStartupLocation() {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension size = this.getSize();
+        int x = (screenSize.width - size.width) / 2;
+        int y = (screenSize.height - size.height) / 2;
+        Point p = new Point(x, y);
+        return p;
     }
 
     /**
@@ -57,7 +71,7 @@ public class RegisterDialog extends javax.swing.JDialog {
         regAuthorBtnPanel.setLayout(new java.awt.BorderLayout());
 
         registerBtn.setBackground(Theme.getFgColor());
-        registerBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        registerBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         registerBtn.setMaximumSize(new java.awt.Dimension(100, 40));
         registerBtn.setPreferredSize(new java.awt.Dimension(100, 40));
         registerBtn.addMouseListener(new java.awt.event.MouseAdapter() {

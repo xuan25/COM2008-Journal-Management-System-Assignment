@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 import com.com2008.journalmanagementsystem.model.*;
 import com.com2008.journalmanagementsystem.util.database.Database;
@@ -29,24 +30,47 @@ public class AuthorPanel extends javax.swing.JPanel {
 
         this.email = email;
 
-        sumbissionList.removeAll();
-        articalOutterPanel.removeAll();
+        updateSubmissions();
+    }
 
+    private void updateSubmissions(){
+        submissionTree.removeAll();
 
-        DefaultListModel listModel = new DefaultListModel<>();
+        DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("Submissions");
+
+        DefaultMutableTreeNode submittedNode = new DefaultMutableTreeNode("Submitted");
+        DefaultMutableTreeNode reviewedNode = new DefaultMutableTreeNode("Reviewed");
+        DefaultMutableTreeNode responsedNode = new DefaultMutableTreeNode("Responsed");
+
+        rootNode.add(submittedNode);
+        rootNode.add(reviewedNode);
+        rootNode.add(responsedNode);
 
         try {
             List<SubmissionAuthor> submissionAuthors = Database.read("SubmissionAuthor", new SubmissionAuthor(null, null, email));
             for (SubmissionAuthor submissionAuthor : submissionAuthors) {
                 Submission submission = Database.read("Submission", new Submission(submissionAuthor.getIssn(), submissionAuthor.getSubmissionID(), null, null, null, null, null, null, null)).get(0);
-                listModel.addElement(submission);
+                DefaultMutableTreeNode submissionNode = new DefaultMutableTreeNode(submission);
+                switch(submission.getStatus()){
+                    case SUBMITTED:
+                        submittedNode.add(submissionNode);
+                        break;
+                    case REVIEWED:
+                        reviewedNode.add(submissionNode);
+                        break;
+                    case RESPONSED:
+                        responsedNode.add(submissionNode);
+                        break;
+                }
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
-        sumbissionList.setModel(listModel);
+        submissionTree.setModel(new DefaultTreeModel(rootNode));
+        articalOutterPanel.removeAll();
+        articalOutterPanel.repaint();
     }
 
     /**
@@ -59,24 +83,23 @@ public class AuthorPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jSplitPane1 = new javax.swing.JSplitPane();
-        sumbissionScrollPane1 = new javax.swing.JScrollPane();
-        sumbissionList = new javax.swing.JList<>();
+        submissionScrollPane = new javax.swing.JScrollPane();
+        submissionTree = new javax.swing.JTree();
         articalOutterPanel = new javax.swing.JPanel();
 
         setLayout(new java.awt.BorderLayout());
 
         jSplitPane1.setDividerLocation(200);
 
-        sumbissionList.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        sumbissionList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        sumbissionList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                sumbissionListValueChanged(evt);
+        submissionTree.setToolTipText("");
+        submissionTree.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
+            public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
+                submissionTreeValueChanged(evt);
             }
         });
-        sumbissionScrollPane1.setViewportView(sumbissionList);
+        submissionScrollPane.setViewportView(submissionTree);
 
-        jSplitPane1.setLeftComponent(sumbissionScrollPane1);
+        jSplitPane1.setLeftComponent(submissionScrollPane);
 
         articalOutterPanel.setLayout(new java.awt.BorderLayout());
         jSplitPane1.setRightComponent(articalOutterPanel);
@@ -84,19 +107,27 @@ public class AuthorPanel extends javax.swing.JPanel {
         add(jSplitPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void sumbissionListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_sumbissionListValueChanged
-
-        Submission submission = ((javax.swing.JList<Submission>)evt.getSource()).getSelectedValue();
-        articalOutterPanel.removeAll();
-        articalOutterPanel.add(new ArticlePanel(submission, UserRole.AUTHOR, email), java.awt.BorderLayout.CENTER);
-        articalOutterPanel.revalidate();
-    }//GEN-LAST:event_sumbissionListValueChanged
-
-
+    private void submissionTreeValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_submissionTreeValueChanged
+        DefaultMutableTreeNode lastNode = (DefaultMutableTreeNode)evt.getPath().getLastPathComponent();
+        Object userObject = lastNode.getUserObject();
+        if(userObject.getClass() == Submission.class){
+            Submission submission = (Submission)userObject;
+            articalOutterPanel.removeAll();
+            ArticlePanel articlePanel = new ArticlePanel(submission, UserRole.AUTHOR, email);
+            articlePanel.addReloadRequestListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    updateSubmissions();
+                }
+            });
+            articalOutterPanel.add(articlePanel, java.awt.BorderLayout.CENTER);
+            articalOutterPanel.revalidate();
+        }
+    }//GEN-LAST:event_submissionTreeValueChanged
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel articalOutterPanel;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JList<Submission> sumbissionList;
-    private javax.swing.JScrollPane sumbissionScrollPane1;
+    private javax.swing.JScrollPane submissionScrollPane;
+    private javax.swing.JTree submissionTree;
     // End of variables declaration//GEN-END:variables
 }

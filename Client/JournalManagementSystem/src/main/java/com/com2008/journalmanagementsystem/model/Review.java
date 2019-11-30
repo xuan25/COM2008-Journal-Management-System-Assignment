@@ -11,19 +11,22 @@ public class Review implements IDataRow{
     private String submissionID;
     private String summary;
     private Integer verdict;
+    private Integer finalVerdict;
     private Long timestamp;
 
     public Review(){
         
     }
 
-    public Review(String email, String issn, String submissionID, String summary, Verdict verdict, Long timestamp){
+    public Review(String email, String issn, String submissionID, String summary, Verdict verdict, Verdict finalVerdict, Long timestamp){
         this.email = email;
         this.issn = issn;
         this.submissionID = submissionID;
         this.summary = summary;
         if(verdict != null)
             this.verdict = verdict.value();
+        if(finalVerdict != null)
+            this.finalVerdict = finalVerdict.value();
         this.timestamp = timestamp;
     } 
 
@@ -97,11 +100,23 @@ public class Review implements IDataRow{
     }
 
     public Verdict getVerdict() {
+        if(verdict == null)
+            return null;
         return Verdict.valueOf(verdict);
     }
 
     public void setVerdict(Verdict verdict) {
         this.verdict = verdict.value();
+    }
+
+    public Verdict getFinalVerdict() {
+        if(finalVerdict == null)
+            return null;
+        return Verdict.valueOf(finalVerdict);
+    }
+
+    public void setFinalVerdict(Verdict finalVerdict) {
+        this.finalVerdict = finalVerdict.value();
     }
 
     public Long getTimestamp() {

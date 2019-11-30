@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 
 import com.com2008.journalmanagementsystem.model.*;
 import com.com2008.journalmanagementsystem.model.Review.Verdict;
@@ -30,78 +31,130 @@ public class ReviewPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public ReviewPanel(String name, Review review) {
-        initComponents();
+    // public ReviewPanel(String name, Review review) {
+    //     initComponents();
 
-        reviewerLabel.setText(name);
-        acceptableLabel.setText(review.getVerdict().toString());
-        summaryTextArea.setText(review.getSummary());
+    //     reviewerLabel.setText(name);
+    //     acceptableLabel.setText(review.getVerdict().toString());
+    //     summaryTextArea.setText(review.getSummary());
 
-        try {
-            typoErrorsList.removeAll();
-            criticismsList.removeAll();
+    //     try {
+    //         typoErrorsList.removeAll();
+    //         criticismsList.removeAll();
 
-            List<TypoError> typoErrors = Database.read("TypoError", new TypoError(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
-            //DefaultListModel typoErrorListModel = new DefaultListModel();
-            for(TypoError typoError : typoErrors){
-                typoErrorListModel.addElement(typoError);
-            }
-            typoErrorsList.setModel(typoErrorListModel);
+    //         List<TypoError> typoErrors = Database.read("TypoError", new TypoError(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
+    //         for(TypoError typoError : typoErrors){
+    //             typoErrorListModel.addElement(typoError);
+    //         }
+    //         typoErrorsList.setModel(typoErrorListModel);
 
-            List<Criticism> criticisms = Database.read("Criticism", new Criticism(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
-            //DefaultListModel cristicismsListModel = new DefaultListModel();
-            for(Criticism criticism : criticisms){
-                criticismsListModel.addElement(criticism);
-            }
-            criticismsList.setModel(criticismsListModel);
-            submitPannel.setVisible(false);
+    //         List<Criticism> criticisms = Database.read("Criticism", new Criticism(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
+    //         for(Criticism criticism : criticisms){
+    //             criticismsListModel.addElement(criticism);
+    //         }
+    //         criticismsList.setModel(criticismsListModel);
             
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    //         submitPannel.setVisible(false);
+            
+    //     } catch (SQLException e) {
+    //         // TODO Auto-generated catch block
+    //         e.printStackTrace();
+    //     }
         
 
-    }
+    // }
 
     public ReviewPanel(String name, Review review, UserRole userRole) {
         initComponents();
-        this.review = review;
-        reviewerLabel.setVisible(false);
 
-        try {
-            if (Database.read("Review",new Review(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null, null)).size() == 0){
+        switch(userRole){
+            case AUTHOR:
+                submitPannel.setVisible(false);
 
-                acceptableLabel.setVisible(false);
-                summaryTextArea.setText("");
-        
-                typoErrorsList.removeAll();
-                criticismsList.removeAll(); 
-        
-                typoErrorsList.setModel(typoErrorListModel);
-                criticismsList.setModel(criticismsListModel);
-
-            }
-            //new Review(email, issn, submissionID, summary, verdict, timestamp)
-            if (Database.read("Review",new Review(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null, null)).size() == 0) {
-                acceptableLabel.setVisible(true);
-                
+                reviewerLabel.setText(name);
+                acceptableLabel.setText(review.getVerdict().toString());
                 summaryTextArea.setText(review.getSummary());
-                summaryTextArea.revalidate();
+        
+                try {
+                    typoErrorsList.removeAll();
+                    criticismsList.removeAll();
+        
+                    List<TypoError> typoErrors = Database.read("TypoError", new TypoError(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
+                    for(TypoError typoError : typoErrors){
+                        typoErrorListModel.addElement(typoError);
+                    }
+                    typoErrorsList.setModel(typoErrorListModel);
+        
+                    List<Criticism> criticisms = Database.read("Criticism", new Criticism(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
+                    for(Criticism criticism : criticisms){
+                        criticismsListModel.addElement(criticism);
+                    }
+                    criticismsList.setModel(criticismsListModel);
+                    
+                }
+                catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                break;
+            case REVIEWER:
+                reviewerLabel.setVisible(false);
+                try {
+                    List<Review> reviews = Database.read("Review",new Review(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null, null, null));
+                    if (reviews.size() > 0){
+                        this.review = reviews.get(0);
+                        acceptableLabel.setVisible(true);
+                        authorResponcePanel.setVisible(true);
+                        typoErrorsAddPanel.setVisible(false);
+                        criticismsAddPanel.setVisible(false);
+                        
+                        summaryTextArea.setEditable(false);
+                        summaryTextArea.setText(this.review.getSummary());
+
+                        acceptableLabel.setText(this.review.getVerdict().toString());
+
+                        List<TypoError> typoErrors = Database.read("TypoError", new TypoError(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
+                        for(TypoError typoError : typoErrors){
+                            typoErrorListModel.addElement(typoError);
+                        }
+
+                        List<Criticism> criticisms = Database.read("Criticism", new Criticism(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
+                        for(Criticism criticism : criticisms){
+                            criticismsListModel.addElement(criticism);
+                        }
+
+                        DefaultListModel<Response> responsesListModel = new DefaultListModel<Response>();
+                        List<Response> responses = Database.read("Response", new Response(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
+                        for (Response response : responses) {
+                            responsesListModel.addElement(response);
+                        }
+
+                        authorResponceList.setModel(responsesListModel);
+                    }
+                    else{
+                        this.review = review;
+                        acceptableLabel.setVisible(false);
+                        authorResponcePanel.setVisible(false);
+                        summaryTextArea.setText("");
+                
+                        typoErrorsList.removeAll();
+                        criticismsList.removeAll(); 
+                    } 
+                    typoErrorsList.setModel(typoErrorListModel);
+                    criticismsList.setModel(criticismsListModel);
 
                 
-                List<TypoError> typoError = Database.read("TypoError", new TypoError(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
-                for (TypoError typoError2 : typoError) {
-                    //TODO---
+                } 
+                catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
                 }
+                break;
+        }
+    }
 
-            }
-        
-        
-                } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }     
+    public JList<Criticism> getCriticismList(){
+        return criticismsList;
     }
 
     /**
@@ -147,10 +200,10 @@ public class ReviewPanel extends javax.swing.JPanel {
         criticismsAddScrolPanel = new javax.swing.JScrollPane();
         criticsmsTextArea = new javax.swing.JTextArea();
         criticismsAddButton = new javax.swing.JButton();
-        AuthorResponcePanel = new javax.swing.JPanel();
-        AuthorResponceLable = new javax.swing.JLabel();
-        AuthorResponceTextPanel = new javax.swing.JScrollPane();
-        AuthorResponceText = new javax.swing.JList<>();
+        authorResponcePanel = new javax.swing.JPanel();
+        authorResponceLable = new javax.swing.JLabel();
+        authorResponceTextPanel = new javax.swing.JScrollPane();
+        authorResponceList = new javax.swing.JList<>();
         verdictPanel = new javax.swing.JPanel();
         verdictText = new javax.swing.JLabel();
         verdictList = new javax.swing.JScrollPane();
@@ -273,21 +326,16 @@ public class ReviewPanel extends javax.swing.JPanel {
 
         typoCritismsAddPanel.add(criticismsAddPanel, java.awt.BorderLayout.CENTER);
 
-        AuthorResponcePanel.setLayout(new java.awt.BorderLayout());
+        authorResponcePanel.setLayout(new java.awt.BorderLayout());
 
-        AuthorResponceLable.setText("jLabel1");
-        AuthorResponcePanel.add(AuthorResponceLable, java.awt.BorderLayout.PAGE_START);
+        authorResponceLable.setText("Responses:");
+        authorResponcePanel.add(authorResponceLable, java.awt.BorderLayout.PAGE_START);
 
-        AuthorResponceText.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        AuthorResponceTextPanel.setViewportView(AuthorResponceText);
+        authorResponceTextPanel.setViewportView(authorResponceList);
 
-        AuthorResponcePanel.add(AuthorResponceTextPanel, java.awt.BorderLayout.PAGE_END);
+        authorResponcePanel.add(authorResponceTextPanel, java.awt.BorderLayout.PAGE_END);
 
-        typoCritismsAddPanel.add(AuthorResponcePanel, java.awt.BorderLayout.PAGE_END);
+        typoCritismsAddPanel.add(authorResponcePanel, java.awt.BorderLayout.PAGE_END);
 
         jSplitPane2.setLeftComponent(typoCritismsAddPanel);
 
@@ -331,37 +379,53 @@ public class ReviewPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        int verdictIndex = verdictSelectList.getSelectedIndex();
-        Verdict verdict = Verdict.valueOf(verdictIndex);
-        review.setVerdict(verdict);
-        review.setSummary(summaryTextArea.getText());
-        review.setTimestampNow();
-        // review.setTimestamp(timestamp);
-        try {
-            Database.write("Review", review);
-        } catch (SQLException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
-        
-        for(int i = 0; i < typoErrorListModel.getSize(); i++){
-            try {
-                Database.write("TypoError", typoErrorListModel.get(i));
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-        
-        for(int i = 0; i < criticismsListModel.getSize(); i++){
-            try {
-                Database.write("Criticism", criticismsListModel.get(i));
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
 
+        try {
+            if (Database.read("Response",new Response(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null)).size() != 0) {
+
+                int verdictIndex = verdictSelectList.getSelectedIndex();
+                Verdict verdict = Verdict.valueOf(verdictIndex);
+                Database.update("Review", review, new Review(null, null, null, null, null, verdict, null), false);
+
+            } else {
+                int verdictIndex = verdictSelectList.getSelectedIndex();
+                Verdict verdict = Verdict.valueOf(verdictIndex);
+                review.setVerdict(verdict);
+                review.setSummary(summaryTextArea.getText());
+                review.setTimestampNow();
+                // review.setTimestamp(timestamp);
+                try {
+                    Database.write("Review", review);
+                } catch (SQLException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+
+                for (int i = 0; i < typoErrorListModel.getSize(); i++) {
+                    try {
+                        Database.write("TypoError", typoErrorListModel.get(i));
+                    } catch (SQLException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+
+                for (int i = 0; i < criticismsListModel.getSize(); i++) {
+                    try {
+                        Database.write("Criticism", criticismsListModel.get(i));
+                    } catch (SQLException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+              
+            }
+
+            submitButton.setEnabled(false);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         
         
     }//GEN-LAST:event_submitButtonActionPerformed
@@ -388,13 +452,13 @@ public class ReviewPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel AuthorResponceLable;
-    private javax.swing.JPanel AuthorResponcePanel;
-    private javax.swing.JList<String> AuthorResponceText;
-    private javax.swing.JScrollPane AuthorResponceTextPanel;
     private javax.swing.JLabel SubmissionLabel;
     private javax.swing.JLabel acceptableLabel;
     private javax.swing.JLabel addTypoText;
+    private javax.swing.JLabel authorResponceLable;
+    private javax.swing.JList<Response> authorResponceList;
+    private javax.swing.JPanel authorResponcePanel;
+    private javax.swing.JScrollPane authorResponceTextPanel;
     private javax.swing.JButton criticismsAddButton;
     private javax.swing.JPanel criticismsAddPanel;
     private javax.swing.JScrollPane criticismsAddScrolPanel;
