@@ -9,6 +9,10 @@ import com.com2008.journalmanagementsystem.model.Editor;
 import com.com2008.journalmanagementsystem.model.EditorOnBoard;
 import com.com2008.journalmanagementsystem.model.Journal;
 import com.com2008.journalmanagementsystem.util.database.Database;
+
+import static javax.swing.BoxLayout.Y_AXIS;
+
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +20,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -62,25 +68,27 @@ public class RetirePanel extends javax.swing.JPanel {
         }
         //turn editorPAnel into a new grid layout
         String editorString = "";
-        editorPanel.setLayout(new GridLayout(2,2));
+        editorPanel.setLayout(new BoxLayout(editorPanel,Y_AXIS));
         
         //for each journal in journals
         //add a label for: the journal name, the current editors, the chief editor
         //add a button which has a custom action listener
+        ArrayList<JButton> buttonList = new ArrayList<>();
         for (int i=0; i<journals.size(); i++){
             for (EditorOnBoard e:editorsOnBoardOf.get(i)) {
             	editorString = editorString.concat(e.getEmail()+" ");
             }
-            JLabel label = new JLabel(journals.get(i).getJournalName());
+            JLabel label = new JLabel("Journal Name: "+journals.get(i).getJournalName());
             JLabel labelEditor = new JLabel("Editors on Project: "+editorString);
             JLabel labelChief = new JLabel("Chief: "+journals.get(i).getCheifEmail());
-            JButton btnRetire = new JButton("Retire from "+journals.get(i).getJournalName());
+            buttonList.add(new JButton("Retire from "+journals.get(i).getJournalName()));
             //add button listener with information from the current journal
-            btnRetire.addActionListener(new RetireActionListener(editorsOnBoardOf.get(i),email,journals.get(i).getIssn(),journals.get(i).getCheifEmail()));
+            buttonList.get(buttonList.size()-1).addActionListener(new RetireActionListener(editorsOnBoardOf.get(i),email,journals.get(i).getIssn(),journals.get(i).getCheifEmail()));
             editorPanel.add(label);
             editorPanel.add(labelEditor);
             editorPanel.add(labelChief);
-            editorPanel.add(btnRetire);
+            editorPanel.add(buttonList.get(buttonList.size()-1));
+            editorPanel.add(Box.createRigidArea(new Dimension(20, 20)));
             
         }
         editorPanel.revalidate();
@@ -96,7 +104,7 @@ public class RetirePanel extends javax.swing.JPanel {
     	List<EditorOnBoard> eList;
     	String email;
     	String issn;
-		String cEmail;
+    	String cEmail;
     	
         public RetireActionListener(List<EditorOnBoard> list, String em, String is, String ce) {
 			// TODO Auto-generated constructor stub
@@ -133,7 +141,6 @@ public class RetirePanel extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-
     private void initComponents() {
 
         editorPanel = new javax.swing.JPanel();
@@ -144,7 +151,7 @@ public class RetirePanel extends javax.swing.JPanel {
         editorPanel.setLayout(editorPanelLayout);
         editorPanelLayout.setHorizontalGroup(
             editorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 405, Short.MAX_VALUE)
+            .addGap(0, 145, Short.MAX_VALUE)
         );
         editorPanelLayout.setVerticalGroup(
             editorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,11 +182,11 @@ public class RetirePanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(titlePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(editorPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addComponent(titlePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(editorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
