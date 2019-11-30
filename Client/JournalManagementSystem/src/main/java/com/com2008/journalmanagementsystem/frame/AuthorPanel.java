@@ -112,7 +112,13 @@ public class AuthorPanel extends javax.swing.JPanel {
         if(userObject.getClass() == Submission.class){
             Submission submission = (Submission)userObject;
             articalOutterPanel.removeAll();
-            articalOutterPanel.add(new ArticlePanel(submission, UserRole.AUTHOR, email), java.awt.BorderLayout.CENTER);
+            ArticlePanel articlePanel = new ArticlePanel(submission, UserRole.AUTHOR, email);
+            articlePanel.getSubmitAllResponsesBtn().addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    updateSubmissions();
+                }
+            });
+            articalOutterPanel.add(articlePanel, java.awt.BorderLayout.CENTER);
             articalOutterPanel.revalidate();
         }
     }//GEN-LAST:event_submissionTreeValueChanged
