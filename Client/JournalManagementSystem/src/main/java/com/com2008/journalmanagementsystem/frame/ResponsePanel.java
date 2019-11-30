@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 
 import com.com2008.journalmanagementsystem.model.Criticism;
@@ -135,6 +136,10 @@ public class ResponsePanel extends javax.swing.JPanel {
     }
 
     private void responseSaveBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_responseSaveBtnActionPerformed
+        if(currentCriticism == null){
+            JOptionPane.showMessageDialog(this, "Please select an criticism", "Save response", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         try {
             List<Response> responses = Database.read("Response", new Response(currentCriticism.getEmail(), currentCriticism.getIssn(),currentCriticism.getSubmissionID(), currentCriticism.getNum(), null));
             if(responses.size() > 0){
