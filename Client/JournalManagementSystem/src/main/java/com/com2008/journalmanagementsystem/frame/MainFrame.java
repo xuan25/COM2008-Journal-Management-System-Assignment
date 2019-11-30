@@ -130,7 +130,7 @@ public class MainFrame extends javax.swing.JFrame {
                 selectionsPanel.add(new SidePanelButton("Accept/Reject Articles", new MouseAdapter() {
                     public void mousePressed(MouseEvent evt) {
                         activeSidePanelBtn((SidePanelButton) evt.getSource());
-                        updateMainPanel(new ArticlePanel());
+                        updateMainPanel(new DecisionPanel(email));
                     }
                 }));
             	try {
