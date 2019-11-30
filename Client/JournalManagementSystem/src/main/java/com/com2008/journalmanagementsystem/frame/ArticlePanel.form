@@ -80,9 +80,6 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Accept"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="acceptBtnActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="rejectBtn">
                   <Properties>
@@ -91,9 +88,6 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Reject"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rejectBtnActionPerformed"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>

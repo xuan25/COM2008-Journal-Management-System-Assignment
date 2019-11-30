@@ -8,6 +8,7 @@ package com.com2008.journalmanagementsystem.frame;
 import com.com2008.journalmanagementsystem.model.EditorOnBoard;
 import com.com2008.journalmanagementsystem.model.Journal;
 import com.com2008.journalmanagementsystem.model.Submission;
+import com.com2008.journalmanagementsystem.model.Submission.Status;
 import com.com2008.journalmanagementsystem.util.database.Database;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -38,6 +39,7 @@ public class DecisionPanel extends javax.swing.JPanel {
     
     public DecisionPanel(String email) {
         initComponents();
+        //get a list of journals and submissions for each journal
         List<Journal> journals = new ArrayList<>();
         List<List<Submission>> submissions = new ArrayList<>();
         try {
@@ -53,28 +55,32 @@ public class DecisionPanel extends javax.swing.JPanel {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        
+    
+    //for each submission in a journal add a button and labels
+    //to view that submission
     journalPanel.setLayout(new BoxLayout(journalPanel,Y_AXIS));
     ArrayList<JButton> buttonList = new ArrayList<>();
     for (int i=0; i<journals.size(); i++){
         for (Submission sub: submissions.get(i)){
-            JLabel label = new JLabel("Journal: "+journals.get(i).getJournalName()+" "
-                    + "Title: "+sub.getTitle());
-            label.setFont(new Font("Tahoma",Font.PLAIN,14));
-            buttonList.add(new JButton("See this submission"));
-            //add button listener with information from the current journal
-            buttonList.get(buttonList.size()-1).addActionListener(new LinkSubmissionActionListener(sub,email));
-            journalPanel.add(label);
-            journalPanel.add(buttonList.get(buttonList.size()-1));
-            journalPanel.add(Box.createRigidArea(new Dimension(20, 20)));
+        	if (sub.getStatus() == Status.REVIEWED) {
+        		JLabel label = new JLabel("Journal: "+journals.get(i).getJournalName()+" "
+                        + "Title: "+sub.getTitle());
+                label.setFont(new Font("Tahoma",Font.PLAIN,14));
+                buttonList.add(new JButton("See this submission"));
+                //add button listener with information from the current journal
+                buttonList.get(buttonList.size()-1).addActionListener(new LinkSubmissionActionListener(sub,email));
+                journalPanel.add(label);
+                journalPanel.add(buttonList.get(buttonList.size()-1));
+                journalPanel.add(Box.createRigidArea(new Dimension(20, 20)));
+                } 
         }
-            
-        }
-        journalPanel.revalidate();
-        journalPanel.repaint();
+    }
+    //refresh the panel
+    journalPanel.revalidate();
+    journalPanel.repaint();
     }
     private class LinkSubmissionActionListener implements ActionListener {
-    	
+    	//custom action listener so that the correct submission is used
     	Submission su;
     	String em;
     	
@@ -85,10 +91,25 @@ public class DecisionPanel extends javax.swing.JPanel {
 	}
 
         public void actionPerformed(ActionEvent e) {
-            JFrame submissionFrame = new JFrame();
-            submissionFrame.add(new ArticlePanel(su,UserRole.EDITOR,em));
-            submissionFrame.setBounds(0, 0, 250, 250);
-            submissionFrame.setVisible(true);
+            try {
+                //must get the newest updated version of the submission
+                //to test whether the submission was just reviewed
+                Submission updatedSu = Database.read("Submission", new Submission(su.getIssn(),su.getSubmissionID(),null,null,null,null,null,null,null)).get(0);
+                if (updatedSu.getStatus() == Status.REVIEWED){
+                    JFrame submissionFrame = new JFrame();
+                    submissionFrame.add(new ArticlePanel(su,UserRole.EDITOR,em));
+                    submissionFrame.setBounds(0, 0, 1000, 500);
+                    submissionFrame.setVisible(true);
+                }
+                else{
+                    //if submission is already reviewed, disable button
+                    JButton parentButton = (JButton)e.getSource();
+                    parentButton.setEnabled(false);
+                }
+            }
+            catch (SQLException r){
+                r.printStackTrace();
+            }
         }
     }
 

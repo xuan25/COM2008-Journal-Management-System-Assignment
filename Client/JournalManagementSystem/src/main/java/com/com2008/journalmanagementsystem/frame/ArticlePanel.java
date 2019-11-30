@@ -11,10 +11,19 @@ import java.util.List;
 
 import com.com2008.journalmanagementsystem.model.Account;
 import com.com2008.journalmanagementsystem.model.Author;
+import com.com2008.journalmanagementsystem.model.EditorOnBoard;
 import com.com2008.journalmanagementsystem.model.Review;
 import com.com2008.journalmanagementsystem.model.Submission;
+import com.com2008.journalmanagementsystem.model.Submission.Status;
 import com.com2008.journalmanagementsystem.model.SubmissionAuthor;
 import com.com2008.journalmanagementsystem.util.database.Database;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -46,6 +55,9 @@ public class ArticlePanel extends javax.swing.JPanel {
             default:
                 break;
         }
+        
+        acceptBtn.addActionListener(new StatusActionListener(submission,true));
+        rejectBtn.addActionListener(new StatusActionListener(submission,false));
 
         titleLabel.setText(submission.getTitle());
         statusLabel.setText(submission.getStatus().toString());
@@ -102,6 +114,37 @@ public class ArticlePanel extends javax.swing.JPanel {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+        }
+    }
+    
+    private class StatusActionListener implements ActionListener {
+        //custom action listener for accept/reject buttons
+        //sets the status to accepted or rejected based on button press
+    	Submission su;
+        boolean st;
+    	
+        public StatusActionListener(Submission sub, boolean status) {
+            //status of true -> accept button
+            //status of false -> reject button
+            this.su = sub;
+            this.st = status;
+	}
+
+	public void actionPerformed(ActionEvent e) {
+                try {
+                    if (st){
+                        Database.update("Submission",su,new Submission(null,null,null,null,null,null,null,null,Status.ACCEPTED),false); 
+                    }
+                    else {
+                        Database.update("Submission",su,new Submission(null,null,null,null,null,null,null,null,Status.REJECTED),false);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(ArticlePanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                //get the parent JFrame to close when accept/reject
+                //button clicked
+                JFrame fr = (JFrame)SwingUtilities.getRoot(acceptBtn);
+                fr.setVisible(false);
         }
     }
 
@@ -186,20 +229,10 @@ public class ArticlePanel extends javax.swing.JPanel {
 
         acceptBtn.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         acceptBtn.setText("Accept");
-        acceptBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                acceptBtnActionPerformed(evt);
-            }
-        });
         decisionPanel.add(acceptBtn);
 
         rejectBtn.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         rejectBtn.setText("Reject");
-        rejectBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rejectBtnActionPerformed(evt);
-            }
-        });
         decisionPanel.add(rejectBtn);
 
         toolbarPanel.add(decisionPanel);
@@ -321,16 +354,6 @@ public class ArticlePanel extends javax.swing.JPanel {
 
         add(mainScrollPane, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void acceptBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptBtnActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_acceptBtnActionPerformed
-
-    private void rejectBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejectBtnActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_rejectBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
