@@ -9,26 +9,26 @@ import com.com2008.journalmanagementsystem.frame.LoginFrame;
 import com.com2008.journalmanagementsystem.util.database.Database;
 
 public class Main {
-    public static void main(final String args[]) {
+    public static void main(String args[]) {
         try {
             Database.connect("jdbc:mysql://stusql.dcs.shef.ac.uk/team018", "team018", "9ae70ba0");
-        } catch (final SQLException e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Can not connect to the database", "The software will now exit",
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        for (final javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
             if ("Windows".equals(info.getName())) {
                 try {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                } catch (final ClassNotFoundException e) {
+                } catch (ClassNotFoundException e) {
                     e.printStackTrace();
-                } catch (final InstantiationException e) {
+                } catch (InstantiationException e) {
                     e.printStackTrace();
-                } catch (final IllegalAccessException e) {
+                } catch (IllegalAccessException e) {
                     e.printStackTrace();
-                } catch (final UnsupportedLookAndFeelException e) {
+                } catch (UnsupportedLookAndFeelException e) {
                     e.printStackTrace();
                 }
                 break;
