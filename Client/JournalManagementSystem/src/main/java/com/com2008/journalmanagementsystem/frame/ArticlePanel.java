@@ -7,7 +7,11 @@ package com.com2008.journalmanagementsystem.frame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -466,14 +470,34 @@ public class ArticlePanel extends javax.swing.JPanel {
 
     private void openPDFBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_openPDFBtnActionPerformed
         // TODO add your handling code here:
-        // if (submission.getFinalID() == null)
-        // linkLabel.setText(submission.getDraftID());
-        // else
-        // linkLabel.setText(submission.getFinalID());
+        String uuid = submission.getFinalID();
+        if(uuid == null)
+            uuid = submission.getDraftID();
+        
+        
+
+        try {
+            File temp = File.createTempFile(uuid, ".pdf");
+            String tempPath = temp.getAbsolutePath();
+            temp.deleteOnExit();
+
+            InputStream downloadStream = Database.downloadDocument("Document", uuid);
+            OutputStream fileStream = new FileOutputStream(tempPath);
+            byte[] buffer = new byte[1024];
+            int len = 0;
+            while((len = downloadStream.read(buffer)) != -1){
+                fileStream.write(buffer, 0, len);
+            }
+            fileStream.close();
+
+            java.awt.Desktop.getDesktop().open(temp);
+        } catch (IOException | SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }// GEN-LAST:event_openPDFBtnActionPerformed
 
     private void uploadFinalPDFBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_uploadFinalPDFBtnActionPerformed
-        // TODO add your handling code here:
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fileChooser.setFileFilter(new FileNameExtensionFilter("PDF (*.pdf)", "pdf"));
