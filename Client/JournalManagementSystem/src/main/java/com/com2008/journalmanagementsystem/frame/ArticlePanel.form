@@ -475,16 +475,16 @@
                     <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.VerticalStrut"/>
                   </AuxValues>
                 </Component>
-                <Container class="javax.swing.JPanel" name="submitResponsesPanel">
+                <Container class="javax.swing.JPanel" name="confirmFinalPanel">
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JButton" name="submitAllResponsesBtn">
+                    <Component class="javax.swing.JButton" name="confirmFinalBtn">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Submit all responses"/>
+                        <Property name="text" type="java.lang.String" value="Confirm final draft &amp; responses"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="submitAllResponsesBtnActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="confirmFinalBtnActionPerformed"/>
                       </Events>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">

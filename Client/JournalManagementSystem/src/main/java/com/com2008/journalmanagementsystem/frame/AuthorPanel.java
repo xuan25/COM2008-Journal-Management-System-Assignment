@@ -35,7 +35,6 @@ public class AuthorPanel extends javax.swing.JPanel {
 
     private void updateSubmissions(){
         submissionTree.removeAll();
-        articalOutterPanel.removeAll();
 
         DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("Submissions");
 
@@ -70,6 +69,8 @@ public class AuthorPanel extends javax.swing.JPanel {
         }
 
         submissionTree.setModel(new DefaultTreeModel(rootNode));
+        articalOutterPanel.removeAll();
+        articalOutterPanel.repaint();
     }
 
     /**
@@ -113,7 +114,7 @@ public class AuthorPanel extends javax.swing.JPanel {
             Submission submission = (Submission)userObject;
             articalOutterPanel.removeAll();
             ArticlePanel articlePanel = new ArticlePanel(submission, UserRole.AUTHOR, email);
-            articlePanel.getSubmitAllResponsesBtn().addActionListener(new java.awt.event.ActionListener() {
+            articlePanel.addReloadRequestListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     updateSubmissions();
                 }
