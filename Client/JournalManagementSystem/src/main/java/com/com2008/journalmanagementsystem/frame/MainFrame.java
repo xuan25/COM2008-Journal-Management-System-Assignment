@@ -139,7 +139,7 @@ public class MainFrame extends javax.swing.JFrame {
                         selectionsPanel.add(new SidePanelButton("Pass Chief Editor", new MouseAdapter() {
                             public void mousePressed(MouseEvent evt) {
                                 activeSidePanelBtn((SidePanelButton) evt.getSource());
-                                updateMainPanel(new PassChiefPanel());
+                                updateMainPanel(new PassChiefPanel(email));
                             }
                         }));
                         selectionsPanel.add(new SidePanelButton("Publish Journal", new MouseAdapter() {
