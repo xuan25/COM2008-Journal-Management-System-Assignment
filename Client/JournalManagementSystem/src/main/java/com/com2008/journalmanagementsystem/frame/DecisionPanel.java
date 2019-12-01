@@ -5,10 +5,12 @@
  */
 package com.com2008.journalmanagementsystem.frame;
 
+import com.com2008.journalmanagementsystem.model.Account;
 import com.com2008.journalmanagementsystem.model.EditorOnBoard;
 import com.com2008.journalmanagementsystem.model.Journal;
 import com.com2008.journalmanagementsystem.model.Submission;
 import com.com2008.journalmanagementsystem.model.Submission.Status;
+import com.com2008.journalmanagementsystem.model.SubmissionAuthor;
 import com.com2008.journalmanagementsystem.util.database.Database;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -17,12 +19,15 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import static javax.swing.BoxLayout.Y_AXIS;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -43,42 +48,72 @@ public class DecisionPanel extends javax.swing.JPanel {
         List<Journal> journals = new ArrayList<>();
         List<List<Submission>> submissions = new ArrayList<>();
         try {
-            List<EditorOnBoard> editorsOnBoard = Database.read("EditorOnBoard", new EditorOnBoard(null,email));
+            List<EditorOnBoard> editorsOnBoard = Database.read(
+                    "EditorOnBoard", new EditorOnBoard(null,email));
             for (EditorOnBoard editorOnBoard:editorsOnBoard){
-                Journal currentJournal = Database.read("Journal", new Journal(editorOnBoard.getIssn(),null,null,null,null)).get(0);
+                Journal currentJournal = Database.read(
+                        "Journal", new Journal(editorOnBoard.getIssn(),null,null,null,null)).get(0);
                 journals.add(currentJournal);
-                List<Submission> currentSubmissions = Database.read("Submission", new Submission(editorOnBoard.getIssn(),null,null,null,null,null,null,null,null));
+                List<Submission> currentSubmissions = Database.read(
+                        "Submission", new Submission(
+                                editorOnBoard.getIssn(),null,null,null,null,null,null,null,null));
                 submissions.add(currentSubmissions);
-                
             }
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
     
-    //for each submission in a journal add a button and labels
-    //to view that submission
-    journalPanel.setLayout(new BoxLayout(journalPanel,Y_AXIS));
-    ArrayList<JButton> buttonList = new ArrayList<>();
-    for (int i=0; i<journals.size(); i++){
-        for (Submission sub: submissions.get(i)){
-        	if (sub.getStatus() == Status.REVIEWED) {
-        		JLabel label = new JLabel("Journal: "+journals.get(i).getJournalName()+" "
-                        + "Title: "+sub.getTitle());
-                label.setFont(new Font("Tahoma",Font.PLAIN,14));
-                buttonList.add(new JButton("See this submission"));
-                //add button listener with information from the current journal
-                buttonList.get(buttonList.size()-1).addActionListener(new LinkSubmissionActionListener(sub,email));
-                journalPanel.add(label);
-                journalPanel.add(buttonList.get(buttonList.size()-1));
-                journalPanel.add(Box.createRigidArea(new Dimension(20, 20)));
-                } 
+        //for each submission in a journal add a button and labels
+        //to view that submission
+        journalPanel.setLayout(new BoxLayout(journalPanel,Y_AXIS));
+        ArrayList<JButton> buttonList = new ArrayList<>();
+        String editorAffiliation = null;
+        //Get the account user's affiliation
+        try {
+            editorAffiliation = Database.read(
+                    "Account", new Account(email,null,null,null,null))
+                    .get(0).getUniversity();
+        } catch (SQLException ex) {
+            Logger.getLogger(DecisionPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //contiually add accounts and check affiliations
+        for (int i=0; i<journals.size(); i++){
+            for (Submission sub: submissions.get(i)){
+                //get author universities for conflict of interest
+                ArrayList<String> authorAffiliations = new ArrayList<>();
+                try {
+                    List<SubmissionAuthor> subAuthors = Database.read(
+                            "SubmissionAuthor", new SubmissionAuthor(null,sub.getSubmissionID(),null));
+                    for (SubmissionAuthor author:subAuthors){
+                        Account currentAccount = Database.read(
+                                "Account", new Account(author.getEmail(),null,null,null,null)).get(0);
+                        authorAffiliations.add(currentAccount.getUniversity().toLowerCase());
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(DecisionPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if (!(authorAffiliations.contains(editorAffiliation.toLowerCase()))){
+                    if (sub.getStatus() == Status.REVIEWED) {
+                        JLabel label = new JLabel("Journal: "+journals.get(i).getJournalName()+" "
+                        + "Title: "+sub.getTitle());
+                        label.setFont(new Font("Tahoma",Font.PLAIN,14));
+                        buttonList.add(new JButton("See this submission"));
+                        //add button listener with information from the current journal
+                        buttonList.get(buttonList.size()-1).addActionListener(
+                                new LinkSubmissionActionListener(sub,email));
+                        journalPanel.add(label);
+                        journalPanel.add(buttonList.get(buttonList.size()-1));
+                        journalPanel.add(Box.createRigidArea(new Dimension(20, 20)));
+                    } 
+                }
+            }
+        }
+        //refresh the panel
+        journalPanel.revalidate();
+        journalPanel.repaint();
     }
-    //refresh the panel
-    journalPanel.revalidate();
-    journalPanel.repaint();
-    }
+    
     private class LinkSubmissionActionListener implements ActionListener {
     	//custom action listener so that the correct submission is used
     	Submission su;
@@ -103,6 +138,8 @@ public class DecisionPanel extends javax.swing.JPanel {
                 }
                 else{
                     //if submission is already reviewed, disable button
+                    JOptionPane.showMessageDialog(null, "This submission has "
+                            + "already been reviewed", "Review Error", JOptionPane.ERROR_MESSAGE);
                     JButton parentButton = (JButton)e.getSource();
                     parentButton.setEnabled(false);
                 }
