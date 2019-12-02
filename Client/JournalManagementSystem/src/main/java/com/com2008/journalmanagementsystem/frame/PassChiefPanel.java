@@ -7,7 +7,6 @@ package com.com2008.journalmanagementsystem.frame;
 
 import com.com2008.journalmanagementsystem.model.EditorOnBoard;
 import com.com2008.journalmanagementsystem.model.Journal;
-import com.com2008.journalmanagementsystem.model.Submission;
 import com.com2008.journalmanagementsystem.util.database.Database;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -22,8 +21,10 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import static javax.swing.BoxLayout.Y_AXIS;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -33,9 +34,14 @@ public class PassChiefPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form PassChiefPanel
+     * 
+     * Panel that allows chief editors to pass
+     * the chief editor role
      */
     public PassChiefPanel(String email) {
         initComponents();
+        //get journals and the amount of editors on the
+        //board of that journal
         List<Journal> journals = null;
         List<List<EditorOnBoard>> editorBoards = new ArrayList<>();
         try {
@@ -49,17 +55,23 @@ public class PassChiefPanel extends javax.swing.JPanel {
             e.printStackTrace();
         }
         
+        //for each editor get the journal info and 
+        //create a button for each editor which can become
+        //the new chief
         editorListPanel.setLayout(new BoxLayout(editorListPanel,Y_AXIS));
         ArrayList<JButton> buttonList = new ArrayList<>();
         for (int i=0; i<journals.size();i++){
+            
+            JLabel journalLabel = new JLabel("Journal: "+journals.get(i).getJournalName());
+            journalLabel.setFont(new Font("Tahoma",Font.PLAIN,14));
+            editorListPanel.add(journalLabel);
+            editorListPanel.add(Box.createRigidArea(new Dimension(20, 20)));
+            
         	if (editorBoards.get(i).size() > 1) {
-	            JLabel journalLabel = new JLabel("Journal: "+journals.get(i).getJournalName());
-	            journalLabel.setFont(new Font("Tahoma",Font.PLAIN,14));
-	            editorListPanel.add(journalLabel);
-	            editorListPanel.add(Box.createRigidArea(new Dimension(20, 20)));
-	            
+                    //if you aren't the only editor
 	            for (int j=0; j<editorBoards.get(i).size();j++){
 	            	if (!(email.toLowerCase().equals(editorBoards.get(i).get(j).getEmail().toLowerCase()))) {
+                            //skip if the current editor on board is user
 	                    buttonList.add(new JButton("Change Chief to "+editorBoards.get(i).get(j).getEmail()));
 	                    //add button listener with information from the current journal
 	                    buttonList.get(buttonList.size()-1).addActionListener(
@@ -70,6 +82,11 @@ public class PassChiefPanel extends javax.swing.JPanel {
 	            	}
 	            }
 	            editorListPanel.add(Box.createRigidArea(new Dimension(10, 10)));
+        	}
+        	else {
+                    JLabel noEditorsLabel = new JLabel("There are no other editors on this journal");
+                    editorListPanel.add(noEditorsLabel);
+                    editorListPanel.add(Box.createRigidArea(new Dimension(20, 20)));
         	}
         }
         //refresh the panel
@@ -90,16 +107,30 @@ public class PassChiefPanel extends javax.swing.JPanel {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+            //get the most up to date version of the journal\
             Journal updatedJournal = null;
             try {
                 updatedJournal = Database.read("Journal", new Journal(thisJournal.getIssn(),null,null,null,null)).get(0);
             } catch (SQLException ex) {
                 Logger.getLogger(PassChiefPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+            //if you are still the chief of this journal
+            //(user may have tranferred chief and tried to press the button again)
             if (updatedJournal.getCheifEmail().toLowerCase().equals(userEmail.toLowerCase())){ 
                 try {
                     Database.update("Journal",thisJournal,new Journal(null,null,newEmail,null,null),false);
+                    int journalAmount = Database.read("Journal", new Journal(null,null,userEmail,null,null)).size();
+                    System.out.println(journalAmount);
+                    if (journalAmount == 0){
+                        //if you are no longer chief of any journal
+                        //log out user since you no longer have chief privilidges
+                        JOptionPane.showMessageDialog(null, "You are no longer chief "
+                                + "editor of any journals\n You will now be logged out", "Logout", JOptionPane.INFORMATION_MESSAGE);
+                        JFrame fr = (JFrame)SwingUtilities.getRoot(editorListPanel);
+                        fr.dispose();
+                        LoginFrame newLogFrame = new LoginFrame();
+                        newLogFrame.setVisible(true);
+                    }
                 } catch (SQLException ex) {
                     Logger.getLogger(PassChiefPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
