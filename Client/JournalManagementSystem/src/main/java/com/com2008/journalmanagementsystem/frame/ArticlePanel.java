@@ -10,8 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.com2008.journalmanagementsystem.model.Account;
+import com.com2008.journalmanagementsystem.model.Article;
 import com.com2008.journalmanagementsystem.model.Author;
+import com.com2008.journalmanagementsystem.model.Edition;
 import com.com2008.journalmanagementsystem.model.EditorOnBoard;
+import com.com2008.journalmanagementsystem.model.JournalInfo;
 import com.com2008.journalmanagementsystem.model.Review;
 import com.com2008.journalmanagementsystem.model.Submission;
 import com.com2008.journalmanagementsystem.model.Submission.Status;
@@ -133,7 +136,23 @@ public class ArticlePanel extends javax.swing.JPanel {
 	public void actionPerformed(ActionEvent e) {
                 try {
                     if (st){
-                        Database.update("Submission",su,new Submission(null,null,null,null,null,null,null,null,Status.ACCEPTED),false); 
+                        Database.update("Submission",su,new Submission(null,null,null,null,null,null,null,null,Status.ACCEPTED),false);
+                        List<Edition> editions = Database.read("Edition", new Edition(null,null,null));
+                        int newestVolume = 0;
+                        int newestEdition = 0;
+                        for (Edition edition:editions){
+                            if (edition.getVolume() > newestVolume){
+                                newestVolume = edition.getVolume();
+                                newestEdition = edition.getEdition();
+                            }
+                            else if (edition.getVolume() == newestVolume) {
+                                if (edition.getEdition() > newestEdition){
+                                    newestEdition = edition.getEdition();
+                                }
+                            }
+                        }
+                        System.out.println(su.getIssn()+" "+su.getSubmissionID()+" "+newestVolume+" "+newestEdition);
+                        Database.write("Article",new Article(su.getIssn(),su.getSubmissionID(),newestVolume,newestEdition));
                     }
                     else {
                         Database.update("Submission",su,new Submission(null,null,null,null,null,null,null,null,Status.REJECTED),false);
