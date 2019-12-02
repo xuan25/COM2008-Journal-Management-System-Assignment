@@ -61,12 +61,6 @@ public class LoginFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         bg = new javax.swing.JPanel();
-        headerPanel = new javax.swing.JPanel();
-        filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
-        titleLabel = new javax.swing.JLabel();
-        filler12 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
-        closeBtn = new javax.swing.JPanel();
-        closeLabel = new javax.swing.JLabel();
         mainPanel = new javax.swing.JPanel();
         startupPanel = new javax.swing.JPanel();
         selePanel = new javax.swing.JPanel();
@@ -145,61 +139,11 @@ public class LoginFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
         setLocation(getStartupLocation());
-        setUndecorated(true);
         setPreferredSize(getFrameSize());
         setSize(getFrameSize());
 
         bg.setBackground(Theme.getBgColor());
-        bg.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                bgMouseDragged(evt);
-            }
-        });
-        bg.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                bgMousePressed(evt);
-            }
-        });
         bg.setLayout(new java.awt.BorderLayout());
-
-        headerPanel.setBackground(Theme.getBgColor());
-        headerPanel.setPreferredSize(new java.awt.Dimension(400, 30));
-        headerPanel.setLayout(new javax.swing.BoxLayout(headerPanel, javax.swing.BoxLayout.LINE_AXIS));
-        headerPanel.add(filler10);
-
-        titleLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        titleLabel.setForeground(new java.awt.Color(204, 204, 204));
-        titleLabel.setText("Login");
-        headerPanel.add(titleLabel);
-        headerPanel.add(filler12);
-
-        closeBtn.setBackground(Theme.getFgColor());
-        closeBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        closeBtn.setMaximumSize(new java.awt.Dimension(30, 30));
-        closeBtn.setPreferredSize(new java.awt.Dimension(30, 30));
-        closeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                closeBtnMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnMouseExited(evt);
-                btnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnMouseExited(evt);
-            }
-        });
-        closeBtn.setLayout(new java.awt.BorderLayout());
-
-        closeLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        closeLabel.setForeground(new java.awt.Color(255, 255, 255));
-        closeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        closeLabel.setText("×");
-        closeBtn.add(closeLabel, java.awt.BorderLayout.CENTER);
-
-        headerPanel.add(closeBtn);
-
-        bg.add(headerPanel, java.awt.BorderLayout.NORTH);
 
         mainPanel.setBackground(Theme.getBgColor());
         mainPanel.setLayout(new java.awt.CardLayout());
@@ -663,7 +607,6 @@ public class LoginFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    // <editor-fold defaultstate="collapsed" desc="Frame size and location">
     private int frmWidth = 400;
     private int frmHeight = 300;
 
@@ -680,31 +623,12 @@ public class LoginFrame extends javax.swing.JFrame {
         Point p = new Point(screenwidth / 2 - frmwidth / 2, screenheight / 2 - frmheight / 2);
         return p;
     }
-    // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Element size">
     private Dimension textfieldLabelSize = new Dimension(120, 100);
 
     private Dimension getTextfieldLabelSize() {
         return textfieldLabelSize;
     }
-    // </editor-fold>
-
-    // <editor-fold defaultstate="collapsed" desc="Drag & drop">
-    private int dx = 0, dy = 0;
-
-    private void bgMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_bgMousePressed
-        dx = evt.getX();
-        dy = evt.getY();
-    }// GEN-LAST:event_bgMousePressed
-
-    private void bgMouseDragged(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_bgMouseDragged
-        int x = evt.getXOnScreen();
-        int y = evt.getYOnScreen();
-        this.setLocation(x - dx, y - dy);
-    }// GEN-LAST:event_bgMouseDragged
-
-    // </editor-fold>
 
     private void loginUserBtnMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_loginUserBtnMouseClicked
         CardLayout card = (CardLayout) mainPanel.getLayout();
@@ -880,11 +804,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
-    private javax.swing.JPanel closeBtn;
-    private javax.swing.JLabel closeLabel;
-    private javax.swing.Box.Filler filler10;
     private javax.swing.Box.Filler filler11;
-    private javax.swing.Box.Filler filler12;
     private javax.swing.Box.Filler filler26;
     private javax.swing.Box.Filler filler37;
     private javax.swing.Box.Filler filler38;
@@ -904,7 +824,6 @@ public class LoginFrame extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler7;
     private javax.swing.Box.Filler filler8;
     private javax.swing.Box.Filler filler9;
-    private javax.swing.JPanel headerPanel;
     private javax.swing.JPanel loginBtn;
     private javax.swing.JPanel loginBtnPanel;
     private javax.swing.JLabel loginEmailLabel;
@@ -958,7 +877,6 @@ public class LoginFrame extends javax.swing.JFrame {
     private com.com2008.journalmanagementsystem.frame.RegisterPanel registerPanelForJournal;
     private javax.swing.JPanel selePanel;
     private javax.swing.JPanel startupPanel;
-    private javax.swing.JLabel titleLabel;
     private javax.swing.JLabel welLabel;
     // End of variables declaration//GEN-END:variables
 }
