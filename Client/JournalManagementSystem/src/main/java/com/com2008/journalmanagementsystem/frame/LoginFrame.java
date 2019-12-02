@@ -29,6 +29,27 @@ public class LoginFrame extends javax.swing.JFrame {
         initComponents();
     }
 
+    private LoadingPanel loadingPanel;
+    
+    public void setLoading(boolean flag){
+        if(flag){
+            if(loadingPanel == null){
+                loadingPanel = new LoadingPanel(144, 144, 130);
+                selePanel.add(loadingPanel, 3);
+                loginSelPanel.setVisible(false);
+                registerPanel.setVisible(false);
+            }
+        }
+        else{
+            if(loadingPanel != null){
+                selePanel.remove(loadingPanel);
+                loadingPanel = null;
+                loginSelPanel.setVisible(true);
+                registerPanel.setVisible(true);
+            }
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
