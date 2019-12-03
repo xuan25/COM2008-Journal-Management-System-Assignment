@@ -145,7 +145,7 @@ public class MainFrame extends javax.swing.JFrame {
                         selectionsPanel.add(new SidePanelButton("Publish Journal", new MouseAdapter() {
                             public void mousePressed(MouseEvent evt) {
                                 activeSidePanelBtn((SidePanelButton) evt.getSource());
-                                updateMainPanel(new PublishPanel());
+                                updateMainPanel(new PublishPanel(email));
                             }
                         }));
                      
