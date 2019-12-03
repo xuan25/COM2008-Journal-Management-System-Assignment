@@ -77,8 +77,8 @@ public class ArticlePanel extends javax.swing.JPanel {
             }
 
             if (submission.getStatus() == Submission.Status.REVIEWED) {
-                if (submission.getMainAuthor().equals(email) || submission.getCorrAuthor().equals(email)) {
-                    // Permissions for main&corr author (response)
+                if (submission.getMainAuthor().equals(email)) {
+                    // Permissions for main author (response)
                     try {
                         List<Review> reviews = Database.read("Review", new Review(null, submission.getIssn(),submission.getSubmissionID(), null, null, null, null));
                         responsePanels = new ArrayList<>();
