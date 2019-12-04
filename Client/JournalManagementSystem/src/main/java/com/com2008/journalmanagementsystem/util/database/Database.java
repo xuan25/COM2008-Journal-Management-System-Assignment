@@ -3,17 +3,21 @@ package com.com2008.journalmanagementsystem.util.database;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.security.InvalidParameterException;
 import java.sql.*;
 import java.util.*;
 
-// A database generic interface for java classes. Text and Number supported.
+/**
+ * A database generic interface for java classes. String, Interger, Long are supported.
+ * Written by Xuan525    02 Dec 2019
+ * For COM2008 project
+ */
 public class Database {
     // Database connection
     private static Connection connection = null;
 
     /**
      * Disconnect from the database
-     * 
      * @return Success
      * @throws SQLException
      */
@@ -26,7 +30,6 @@ public class Database {
 
     /**
      * Connect to a database
-     * 
      * @param url      Database url
      * @param username Database username
      * @param password Database password
@@ -39,9 +42,8 @@ public class Database {
 
     /**
      * Run INSERT, UPDATE, DELETE
-     * 
-     * @param sql SQL
-     * @return Count
+     * @param sql   SQL
+     * @return      Count
      * @throws SQLException
      */
     public static int executeUpdate(String sql) throws SQLException {
@@ -51,9 +53,8 @@ public class Database {
 
     /**
      * Run SELECT
-     * 
-     * @param sql SQL
-     * @return Result set
+     * @param sql   SQL
+     * @return      Result set
      * @throws SQLException
      */
     public static ResultSet executeQuery(String sql) throws SQLException {
@@ -62,6 +63,14 @@ public class Database {
         return statement.executeQuery(sql);
     }
 
+    /**
+     * Download a document to the database
+     * @param tableName Table name
+     * @param filepath  Document's local absolute path
+     * @return          Generated document ID to locate documents in the database.
+     * @throws SQLException
+     * @throws IOException
+     */
     public static String uploadDocument(String tableName, String filepath) throws SQLException, IOException {
         InputStream fileStream = new FileInputStream(filepath);
         while(true){
@@ -81,6 +90,14 @@ public class Database {
         }
     }
 
+    /**
+     * Download a document in database by its ID
+     * @param tableName Table name
+     * @param uuid      ID
+     * @return          A InputStream of the document.
+     * @throws SQLException
+     * @throws IOException
+     */
     public static InputStream downloadDocument(String tableName, String uuid) throws SQLException, IOException {
         String uuidColumnName = connection.createStatement().executeQuery("SELECT * FROM " + tableName + " LIMIT 0").getMetaData().getColumnName(1);
         Statement statement = connection.createStatement();
@@ -93,6 +110,13 @@ public class Database {
         return null;
     }
 
+    /**
+     * Delete a document in database by its ID
+     * @param tableName Table name
+     * @param uuid      ID
+     * @return          Count
+     * @throws SQLException
+     */
     public static int deleteDocument(String tableName, String uuid) throws SQLException{
         String uuidColumnName = connection.createStatement().executeQuery("SELECT * FROM " + tableName + " LIMIT 0").getMetaData().getColumnName(1);
         return connection.createStatement().executeUpdate("DELETE FROM " + tableName + " WHERE " + uuidColumnName + "='" + uuid + "'");
@@ -100,14 +124,15 @@ public class Database {
 
     /**
      * Insert a new row to a table
-     * @param table Table name
-     * @param dataRow Data instance you want to insert
+     * @param table     Table name
+     * @param dataRow   Data instance you want to insert
      * @throws SQLException
      */
     public static int write(String table, IDataRow dataRow) throws SQLException {
         // Init string builders
         StringBuilder columnsBuilder = new StringBuilder();
         StringBuilder valuesBuilder = new StringBuilder();
+        List<Object> values = new ArrayList<Object>();
 
         // Get fields in the class & build sql elements
         Field[] fields = dataRow.getClass().getDeclaredFields();
@@ -119,7 +144,7 @@ public class Database {
                 Object obj = field.get(dataRow);
 
                 if (obj != null) {
-                    String value = obj.toString();
+                    values.add(obj);
                     if (firstItem) 
                         firstItem = false;
                     else{
@@ -127,10 +152,7 @@ public class Database {
                         valuesBuilder.append(",");
                     }
                     columnsBuilder.append(key);
-                    if(field.getType() == String.class)
-                        valuesBuilder.append("'" + value + "'");
-                    else
-                        valuesBuilder.append(value);
+                    valuesBuilder.append("?");
                 }
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
@@ -139,32 +161,36 @@ public class Database {
             }
         }
 
-        // Build sql
-        String sql = "INSERT INTO " + table + " (" + columnsBuilder + ") " + "VALUES (" + valuesBuilder + ");";
-        // System.out.println(sql);
-
-        // Execute sql
-        Statement statement = connection.createStatement();
-        return statement.executeUpdate(sql);
+        // Statement
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO " + table + " (" + columnsBuilder + ") " + "VALUES (" + valuesBuilder + ");");
+        for(int i = 0; i < values.size(); i++){
+            Object obj = values.get(i);
+            Class<? extends Object> cl = obj.getClass();
+            if(cl == String.class){
+                statement.setString(i+1, (String)obj);
+            }
+            else if(cl == Integer.class){
+                statement.setInt(i+1, (Integer)obj);
+            }
+            else if(cl == Long.class){
+                statement.setLong(i+1, (Long)obj);
+            }
+        }
+        return statement.executeUpdate();
     }
 
     /**
      * Select & Read rows form a table
-     * @param <T> Data type you want to read
-     * @param table Table name
-     * @param dataRow A data template you want to match (Null represents unknown)
-     * @return A list of instance
+     * @param <T>       Data type you want to read
+     * @param table     Table name
+     * @param dataRow   A data template you want to match (Null represents wildcard)
+     * @return          A list of instance
      * @throws SQLException
      */
     public static <T extends IDataRow> List<T> read(String table, T dataRow)throws SQLException {
-        // Build sql
-        String sql = "SELECT * FROM " + table + buildSQLCondition(dataRow);
-        // System.out.println(sql);
-
-        // Execute sql & get results
-        Statement statement = connection.createStatement();
-        statement.executeQuery(sql);
-        ResultSet resultSet = statement.executeQuery(sql);
+        // Read data from the database
+        PreparedStatement statement = prepareConditionalStatement("SELECT * FROM " + table, dataRow);
+        ResultSet resultSet = statement.executeQuery();
 
         // Get fields in the class
         Class<? extends IDataRow> dataRowClass = dataRow.getClass();
@@ -174,6 +200,10 @@ public class Database {
         List<T> results = new ArrayList<T>();
         while (resultSet.next()) {
             try {
+                // Warning Note : 
+                // dataRowClass must be <T extends IDataRow> because it is the class of dataRow which type is T.
+                // Which means (Class<? extends IDataRow> dataRowClass), where ? is T. See line 195.
+                // Therefore the cast will be success.
                 T result = (T)dataRowClass.getDeclaredConstructor().newInstance();
                 for(Field field : fields){
                     field.setAccessible(true);
@@ -202,88 +232,44 @@ public class Database {
 
     /**
      * Delete rows in a table 
-     * @param table Table name
-     * @param dataRow A data template you want to match & delete (Null represents unknown)
+     * @param table     Table name
+     * @param dataRow   A data template you want to match & delete (Null represents wildcard)
      * @throws SQLException
      */
     public static int delete(String table, IDataRow dataRow) throws SQLException{
-        // Build sql
-        String sql = "DELETE FROM " + table + buildSQLCondition(dataRow);
-        // System.out.println(sql);
-
-        // Execute sql
-        Statement statement = connection.createStatement();
-        return statement.executeUpdate(sql);
+        PreparedStatement statement = prepareConditionalStatement("DELETE FROM " + table, dataRow);
+        return statement.executeUpdate();
     }
 
     /**
      * Update rows in a table
-     * @param table Table name
-     * @param dataRowOld A data template you want to match & update (Null represents unknown)
-     * @param dataRowNew New data
+     * @param table         Table name
+     * @param dataRowOld    A data template you want to match & update (Null represents wildcard)
+     * @param dataRowNew    New data  (Null represents not change)
      * @throws SQLException
      */
     public static <T extends IDataRow> int update(String table, T dataRowOld, T dataRowNew, Boolean includeNull) throws SQLException{
-        // Init string builders
-        StringBuilder setBuilder = new StringBuilder();
-
-        // Get fields in the class & build sql elements
-        Field[] fields = dataRowNew.getClass().getDeclaredFields();
-        Boolean firstItem = true;
-        for (Field field : fields) {
-            field.setAccessible(true);
-            try {
-                String key = field.getName();
-                Object obj = field.get(dataRowNew);
-                
-                if (includeNull || obj != null) {
-                    String value = null;
-                    if(obj != null)
-                        value = obj.toString();
-                    if(firstItem)
-                        firstItem = false;
-                    else
-                        setBuilder.append(",");
-                    if(value != null){
-                        if(field.getType() == String.class)
-                            setBuilder.append(key + "='" + value + "'");
-                        else
-                            setBuilder.append(key + "=" + value);
-                    }
-                    else
-                        setBuilder.append(key + "=NULL");
-                }
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
-
-        // Build sql
-        String sql = "UPDATE " + table + " SET " + setBuilder + buildSQLCondition(dataRowOld);
-        // System.out.println(sql);
-
-        // Execute sql
-        Statement statement = connection.createStatement();
-        return statement.executeUpdate(sql);
+        // TODO : Remove param includeNull after everything is done.
+        if(includeNull)
+            throw new InvalidParameterException("includeNull=true is no longer supported. Please use includeNull=false for updating database.");
+        PreparedStatement statement = prepareUpdateStatement(table, dataRowOld, dataRowNew);
+        return statement.executeUpdate();
     }
 
-    /**
-     * Build SQL condition
-     * @param dataRow Data template
-     * @return Sql condition string
-     */
-    private static String buildSQLCondition(IDataRow dataRow){
-        if(dataRow == null)
-            return "";
+    private static PreparedStatement prepareConditionalStatement(String prefix, IDataRow dataRow) throws SQLException {
+        return prepareConditionalStatement(prefix, dataRow, 0);
+    }
 
+    private static PreparedStatement prepareConditionalStatement(String prefix, IDataRow dataRow, int offset) throws SQLException {
         // Init string builders
         StringBuilder conditionBuilder = new StringBuilder();
+        // Init value list
+        List<Object> values = new ArrayList<Object>();
 
-        // Get fields in the class & build sql elements
+        // Get fields in the class
         Class<? extends IDataRow> dataRowClass = dataRow.getClass();
         Field[] fields = dataRowClass.getDeclaredFields();
+        // Build sql condition & value list
         Boolean firstItem = true;
         for (Field field : fields) {
             field.setAccessible(true);
@@ -292,16 +278,13 @@ public class Database {
                 Object obj = field.get(dataRow);
 
                 if (obj != null) {
-                    String value = obj.toString();
                     if (firstItem) 
                         firstItem = false;
                     else{
                         conditionBuilder.append(" and ");
                     }
-                    if(field.getType() == String.class)
-                        conditionBuilder.append(key + "='" + value + "'");
-                    else
-                        conditionBuilder.append(key + "=" + value);
+                    conditionBuilder.append(key + "=?");
+                    values.add(obj);
                 }
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
@@ -309,10 +292,96 @@ public class Database {
                 e.printStackTrace();
             }
         }
+
+        // Build full sql
+        StringBuilder sqlBuilder = new StringBuilder();
+        sqlBuilder.append(prefix);
         
-        if(conditionBuilder.toString().equals(""))
-            return "";
-        return " WHERE " + conditionBuilder.toString();
+        if(!conditionBuilder.toString().isEmpty())
+            sqlBuilder.append(" WHERE " + conditionBuilder.toString());
+
+        sqlBuilder.append(";");
+
+        // Prepare statement & set values
+        PreparedStatement statement = connection.prepareStatement(sqlBuilder.toString());
+        for(int i = 0; i < values.size(); i++){
+            Object obj = values.get(i);
+            Class<? extends Object> cl = obj.getClass();
+            if(cl == String.class){
+                statement.setString(i+1+offset, (String)obj);
+            }
+            else if(cl == Integer.class){
+                statement.setInt(i+1+offset, (Integer)obj);
+            }
+            else if(cl == Long.class){
+                statement.setLong(i+1+offset, (Long)obj);
+            }
+        }
+
+        return statement;
+    }
+
+    private static PreparedStatement prepareUpdateStatement(String table, IDataRow dataRowOld, IDataRow dataRowNew) throws SQLException {
+        // Init string builders
+        StringBuilder conditionBuilder = new StringBuilder();
+        // Init value list
+        List<Object> values = new ArrayList<Object>();
+
+        // Get fields in the class
+        Class<? extends IDataRow> dataRowClass = dataRowNew.getClass();
+        Field[] fields = dataRowClass.getDeclaredFields();
+        // Build sql condition & value list
+        Boolean firstItem = true;
+        for (Field field : fields) {
+            field.setAccessible(true);
+            try {
+                String key = field.getName();
+                Object obj = field.get(dataRowNew);
+
+                if (obj != null) {
+                    if (firstItem) 
+                        firstItem = false;
+                    else{
+                        conditionBuilder.append(", ");
+                    }
+                    conditionBuilder.append(key + "=?");
+                    values.add(obj);
+                }
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Build full sql
+        StringBuilder sqlBuilder = new StringBuilder();
+        sqlBuilder.append("UPDATE " + table);
+        
+        if(!conditionBuilder.toString().isEmpty())
+            sqlBuilder.append(" SET " + conditionBuilder.toString());
+
+        sqlBuilder.append(" ");
+
+        PreparedStatement statement = prepareConditionalStatement(sqlBuilder.toString(), dataRowOld, values.size());
+
+        // Prepare statement & set values
+        // PreparedStatement statement = connection.prepareStatement(sqlBuilder.toString());
+        for(int i = 0; i < values.size(); i++){
+            Object obj = values.get(i);
+            Class<? extends Object> cl = obj.getClass();
+            if(cl == String.class){
+                statement.setString(i+1, (String)obj);
+            }
+            else if(cl == Integer.class){
+                statement.setInt(i+1, (Integer)obj);
+            }
+            else if(cl == Long.class){
+                statement.setLong(i+1, (Long)obj);
+            }
+        }
+
+        return statement;
     }
 
     public static void main(String[] args){

@@ -56,7 +56,7 @@ public class MainFrame extends javax.swing.JFrame {
         selectionsPanel.add(new SidePanelButton("Reviewer", new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
                 activeSidePanelBtn((SidePanelButton) evt.getSource());
-                updateMainPanel(new ReviewerPanel());
+                updateMainPanel(new ReviewerPanel(email));
             }
         }));
         
@@ -103,7 +103,21 @@ public class MainFrame extends javax.swing.JFrame {
                 selectionsPanel.add(new SidePanelButton("New submission", new MouseAdapter() {
                     public void mousePressed(MouseEvent evt) {
                         activeSidePanelBtn((SidePanelButton)evt.getSource());
-                        updateMainPanel(new SubmissionPanel());
+                        updateMainPanel(new SubmissionPanel(email));
+                    }
+                }));
+                selectionsPanel.add(new SidePanelButton("Change password", new MouseAdapter() {
+                    public void mousePressed(MouseEvent evt) {
+                        activeSidePanelBtn((SidePanelButton)evt.getSource());
+                        updateMainPanel(new ProfilePanel(userRole, email));
+                    }
+                }));
+                break;
+            case REVIEWER:
+                selectionsPanel.add(new SidePanelButton("Reviewer", new MouseAdapter() {
+                    public void mousePressed(MouseEvent evt) {
+                        activeSidePanelBtn((SidePanelButton) evt.getSource());
+                        updateMainPanel(new ReviewerPanel(email));
                     }
                 }));
                 selectionsPanel.add(new SidePanelButton("Change password", new MouseAdapter() {

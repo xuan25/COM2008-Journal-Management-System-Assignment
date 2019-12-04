@@ -5,15 +5,29 @@
  */
 package com.com2008.journalmanagementsystem.frame;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import com.com2008.journalmanagementsystem.model.Account;
 import com.com2008.journalmanagementsystem.model.Author;
+import com.com2008.journalmanagementsystem.model.Response;
 import com.com2008.journalmanagementsystem.model.Review;
 import com.com2008.journalmanagementsystem.model.Submission;
 import com.com2008.journalmanagementsystem.model.SubmissionAuthor;
+import com.com2008.journalmanagementsystem.model.Submission.Status;
 import com.com2008.journalmanagementsystem.util.database.Database;
 
 /**
@@ -29,24 +43,99 @@ public class ArticlePanel extends javax.swing.JPanel {
         initComponents();
     }
 
+    private Submission submission;
+    private List<ResponsePanel> responsePanels;
+
+    private List<java.awt.event.ActionListener> reloadRequestListeners = new ArrayList<java.awt.event.ActionListener>();
+
+    public void addReloadRequestListener(java.awt.event.ActionListener reloadRequestListener){
+        reloadRequestListeners.add(reloadRequestListener);
+    }
+
     public ArticlePanel(Submission submission, UserRole userRole, String email) {
         initComponents();
 
-        switch(userRole){
-            case READER:
-                decisionPanel.setVisible(false);
-                reviewPanel.setVisible(false);
-                break;
-            case AUTHOR:
-                decisionPanel.setVisible(false);
-                if(submission.getMainAuthor().equals(email)){
-                    // TODO : Permissions for main author
+        this.submission = submission;
+
+        confirmFinalPanel.setVisible(false);
+        uploadFinalPDFBtn.setVisible(false);
+
+        // Load panels for each role
+        switch (userRole) {
+        case READER:
+            decisionPanel.setVisible(false);
+            reviewPanel.setVisible(false);
+            break;
+        case AUTHOR:
+            decisionPanel.setVisible(false);
+            if (submission.getStatus() == Submission.Status.REVIEWED && submission.getFinalID() == null && submission.getMainAuthor().equals(email)) {
+                uploadFinalPDFBtn.setVisible(true);
+            }
+
+            if (submission.getStatus() == Submission.Status.REVIEWED && submission.getMainAuthor().equals(email)) {
+                confirmFinalPanel.setVisible(true);
+            }
+
+            if (submission.getStatus() == Submission.Status.REVIEWED) {
+                if (submission.getMainAuthor().equals(email)) {
+                    // Permissions for main author (response)
+                    try {
+                        List<Review> reviews = Database.read("Review", new Review(null, submission.getIssn(),submission.getSubmissionID(), null, null, null, null));
+                        responsePanels = new ArrayList<>();
+                        for (int i = 0; i < reviews.size(); i++) {
+                            ResponsePanel responsePanel = new ResponsePanel("Reviewer" + (i + 1), reviews.get(i));
+                            innerReviewPanel.add(responsePanel);
+                            responsePanels.add(responsePanel);
+                        }
+                    } catch (SQLException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        List<Review> reviews = Database.read("Review", new Review(null, submission.getIssn(),
+                                submission.getSubmissionID(), null, null, null, null));
+                        for (int i = 0; i < reviews.size(); i++) {
+                            ReviewPanel reviewPanel = new ReviewPanel("Reviewer" + (i + 1), reviews.get(i),
+                                    UserRole.AUTHOR);
+                            innerReviewPanel.add(reviewPanel);
+                        }
+                    } catch (SQLException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
                 }
-                break;
-            default:
-                break;
+
+            } else {
+                try {
+                    List<Review> reviews = Database.read("Review", new Review(null, submission.getIssn(),
+                            submission.getSubmissionID(), null, null, null, null));
+                    for (int i = 0; i < reviews.size(); i++) {
+                        ReviewPanel reviewPanel = new ReviewPanel("Reviewer" + (i + 1), reviews.get(i),
+                                UserRole.AUTHOR);
+                        innerReviewPanel.add(reviewPanel);
+                    }
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+
+            break;
+        case REVIEWER:
+            toolbarPanel.setVisible(false);
+            reviewPanel.setVisible(true);
+
+            innerReviewPanel.removeAll();
+            ReviewPanel reviewPanel = new ReviewPanel("Reviewer",
+                    new Review(email, submission.getIssn(), submission.getSubmissionID(), null, null, null, null),
+                    UserRole.REVIEWER);
+            innerReviewPanel.add(reviewPanel);
+        default:
+            break;
         }
 
+        // Load basic submission data
         titleLabel.setText(submission.getTitle());
         statusLabel.setText(submission.getStatus().toString());
 
@@ -62,7 +151,7 @@ public class ArticlePanel extends javax.swing.JPanel {
             List<SubmissionAuthor> submissionAuthors = Database.read("SubmissionAuthor", new SubmissionAuthor(submission.getIssn(), submission.getSubmissionID(), null));
             List<String> coAuthorEmails = new ArrayList<String>();
             for (SubmissionAuthor submissionAuthor : submissionAuthors) {
-                if(!submissionAuthor.getEmail().equals(submission.getMainAuthor()) && !submissionAuthor.getEmail().equals(submission.getCorrAuthor()))
+                if (!submissionAuthor.getEmail().equals(submission.getMainAuthor()) && !submissionAuthor.getEmail().equals(submission.getCorrAuthor()))
                     coAuthorEmails.add(submissionAuthor.getEmail());
             }
             List<Account> coAuthors = new ArrayList<Account>();
@@ -76,33 +165,41 @@ public class ArticlePanel extends javax.swing.JPanel {
             StringBuilder coAuthorBuilder = new StringBuilder();
             boolean isFirst = true;
             for (Account account : coAuthors) {
-                if(isFirst)
+                if (isFirst)
                     isFirst = false;
                 else
                     coAuthorBuilder.append("<br/>");
                 coAuthorBuilder.append(account.toString());
             }
 
-            coAuthorLabel.setText("<html>" + coAuthorBuilder.toString().replace("<", "&lt;").replace(">", "&gt;") + "</html>");
+            coAuthorLabel.setText(
+                    "<html>" + coAuthorBuilder.toString().replace("<", "&lt;").replace(">", "&gt;") + "</html>");
         } catch (SQLException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
-        
 
-        if(reviewPanel.isVisible()){
-            innerReviewPanel.removeAll();
-            try {
-                List<Review> reviews = Database.read("Review", new Review(null, submission.getIssn(), submission.getSubmissionID(), null, null, null));
-                for(int i = 0; i < reviews.size(); i++){
-                    ReviewPanel reviewPanel = new ReviewPanel("Reviewer" + (i + 1), reviews.get(i));
-                    innerReviewPanel.add(reviewPanel);
-                }
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
+        // Test review panel
+
+        // if(reviewPanel.isVisible()){
+        // innerReviewPanel.removeAll();
+        // try {
+        // List<Review> reviews = Database.read("Review", new Review(null,
+        // submission.getIssn(), submission.getSubmissionID(), null, null, null, null));
+        // for(int i = 0; i < reviews.size(); i++){
+        // ReviewPanel reviewPanel = new ReviewPanel("Reviewer" + (i + 1),
+        // reviews.get(i));
+        // innerReviewPanel.add(reviewPanel);
+        // }
+        // } catch (SQLException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // }
+        // }
+    }
+
+    public JButton getSubmitAllResponsesBtn() {
+        return confirmFinalBtn;
     }
 
     /**
@@ -111,6 +208,7 @@ public class ArticlePanel extends javax.swing.JPanel {
      * regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -125,8 +223,8 @@ public class ArticlePanel extends javax.swing.JPanel {
         mainScrollPane = new javax.swing.JScrollPane();
         mainPanel = new javax.swing.JPanel();
         innerPanel = new javax.swing.JPanel();
-        abstructPanel = new javax.swing.JPanel();
-        abstructLabel = new javax.swing.JLabel();
+        abstractPanel = new javax.swing.JPanel();
+        abstractLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         abstractTextArea = new javax.swing.JTextArea();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
@@ -148,7 +246,8 @@ public class ArticlePanel extends javax.swing.JPanel {
         innerPdfPanel = new javax.swing.JPanel();
         pdfLabel = new javax.swing.JLabel();
         linkLabel = new javax.swing.JLabel();
-        copyLinkBtn = new javax.swing.JButton();
+        openPDFBtn = new javax.swing.JButton();
+        uploadFinalPDFBtn = new javax.swing.JButton();
         filler8 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         jSeparator2 = new javax.swing.JSeparator();
         filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
@@ -157,6 +256,8 @@ public class ArticlePanel extends javax.swing.JPanel {
         filler12 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         innerReviewPanel = new javax.swing.JPanel();
         filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
+        confirmFinalPanel = new javax.swing.JPanel();
+        confirmFinalBtn = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
@@ -202,11 +303,11 @@ public class ArticlePanel extends javax.swing.JPanel {
 
         innerPanel.setLayout(new javax.swing.BoxLayout(innerPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
-        abstructPanel.setLayout(new java.awt.BorderLayout());
+        abstractPanel.setLayout(new java.awt.BorderLayout());
 
-        abstructLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        abstructLabel.setText("Abstruct");
-        abstructPanel.add(abstructLabel, java.awt.BorderLayout.NORTH);
+        abstractLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        abstractLabel.setText("Abstract");
+        abstractPanel.add(abstractLabel, java.awt.BorderLayout.NORTH);
 
         abstractTextArea.setColumns(20);
         abstractTextArea.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -216,9 +317,9 @@ public class ArticlePanel extends javax.swing.JPanel {
         abstractTextArea.setWrapStyleWord(true);
         jScrollPane1.setViewportView(abstractTextArea);
 
-        abstructPanel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        abstractPanel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        innerPanel.add(abstructPanel);
+        innerPanel.add(abstractPanel);
         innerPanel.add(filler1);
         innerPanel.add(jSeparator1);
         innerPanel.add(filler2);
@@ -276,9 +377,23 @@ public class ArticlePanel extends javax.swing.JPanel {
         linkLabel.setText("https://link.pdf.here");
         innerPdfPanel.add(linkLabel);
 
-        copyLinkBtn.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        copyLinkBtn.setText("Copy Link");
-        innerPdfPanel.add(copyLinkBtn);
+        openPDFBtn.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        openPDFBtn.setText("Open PDF");
+        openPDFBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openPDFBtnActionPerformed(evt);
+            }
+        });
+        innerPdfPanel.add(openPDFBtn);
+
+        uploadFinalPDFBtn.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        uploadFinalPDFBtn.setText("Upload final draft");
+        uploadFinalPDFBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uploadFinalPDFBtnActionPerformed(evt);
+            }
+        });
+        innerPdfPanel.add(uploadFinalPDFBtn);
 
         pdfPanel.add(innerPdfPanel, java.awt.BorderLayout.CENTER);
 
@@ -299,6 +414,18 @@ public class ArticlePanel extends javax.swing.JPanel {
 
         innerPanel.add(reviewPanel);
         innerPanel.add(filler10);
+
+        confirmFinalPanel.setLayout(new java.awt.BorderLayout());
+
+        confirmFinalBtn.setText("Confirm final draft & responses");
+        confirmFinalBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmFinalBtnActionPerformed(evt);
+            }
+        });
+        confirmFinalPanel.add(confirmFinalBtn, java.awt.BorderLayout.CENTER);
+
+        innerPanel.add(confirmFinalPanel);
         innerPanel.add(jSeparator3);
 
         mainPanel.add(innerPanel, java.awt.BorderLayout.CENTER);
@@ -312,17 +439,103 @@ public class ArticlePanel extends javax.swing.JPanel {
         add(mainScrollPane, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void confirmFinalBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_submitAllResponsesBtnActionPerformed
+        if(submission.getFinalID() == null){
+            JOptionPane.showMessageDialog(this, "Final draft upload required", "Confirm", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if(!isFullResponsed()){
+            int decision = JOptionPane.showOptionDialog(this, "Not all criticisms are responsed. Are you sure to continue?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, null, null);
+            if(decision == JOptionPane.CLOSED_OPTION || decision == JOptionPane.NO_OPTION)
+                return;
+        }
+        try {
+            Database.update("Submission", submission, new Submission(null, null, null, null, null, null, null, null, Submission.Status.RESPONSED), false);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        for (ActionListener actionListener : reloadRequestListeners) {
+            actionListener.actionPerformed(new java.awt.event.ActionEvent(this, 0, null));
+        }
+    }// GEN-LAST:event_submitAllResponsesBtnActionPerformed
+
+    private boolean isFullResponsed(){
+        for (ResponsePanel responsePanel : responsePanels) {
+            if(!responsePanel.isFullResponsed())
+                return false;
+        }
+        return true;
+    }
+
+    private void openPDFBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_openPDFBtnActionPerformed
+        // TODO add your handling code here:
+        String uuid = submission.getFinalID();
+        if(uuid == null)
+            uuid = submission.getDraftID();
+        
+        
+
+        try {
+            File temp = File.createTempFile(uuid, ".pdf");
+            String tempPath = temp.getAbsolutePath();
+            temp.deleteOnExit();
+
+            InputStream downloadStream = Database.downloadDocument("Document", uuid);
+            OutputStream fileStream = new FileOutputStream(tempPath);
+            byte[] buffer = new byte[1024];
+            int len = 0;
+            while((len = downloadStream.read(buffer)) != -1){
+                fileStream.write(buffer, 0, len);
+            }
+            fileStream.close();
+
+            java.awt.Desktop.getDesktop().open(temp);
+        } catch (IOException | SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }// GEN-LAST:event_openPDFBtnActionPerformed
+
+    private void uploadFinalPDFBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_uploadFinalPDFBtnActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.setFileFilter(new FileNameExtensionFilter("PDF (*.pdf)", "pdf"));
+        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            String filepath = fileChooser.getSelectedFile().getAbsolutePath();
+            // TODO : Check format
+            try {
+                String finalID = Database.uploadDocument("Document", filepath);
+                Database.update("Submission", submission, new Submission(null, null, null, null, null, null, null, finalID, null), false);
+
+                JOptionPane.showMessageDialog(this, "Upload success.", "Upload final fraft", JOptionPane.INFORMATION_MESSAGE);
+                submission = Database.read("Submission", new Submission(submission.getIssn(), submission.getSubmissionID(), null, null, null, null, null, null, null)).get(0);
+                linkLabel.setText(submission.getFinalID());
+                uploadFinalPDFBtn.setVisible(false);
+            }
+            catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }                                                 
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel abstractLabel;
+    private javax.swing.JPanel abstractPanel;
     private javax.swing.JTextArea abstractTextArea;
-    private javax.swing.JLabel abstructLabel;
-    private javax.swing.JPanel abstructPanel;
     private javax.swing.JButton acceptBtn;
     private javax.swing.JPanel authorPanel;
     private javax.swing.JLabel authorsLabel;
     private javax.swing.JLabel coAuthorHeaderLabel;
     private javax.swing.JLabel coAuthorLabel;
-    private javax.swing.JButton copyLinkBtn;
+    private javax.swing.JButton confirmFinalBtn;
+    private javax.swing.JPanel confirmFinalPanel;
     private javax.swing.JLabel corrAuthorHeaderLabel;
     private javax.swing.JLabel corrAuthorLabel;
     private javax.swing.JPanel decisionPanel;
@@ -353,6 +566,7 @@ public class ArticlePanel extends javax.swing.JPanel {
     private javax.swing.JLabel mainAuthorLabel;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JScrollPane mainScrollPane;
+    private javax.swing.JButton openPDFBtn;
     private javax.swing.JLabel pdfLabel;
     private javax.swing.JPanel pdfPanel;
     private javax.swing.JButton rejectBtn;
@@ -362,5 +576,6 @@ public class ArticlePanel extends javax.swing.JPanel {
     private javax.swing.JLabel titleLabel;
     private javax.swing.JScrollPane titleScrollPane;
     private javax.swing.JPanel toolbarPanel;
+    private javax.swing.JButton uploadFinalPDFBtn;
     // End of variables declaration//GEN-END:variables
 }

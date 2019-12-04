@@ -2,26 +2,26 @@ package com.com2008.journalmanagementsystem.model;
 
 import com.com2008.journalmanagementsystem.util.database.IDataRow;
 
-public class Criticism implements IDataRow{
-    
+public class Response implements IDataRow {
+
     private String email;
     private String issn;
     private String submissionID;
     private Integer num;
     private String content;
 
-    public Criticism(){
-        
+    public Response() {
+
     }
 
-    public Criticism(String email, String issn, String submissionID, Integer num, String content){
+    public Response(String email, String issn, String submissionID, Integer num, String content){
         this.email = email;
         this.issn = issn;
         this.submissionID = submissionID;
         this.num = num;
         this.content = content;
     }
-
+      
     public String getEmail() {
         return email;
     }
@@ -66,4 +66,6 @@ public class Criticism implements IDataRow{
     public String toString() {
         return content;
     }
+
+    
 }
