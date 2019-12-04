@@ -146,11 +146,10 @@ public class PublishPanel extends javax.swing.JPanel {
 			try {
 				updatedEditionList = Database.read("Edition", new Edition(journal.getIssn(),null,null));
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			for (Edition edition:updatedEditionList) {
-				if(edition.getVolume() == volNumber+1 || edition.getEdition() == edNumber+1) {
+				if(edition.getVolume() == volNumber+1 || (edition.getVolume() == volNumber && edition.getEdition() == edNumber+1)) {
 					hasPressed = true;
 				}
 			}

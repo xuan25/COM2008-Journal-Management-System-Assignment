@@ -60,7 +60,7 @@ public class DecisionPanel extends javax.swing.JPanel {
                 journals.add(currentJournal);
                 List<Submission> currentSubmissions = Database.read(
                         "Submission", new Submission(
-                                editorOnBoard.getIssn(),null,null,null,null,null,null,null,Status.REVIEWED));
+                                editorOnBoard.getIssn(),null,null,null,null,null,null,null,Status.VERDICTED));
                 submissions.add(currentSubmissions);
             }
         }
@@ -74,7 +74,7 @@ public class DecisionPanel extends javax.swing.JPanel {
         for (int i=0;i<journals.size(); i++) {
         	for (Submission sub:submissions.get(i)) {
         		try {
-					reviews = Database.read("Review", new Review(null,null,sub.getSubmissionID(),null,null,null));
+					reviews = Database.read("Review", new Review(null,null,sub.getSubmissionID(),null,null,null,null));
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -83,8 +83,7 @@ public class DecisionPanel extends javax.swing.JPanel {
         		//automatic = 3 -> automatically accept
         		int automatic = 0;
         		for (Review review: reviews) {
-        			System.out.println(review.getVerdict());
-        			switch (review.getVerdict()) {
+        			switch (review.getFinalVerdict()) {
         			case STRONG_ACCEPT:
         				automatic += 1;
         				break;
@@ -96,7 +95,6 @@ public class DecisionPanel extends javax.swing.JPanel {
         			}
         		}
         		if (automatic == 3) {
-        			System.out.println("auto accept");
         			try {
         			 Database.update("Submission",sub,new Submission(null,null,null,null,null,null,null,null,Status.ACCEPTED),false);
                      List<Edition> editions = Database.read("Edition", new Edition(null,null,null));
@@ -136,7 +134,6 @@ public class DecisionPanel extends javax.swing.JPanel {
             		deleteSubs.add(sub);
         		}
         		else if (automatic == -3) {
-        			System.out.println("auto reject");
         			try {
 						Database.update("Submission",sub,new Submission(null,null,null,null,null,null,null,null,Status.REJECTED),false);
 					} catch (SQLException ex) {
@@ -180,7 +177,7 @@ public class DecisionPanel extends javax.swing.JPanel {
                     Logger.getLogger(DecisionPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 if (!(authorAffiliations.contains(editorAffiliation.toLowerCase()))){
-                    if (sub.getStatus() == Status.REVIEWED) {
+                    if (sub.getStatus() == Status.VERDICTED) {
                         JLabel label = new JLabel("Journal: "+journals.get(i).getJournalName()+" "
                         + "Title: "+sub.getTitle());
                         label.setFont(new Font("Tahoma",Font.PLAIN,14));
@@ -216,7 +213,7 @@ public class DecisionPanel extends javax.swing.JPanel {
                 //must get the newest updated version of the submission
                 //to test whether the submission was just reviewed
                 Submission updatedSu = Database.read("Submission", new Submission(su.getIssn(),su.getSubmissionID(),null,null,null,null,null,null,null)).get(0);
-                if (updatedSu.getStatus() == Status.REVIEWED){
+                if (updatedSu.getStatus() == Status.VERDICTED){
                     JFrame submissionFrame = new JFrame();
                     submissionFrame.add(new ArticlePanel(su,UserRole.EDITOR,em));
                     submissionFrame.setBounds(0, 0, 1000, 500);
