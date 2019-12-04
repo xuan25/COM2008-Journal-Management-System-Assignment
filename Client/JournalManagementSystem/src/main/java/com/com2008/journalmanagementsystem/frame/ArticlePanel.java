@@ -8,6 +8,7 @@ package com.com2008.journalmanagementsystem.frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,6 +16,7 @@ import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -27,6 +29,7 @@ import com.com2008.journalmanagementsystem.model.Response;
 import com.com2008.journalmanagementsystem.model.Review;
 import com.com2008.journalmanagementsystem.model.Submission;
 import com.com2008.journalmanagementsystem.model.SubmissionAuthor;
+import com.com2008.journalmanagementsystem.model.SubmissionDocument;
 import com.com2008.journalmanagementsystem.model.Submission.Status;
 import com.com2008.journalmanagementsystem.util.database.Database;
 
@@ -48,7 +51,7 @@ public class ArticlePanel extends javax.swing.JPanel {
 
     private List<java.awt.event.ActionListener> reloadRequestListeners = new ArrayList<java.awt.event.ActionListener>();
 
-    public void addReloadRequestListener(java.awt.event.ActionListener reloadRequestListener){
+    public void addReloadRequestListener(java.awt.event.ActionListener reloadRequestListener) {
         reloadRequestListeners.add(reloadRequestListener);
     }
 
@@ -68,12 +71,20 @@ public class ArticlePanel extends javax.swing.JPanel {
             break;
         case AUTHOR:
             decisionPanel.setVisible(false);
-            if (submission.getStatus() == Submission.Status.REVIEWED && submission.getFinalID() == null && submission.getMainAuthor().equals(email)) {
-                uploadFinalPDFBtn.setVisible(true);
-            }
 
             if (submission.getStatus() == Submission.Status.REVIEWED && submission.getMainAuthor().equals(email)) {
                 confirmFinalPanel.setVisible(true);
+                try {
+                    SubmissionDocument submissionDocument = Database.read("SubmissionDocument", new SubmissionDocument(submission.getIssn(), submission.getSubmissionID(), null, null)).get(0);
+                    if(submissionDocument.getFinalDraft() == null)
+                        uploadFinalPDFBtn.setVisible(true);
+                } catch (FileNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
 
             if (submission.getStatus() == Submission.Status.REVIEWED) {
@@ -140,10 +151,8 @@ public class ArticlePanel extends javax.swing.JPanel {
         statusLabel.setText(submission.getStatus().toString());
 
         abstractTextArea.setText(submission.getContentAbstract());
-        if (submission.getFinalID() == null)
-            linkLabel.setText(submission.getDraftID());
-        else
-            linkLabel.setText(submission.getFinalID());
+        // TODO : unused linkLabel
+        linkLabel.setText(null);
 
         try {
             Account mainAuthor = Database.read("Account", new Account(submission.getMainAuthor(), null, null, null, null)).get(0);
@@ -440,9 +449,18 @@ public class ArticlePanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void confirmFinalBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_submitAllResponsesBtnActionPerformed
-        if(submission.getFinalID() == null){
-            JOptionPane.showMessageDialog(this, "Final draft upload required", "Confirm", JOptionPane.ERROR_MESSAGE);
-            return;
+        try {
+            SubmissionDocument submissionDocument = Database.read("SubmissionDocument", new SubmissionDocument(submission.getIssn(), submission.getSubmissionID(), null, null)).get(0);
+            if(submissionDocument.getFinalDraft() == null){
+                JOptionPane.showMessageDialog(this, "Final draft upload required", "Confirm", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } catch (FileNotFoundException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        } catch (SQLException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
         }
         if(!isFullResponsed()){
             int decision = JOptionPane.showOptionDialog(this, "Not all criticisms are responsed. Are you sure to continue?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, null, null);
@@ -469,26 +487,16 @@ public class ArticlePanel extends javax.swing.JPanel {
     }
 
     private void openPDFBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_openPDFBtnActionPerformed
-        // TODO add your handling code here:
-        String uuid = submission.getFinalID();
-        if(uuid == null)
-            uuid = submission.getDraftID();
-        
-        
-
         try {
-            File temp = File.createTempFile(uuid, ".pdf");
+            File temp = File.createTempFile(UUID.randomUUID().toString(), ".pdf");
             String tempPath = temp.getAbsolutePath();
             temp.deleteOnExit();
 
-            InputStream downloadStream = Database.downloadDocument("Document", uuid);
-            OutputStream fileStream = new FileOutputStream(tempPath);
-            byte[] buffer = new byte[1024];
-            int len = 0;
-            while((len = downloadStream.read(buffer)) != -1){
-                fileStream.write(buffer, 0, len);
-            }
-            fileStream.close();
+            SubmissionDocument submissionDocument = Database.read("SubmissionDocument", new SubmissionDocument(submission.getIssn(), submission.getSubmissionID(), null, null)).get(0);
+            if(submissionDocument.getFinalDraft() != null)
+                submissionDocument.downloadFinalDraft(temp);
+            else
+                submissionDocument.downloadFirstDraft(temp);
 
             java.awt.Desktop.getDesktop().open(temp);
         } catch (IOException | SQLException e) {
@@ -505,12 +513,9 @@ public class ArticlePanel extends javax.swing.JPanel {
             String filepath = fileChooser.getSelectedFile().getAbsolutePath();
             // TODO : Check format
             try {
-                String finalID = Database.uploadDocument("Document", filepath);
-                Database.update("Submission", submission, new Submission(null, null, null, null, null, null, null, finalID, null), false);
+                Database.update("SubmissionDocument", new SubmissionDocument(submission.getIssn(), submission.getSubmissionID(), null, null), new SubmissionDocument(null, null, null, new File(filepath)), false);
 
                 JOptionPane.showMessageDialog(this, "Upload success.", "Upload final fraft", JOptionPane.INFORMATION_MESSAGE);
-                submission = Database.read("Submission", new Submission(submission.getIssn(), submission.getSubmissionID(), null, null, null, null, null, null, null)).get(0);
-                linkLabel.setText(submission.getFinalID());
                 uploadFinalPDFBtn.setVisible(false);
             }
             catch (SQLException e) {
