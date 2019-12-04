@@ -10,23 +10,19 @@ public class Submission implements IDataRow{
     private String mainAuthor;
     private String corrAuthor;
     private String contentAbstract;
-    private String draftID;
-    private String finalID;
     private Integer status;
 
     public Submission(){
         
     }
 
-    public Submission(String issn, String submissionID, String title, String mainAuthor, String corrAuthor, String contentAbstract, String draftID, String finalID, Status status){
+    public Submission(String issn, String submissionID, String title, String mainAuthor, String corrAuthor, String contentAbstract, Status status){
         this.issn = issn;
         this.submissionID = submissionID;
         this.title = title;
         this.mainAuthor = mainAuthor;
         this.corrAuthor = corrAuthor;
         this.contentAbstract = contentAbstract;
-        this.draftID = draftID;
-        this.finalID = finalID;
         if(status != null)
             this.status = status.value();
     }
@@ -118,22 +114,6 @@ public class Submission implements IDataRow{
         this.contentAbstract = contentAbstract;
     }
 
-    public String getDraftID() {
-        return draftID;
-    }
-
-    public void setDraftID(String draftID) {
-        this.draftID = draftID;
-    }
-
-    public String getFinalID() {
-        return finalID;
-    }
-
-    public void setFinalID(String finalID) {
-        this.finalID = finalID;
-    }
-
     public Status getStatus() {
         return Status.valueOf(status);
     }
@@ -147,5 +127,4 @@ public class Submission implements IDataRow{
         return title;
     }
 
-    
 }

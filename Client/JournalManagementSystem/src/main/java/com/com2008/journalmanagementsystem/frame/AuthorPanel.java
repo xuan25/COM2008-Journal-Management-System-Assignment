@@ -49,7 +49,7 @@ public class AuthorPanel extends javax.swing.JPanel {
         try {
             List<SubmissionAuthor> submissionAuthors = Database.read("SubmissionAuthor", new SubmissionAuthor(null, null, email));
             for (SubmissionAuthor submissionAuthor : submissionAuthors) {
-                Submission submission = Database.read("Submission", new Submission(submissionAuthor.getIssn(), submissionAuthor.getSubmissionID(), null, null, null, null, null, null, null)).get(0);
+                Submission submission = Database.read("Submission", new Submission(submissionAuthor.getIssn(), submissionAuthor.getSubmissionID(), null, null, null, null, null)).get(0);
                 DefaultMutableTreeNode submissionNode = new DefaultMutableTreeNode(submission);
                 switch(submission.getStatus()){
                     case SUBMITTED:
