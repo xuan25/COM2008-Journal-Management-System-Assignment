@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.*;
 
 /**
- * A database generic interface for java classes. String, Interger, Long are supported.
+ * A database generic interface for java classes. String, Interger, Long, InputStream are supported.
  * Written by Xuan525    02 Dec 2019
  * For COM2008 project
  */
@@ -175,6 +175,9 @@ public class Database {
             else if(cl == Long.class){
                 statement.setLong(i+1, (Long)obj);
             }
+            else if(InputStream.class.isAssignableFrom(cl)){
+                statement.setBlob(i+1, (InputStream)obj);
+            }
         }
         return statement.executeUpdate();
     }
@@ -208,7 +211,16 @@ public class Database {
                 for(Field field : fields){
                     field.setAccessible(true);
                     String key = field.getName();
-                    field.set(result, resultSet.getObject(key));
+                    Class<?> cl = field.getType();
+                    if(InputStream.class.isAssignableFrom(cl)){
+                        Blob document = resultSet.getBlob(key);
+                        InputStream stream = document.getBinaryStream();
+                        field.set(result, stream);
+                    }
+                    else{
+                        Object obj = resultSet.getObject(key);
+                        field.set(result, obj);
+                    }
                 }
                 results.add(result);
             } catch (InstantiationException e1) {
@@ -316,6 +328,9 @@ public class Database {
             else if(cl == Long.class){
                 statement.setLong(i+1+offset, (Long)obj);
             }
+            else if(InputStream.class.isAssignableFrom(cl)){
+                statement.setBlob(i+1, (InputStream)obj);
+            }
         }
 
         return statement;
@@ -379,6 +394,9 @@ public class Database {
             else if(cl == Long.class){
                 statement.setLong(i+1, (Long)obj);
             }
+            else if(InputStream.class.isAssignableFrom(cl)){
+                statement.setBlob(i+1, (InputStream)obj);
+            }
         }
 
         return statement;
@@ -407,25 +425,27 @@ public class Database {
             System.out.println("Result count 3: " + c.size());
 
 
-            // Test Document
-            String documentFolder = "/Users/boxuanshan/Documents/GitHub/COM2008Project/";
-            String filename = "dummy.pdf";
+            // // Test Document
+            // String documentFolder = "/Users/boxuanshan/Documents/GitHub/COM2008Project/";
+            // String filename = "dummy.pdf";
 
-            // Document upload
-            String docID = uploadDocument("Document", documentFolder + filename);
+            // // Document upload
+            // String docID = uploadDocument("Document", documentFolder + filename);
 
-            // Document download
-            InputStream downloadStream = downloadDocument("Document", docID);
-            OutputStream out = new FileOutputStream(documentFolder + "dounload.pdf");
-            byte[] buffer = new byte[1024];
-            int len = 0;
-            while((len = downloadStream.read(buffer)) != -1){
-                out.write(buffer, 0, len);
-            }
-            out.close();
+            // // Document download
+            // InputStream downloadStream = downloadDocument("Document", docID);
+            // OutputStream out = new FileOutputStream(documentFolder + "dounload.pdf");
+            // byte[] buffer = new byte[1024];
+            // int len = 0;
+            // while((len = downloadStream.read(buffer)) != -1){
+            //     out.write(buffer, 0, len);
+            // }
+            // out.close();
 
-            // Document delete
-            deleteDocument("Document", docID);
+            // // Document delete
+            // deleteDocument("Document", docID);
+
+
 
             // Disconnect
             Database.disconnect();
@@ -435,8 +455,8 @@ public class Database {
         catch (SQLException ex) {
 		    ex.printStackTrace();
         }
-        catch (IOException ex) {
-		    ex.printStackTrace();
-        }
+        // catch (IOException ex) {
+		//     ex.printStackTrace();
+        // }
     }
 }
