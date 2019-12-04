@@ -64,65 +64,6 @@ public class Database {
     }
 
     /**
-     * Download a document to the database
-     * @param tableName Table name
-     * @param filepath  Document's local absolute path
-     * @return          Generated document ID to locate documents in the database.
-     * @throws SQLException
-     * @throws IOException
-     */
-    public static String uploadDocument(String tableName, String filepath) throws SQLException, IOException {
-        InputStream fileStream = new FileInputStream(filepath);
-        while(true){
-            try {
-                PreparedStatement statment = connection.prepareStatement("INSERT INTO " + tableName + " VALUES(?,?)");
-                UUID uuid = UUID.randomUUID();
-                statment.setString(1, uuid.toString());
-                statment.setBlob(2, fileStream);
-                statment.executeUpdate();
-                fileStream.close();
-                return uuid.toString();
-            } 
-            catch (SQLException e) {
-                if(e.getErrorCode() != 2601)
-                    throw e;
-            }
-        }
-    }
-
-    /**
-     * Download a document in database by its ID
-     * @param tableName Table name
-     * @param uuid      ID
-     * @return          A InputStream of the document.
-     * @throws SQLException
-     * @throws IOException
-     */
-    public static InputStream downloadDocument(String tableName, String uuid) throws SQLException, IOException {
-        String uuidColumnName = connection.createStatement().executeQuery("SELECT * FROM " + tableName + " LIMIT 0").getMetaData().getColumnName(1);
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM " + tableName + " WHERE " + uuidColumnName + "='" + uuid + "'");
-        if(resultSet.next()){
-            Blob document = resultSet.getBlob(2);
-            InputStream stream = document.getBinaryStream();
-            return stream;
-        }
-        return null;
-    }
-
-    /**
-     * Delete a document in database by its ID
-     * @param tableName Table name
-     * @param uuid      ID
-     * @return          Count
-     * @throws SQLException
-     */
-    public static int deleteDocument(String tableName, String uuid) throws SQLException{
-        String uuidColumnName = connection.createStatement().executeQuery("SELECT * FROM " + tableName + " LIMIT 0").getMetaData().getColumnName(1);
-        return connection.createStatement().executeUpdate("DELETE FROM " + tableName + " WHERE " + uuidColumnName + "='" + uuid + "'");
-    }
-
-    /**
      * Insert a new row to a table
      * @param table     Table name
      * @param dataRow   Data instance you want to insert
@@ -214,8 +155,10 @@ public class Database {
                     Class<?> cl = field.getType();
                     if(InputStream.class.isAssignableFrom(cl)){
                         Blob document = resultSet.getBlob(key);
-                        InputStream stream = document.getBinaryStream();
-                        field.set(result, stream);
+                        if(document != null){
+                            InputStream stream = document.getBinaryStream();
+                            field.set(result, stream);
+                        }
                     }
                     else{
                         Object obj = resultSet.getObject(key);
