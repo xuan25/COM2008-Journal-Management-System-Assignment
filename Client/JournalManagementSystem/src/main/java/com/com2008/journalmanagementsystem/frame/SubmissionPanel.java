@@ -24,6 +24,7 @@ import com.com2008.journalmanagementsystem.model.Author;
 import com.com2008.journalmanagementsystem.model.Journal;
 import com.com2008.journalmanagementsystem.model.Submission;
 import com.com2008.journalmanagementsystem.model.SubmissionAuthor;
+import com.com2008.journalmanagementsystem.model.SubmissionDocument;
 import com.com2008.journalmanagementsystem.util.database.Database;
 
 /**
@@ -368,10 +369,9 @@ public class SubmissionPanel extends javax.swing.JPanel {
             String mainAuthor = email;
             String corrAuthor = this.corrAuthor.getEmail();
             String contentAbstract = abstractTextArea.getText();
-            String draftID = Database.uploadDocument("Document", pdfFile.getAbsolutePath());
-            String finalID = null;
             Submission.Status status = Submission.Status.SUBMITTED;
-            Submission submission = new Submission(issn, submissionID, title, mainAuthor, corrAuthor, contentAbstract, draftID, finalID, status);
+            Submission submission = new Submission(issn, submissionID, title, mainAuthor, corrAuthor, contentAbstract, status);
+            SubmissionDocument submissionDocument = new SubmissionDocument(issn, submissionID, pdfFile, null);
 
             // Authors set
             HashSet<String> authorsSet = new HashSet<String>();
@@ -383,6 +383,7 @@ public class SubmissionPanel extends javax.swing.JPanel {
 
             // Database
             Database.write("Submission", submission);
+            Database.write("SubmissionDocument", submissionDocument);
             for(String author : authorsSet){
                 Database.write("SubmissionAuthor", new SubmissionAuthor(issn, submissionID, author));
             }
