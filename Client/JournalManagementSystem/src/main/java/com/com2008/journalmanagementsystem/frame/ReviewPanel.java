@@ -119,7 +119,6 @@ public class ReviewPanel extends javax.swing.JPanel {
                             typoErrorListModel.addElement(typoError);
                         }
 
-
                         DefaultListModel<Response> responsesListModel = new DefaultListModel<Response>();
                         List<Response> responses = Database.read("Response", new Response(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null));
 
@@ -138,8 +137,11 @@ public class ReviewPanel extends javax.swing.JPanel {
                                 responsesListModel.addElement(new Response(null, null, null, null, "<No RESPONSE!>"));
                             }
                         }
-
                         authorResponceList.setModel(responsesListModel);
+                        Submission submission = Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null, null, null)).get(0);
+                        if (submission.getStatus() == Submission.Status.REVIEWED) {
+                            submitButton.setVisible(false);
+                        }
                     }
                     else{
                         this.review = review;
