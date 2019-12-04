@@ -14,7 +14,6 @@ import com.com2008.journalmanagementsystem.model.Article;
 import com.com2008.journalmanagementsystem.model.Author;
 import com.com2008.journalmanagementsystem.model.Edition;
 import com.com2008.journalmanagementsystem.model.EditorOnBoard;
-import com.com2008.journalmanagementsystem.model.JournalInfo;
 import com.com2008.journalmanagementsystem.model.Review;
 import com.com2008.journalmanagementsystem.model.Submission;
 import com.com2008.journalmanagementsystem.model.Submission.Status;

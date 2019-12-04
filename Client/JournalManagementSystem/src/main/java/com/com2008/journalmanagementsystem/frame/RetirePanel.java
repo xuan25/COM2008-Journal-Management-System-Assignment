@@ -75,6 +75,7 @@ public class RetirePanel extends javax.swing.JPanel {
         //add a button which has a custom action listener
         ArrayList<JButton> buttonList = new ArrayList<>();
         for (int i=0; i<journals.size(); i++){
+        	editorString = "";
             for (EditorOnBoard e:editorsOnBoardOf.get(i)) {
             	editorString = editorString.concat(e.getEmail()+" ");
             }
