@@ -11,7 +11,6 @@ import com.com2008.journalmanagementsystem.model.Edition;
 import com.com2008.journalmanagementsystem.model.EditorOnBoard;
 import com.com2008.journalmanagementsystem.model.Journal;
 import com.com2008.journalmanagementsystem.model.Review;
-import com.com2008.journalmanagementsystem.model.Review.Verdict;
 import com.com2008.journalmanagementsystem.model.Submission;
 import com.com2008.journalmanagementsystem.model.Submission.Status;
 import com.com2008.journalmanagementsystem.model.SubmissionAuthor;
@@ -60,7 +59,7 @@ public class DecisionPanel extends javax.swing.JPanel {
                 journals.add(currentJournal);
                 List<Submission> currentSubmissions = Database.read(
                         "Submission", new Submission(
-                                editorOnBoard.getIssn(),null,null,null,null,null,null,null,Status.VERDICTED));
+                                editorOnBoard.getIssn(),null,null,null,null,null,Status.VERDICTED));
                 submissions.add(currentSubmissions);
             }
         }
@@ -96,7 +95,7 @@ public class DecisionPanel extends javax.swing.JPanel {
         		}
         		if (automatic == 3) {
         			try {
-        			 Database.update("Submission",sub,new Submission(null,null,null,null,null,null,null,null,Status.ACCEPTED),false);
+        			 Database.update("Submission",sub,new Submission(null,null,null,null,null,null,Status.ACCEPTED),false);
                      List<Edition> editions = Database.read("Edition", new Edition(null,null,null));
                      int newestVolume = 0;
                      int newestEdition = 0;
@@ -135,7 +134,7 @@ public class DecisionPanel extends javax.swing.JPanel {
         		}
         		else if (automatic == -3) {
         			try {
-						Database.update("Submission",sub,new Submission(null,null,null,null,null,null,null,null,Status.REJECTED),false);
+						Database.update("Submission",sub,new Submission(null,null,null,null,null,null,Status.REJECTED),false);
 					} catch (SQLException ex) {
 						ex.printStackTrace();
 					}
@@ -212,7 +211,7 @@ public class DecisionPanel extends javax.swing.JPanel {
             try {
                 //must get the newest updated version of the submission
                 //to test whether the submission was just reviewed
-                Submission updatedSu = Database.read("Submission", new Submission(su.getIssn(),su.getSubmissionID(),null,null,null,null,null,null,null)).get(0);
+                Submission updatedSu = Database.read("Submission", new Submission(su.getIssn(),su.getSubmissionID(),null,null,null,null,null)).get(0);
                 if (updatedSu.getStatus() == Status.VERDICTED){
                     JFrame submissionFrame = new JFrame();
                     submissionFrame.add(new ArticlePanel(su,UserRole.EDITOR,em));

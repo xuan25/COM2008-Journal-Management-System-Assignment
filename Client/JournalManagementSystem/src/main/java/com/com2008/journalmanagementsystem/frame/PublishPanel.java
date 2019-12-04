@@ -74,7 +74,7 @@ public class PublishPanel extends javax.swing.JPanel {
                         editorsOnBoard.get(i).getIssn(),null,newestEdition.get(i).getVolume(),newestEdition.get(i).getEdition()));
                 for (Article article: currentArticles){
                     List<Submission> currentSubmission = Database.read("Submission", new Submission(
-                            null,article.getSubmissionID(),null,null,null,null,null,null,Status.ACCEPTED));
+                            null,article.getSubmissionID(),null,null,null,null,Status.ACCEPTED));
                     if (currentSubmission.size() > 0) {
                         submissions.add(currentSubmission.get(0));
                     }

@@ -9,10 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,23 +22,16 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.com2008.journalmanagementsystem.model.Account;
 import com.com2008.journalmanagementsystem.model.Article;
-import com.com2008.journalmanagementsystem.model.Author;
 import com.com2008.journalmanagementsystem.model.Edition;
-import com.com2008.journalmanagementsystem.model.EditorOnBoard;
-import com.com2008.journalmanagementsystem.model.Response;
 import com.com2008.journalmanagementsystem.model.Review;
 import com.com2008.journalmanagementsystem.model.Submission;
 import com.com2008.journalmanagementsystem.model.Submission.Status;
 import com.com2008.journalmanagementsystem.model.SubmissionAuthor;
 import com.com2008.journalmanagementsystem.model.SubmissionDocument;
-import com.com2008.journalmanagementsystem.model.Submission.Status;
 import com.com2008.journalmanagementsystem.util.database.Database;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -241,7 +231,7 @@ public class ArticlePanel extends javax.swing.JPanel {
         public void actionPerformed(ActionEvent e) {
                 try {
                     if (st){
-                        Database.update("Submission",su,new Submission(null,null,null,null,null,null,null,null,Status.ACCEPTED),false);
+                        Database.update("Submission",su,new Submission(null,null,null,null,null,null,Status.ACCEPTED),false);
                         List<Edition> editions = Database.read("Edition", new Edition(null,null,null));
                         int newestVolume = 0;
                         int newestEdition = 0;
@@ -273,7 +263,7 @@ public class ArticlePanel extends javax.swing.JPanel {
                         }
                     }
                     else {
-                        Database.update("Submission",su,new Submission(null,null,null,null,null,null,null,null,Status.REJECTED),false);
+                        Database.update("Submission",su,new Submission(null,null,null,null,null,null,Status.REJECTED),false);
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(ArticlePanel.class.getName()).log(Level.SEVERE, null, ex);
