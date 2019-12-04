@@ -73,8 +73,8 @@ CREATE TABLE Submission(
     mainAuthor      VARCHAR(255),
     corrAuthor      VARCHAR(255),
     contentAbstract TEXT,
-    draftID         VARCHAR(255),
-    finalID         VARCHAR(255),
+    -- draftID         VARCHAR(255),
+    -- finalID         VARCHAR(255),
     status          INT,
     PRIMARY KEY (issn, submissionID),
     FOREIGN KEY (issn) REFERENCES Journal(issn),
@@ -141,10 +141,21 @@ CREATE TABLE Criticism(
 
 CREATE TABLE Response(
     email           VARCHAR(255),
-    issn            VARCHAR(255),
+    issn            VARCHAR(14),
     submissionID    VARCHAR(255),
     num             INT,
     content         TEXT,
     PRIMARY KEY (email, issn, submissionID, num),
     FOREIGN KEY (email, issn, submissionID, num) REFERENCES Criticism(email, issn, submissionID, num)
 );
+
+
+CREATE TABLE SubmissionDocument(
+    issn            VARCHAR(14),
+    submissionID    VARCHAR(255),
+    firstDraft      LONGBLOB,
+    finalDraft      LONGBLOB,
+    PRIMARY KEY (issn, submissionID),
+    FOREIGN KEY (issn, submissionID) REFERENCES Submission(issn, submissionID)
+);
+
