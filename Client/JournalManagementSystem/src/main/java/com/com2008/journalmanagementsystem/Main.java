@@ -10,12 +10,6 @@ import com.com2008.journalmanagementsystem.util.database.Database;
 
 public class Main {
     public static void main(String args[]) {
-        try {
-            Database.connect("jdbc:mysql://stusql.dcs.shef.ac.uk/team018", "team018", "9ae70ba0");
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Can not connect to the database", "The software will now exit", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
 
         for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
             if ("Windows".equals(info.getName())) {
@@ -33,7 +27,21 @@ public class Main {
                 break;
             }
         }
-        
-        new LoginFrame().setVisible(true);
+
+        LoginFrame loginFrame = new LoginFrame();
+        loginFrame.setLoading(true);
+        loginFrame.setVisible(true);
+
+        try {
+            Database.connect("jdbc:mysql://stusql.dcs.shef.ac.uk/team018", "team018", "9ae70ba0");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Can not connect to the database", "The software will now exit", JOptionPane.ERROR_MESSAGE);
+            loginFrame.setVisible(false);
+            loginFrame.dispose();
+            System.exit(0);
+            return;
+        }
+
+        loginFrame.setLoading(false);
     }
 }

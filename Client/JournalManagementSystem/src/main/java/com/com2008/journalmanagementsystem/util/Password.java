@@ -8,7 +8,7 @@ public class Password {
         StringBuilder hash = new StringBuilder();
         
         try {
-            MessageDigest sha = MessageDigest.getInstance("SHA-1");
+            MessageDigest sha = MessageDigest.getInstance("SHA-512");
             byte[] hashedBytes = sha.digest(input.getBytes());
 			char[] digits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 			for (int i = 0; i < hashedBytes.length; i++) {
@@ -22,5 +22,10 @@ public class Password {
         }
 		
 		return hash.toString();
-	}
+    }
+    
+    public static void main(String[] args) {
+        System.out.println(generateHash("123"));
+        System.out.println(generateHash("456"));
+    }
 }

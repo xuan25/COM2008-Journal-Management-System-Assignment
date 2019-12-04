@@ -1,5 +1,7 @@
 package com.com2008.journalmanagementsystem.model;
 
+import java.util.Date;
+
 import com.com2008.journalmanagementsystem.util.database.IDataRow;
 
 public class Review implements IDataRow{
@@ -9,19 +11,22 @@ public class Review implements IDataRow{
     private String submissionID;
     private String summary;
     private Integer verdict;
-    private Integer timestamp;
+    private Integer finalVerdict;
+    private Long timestamp;
 
     public Review(){
         
     }
 
-    public Review(String email, String issn, String submissionID, String summary, Verdict verdict, Integer timestamp){
+    public Review(String email, String issn, String submissionID, String summary, Verdict verdict, Verdict finalVerdict, Long timestamp){
         this.email = email;
         this.issn = issn;
         this.submissionID = submissionID;
         this.summary = summary;
         if(verdict != null)
             this.verdict = verdict.value();
+        if(finalVerdict != null)
+            this.finalVerdict = finalVerdict.value();
         this.timestamp = timestamp;
     } 
 
@@ -58,6 +63,10 @@ public class Review implements IDataRow{
         }    
     }
 
+    public void setTimestampNow(){
+        timestamp = new Date().getTime();
+    }
+
     public String getEmail() {
         return email;
     }
@@ -91,6 +100,8 @@ public class Review implements IDataRow{
     }
 
     public Verdict getVerdict() {
+        if(verdict == null)
+            return null;
         return Verdict.valueOf(verdict);
     }
 
@@ -98,11 +109,21 @@ public class Review implements IDataRow{
         this.verdict = verdict.value();
     }
 
-    public Integer getTimestamp() {
+    public Verdict getFinalVerdict() {
+        if(finalVerdict == null)
+            return null;
+        return Verdict.valueOf(finalVerdict);
+    }
+
+    public void setFinalVerdict(Verdict finalVerdict) {
+        this.finalVerdict = finalVerdict.value();
+    }
+
+    public Long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Integer timestamp) {
+    public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
     }
 }
