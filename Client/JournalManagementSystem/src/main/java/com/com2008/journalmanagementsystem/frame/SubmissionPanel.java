@@ -370,7 +370,7 @@ public class SubmissionPanel extends javax.swing.JPanel {
             String corrAuthor = this.corrAuthor.getEmail();
             String contentAbstract = abstractTextArea.getText();
             Submission.Status status = Submission.Status.SUBMITTED;
-            Submission submission = new Submission(issn, submissionID, title, mainAuthor, corrAuthor, contentAbstract, null, null, status);
+            Submission submission = new Submission(issn, submissionID, title, mainAuthor, corrAuthor, contentAbstract, status);
             SubmissionDocument submissionDocument = new SubmissionDocument(issn, submissionID, pdfFile, null);
 
             // Authors set

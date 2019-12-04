@@ -468,7 +468,7 @@ public class ArticlePanel extends javax.swing.JPanel {
                 return;
         }
         try {
-            Database.update("Submission", submission, new Submission(null, null, null, null, null, null, null, null, Submission.Status.RESPONSED), false);
+            Database.update("Submission", submission, new Submission(null, null, null, null, null, null, Submission.Status.RESPONSED), false);
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
