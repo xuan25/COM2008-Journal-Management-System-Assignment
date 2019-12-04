@@ -60,12 +60,6 @@ CREATE TABLE Edition(
 
 -- Article related
 
-CREATE TABLE Document(
-    uuid            VARCHAR(255),
-    documentData    LONGBLOB,
-    PRIMARY KEY (uuid)
-);
-
 CREATE TABLE Submission(
     issn            VARCHAR(14),
     submissionID    VARCHAR(255),
@@ -73,15 +67,20 @@ CREATE TABLE Submission(
     mainAuthor      VARCHAR(255),
     corrAuthor      VARCHAR(255),
     contentAbstract TEXT,
-    draftID         VARCHAR(255),
-    finalID         VARCHAR(255),
     status          INT,
     PRIMARY KEY (issn, submissionID),
     FOREIGN KEY (issn) REFERENCES Journal(issn),
     FOREIGN KEY (mainAuthor) REFERENCES Author(email),
-    FOREIGN KEY (corrAuthor) REFERENCES Author(email),
-    FOREIGN KEY (draftID) REFERENCES Document(uuid),
-    FOREIGN KEY (finalID) REFERENCES Document(uuid)
+    FOREIGN KEY (corrAuthor) REFERENCES Author(email)
+);
+
+CREATE TABLE SubmissionDocument(
+    issn            VARCHAR(14),
+    submissionID    VARCHAR(255),
+    firstDraft      LONGBLOB,
+    finalDraft      LONGBLOB,
+    PRIMARY KEY (issn, submissionID),
+    FOREIGN KEY (issn, submissionID) REFERENCES Submission(issn, submissionID)
 );
 
 CREATE TABLE SubmissionAuthor(
@@ -141,7 +140,7 @@ CREATE TABLE Criticism(
 
 CREATE TABLE Response(
     email           VARCHAR(255),
-    issn            VARCHAR(255),
+    issn            VARCHAR(14),
     submissionID    VARCHAR(255),
     num             INT,
     content         TEXT,

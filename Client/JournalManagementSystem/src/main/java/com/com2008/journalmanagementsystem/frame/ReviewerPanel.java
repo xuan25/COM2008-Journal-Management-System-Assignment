@@ -44,7 +44,7 @@ public class ReviewerPanel extends javax.swing.JPanel {
     private void refreshList(){
         try {
             DefaultListModel selectListModel = new DefaultListModel<Submission>();
-            List<Submission> sub = Database.read("Submission",new Submission(null, null, null, null, null, null, null, null, Status.SUBMITTED));
+            List<Submission> sub = Database.read("Submission",new Submission(null, null, null, null, null, null, Status.SUBMITTED));
             for (Submission submission : sub) {
                 
                 List<SubmissionAuthor> submissionAuthors = Database.read("SubmissionAuthor", new SubmissionAuthor(submission.getIssn(), submission.getSubmissionID(), null));
@@ -82,7 +82,7 @@ public class ReviewerPanel extends javax.swing.JPanel {
             for (Review review : reviewList) {
                 if (Database.read("Response", new Response(email, review.getIssn(), review.getSubmissionID(), null, null)).size() != 0) {
                     if (review.getFinalVerdict() == null) {
-                        responsDefaultListModel.addElement(Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null, null, null)).get(0));
+                        responsDefaultListModel.addElement(Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null)).get(0));
                     }
                 }
             }

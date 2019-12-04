@@ -41,7 +41,7 @@ public class ReaderPanel extends javax.swing.JPanel {
                     List<Article> articles = Database.read("Article", new Article(issn, null, volume, ed));
                     for(Article article : articles){
                         String submissionID = article.getSubmissionID();
-                        Submission submission = Database.read("Submission", new Submission(issn, submissionID, null, null, null, null, null, null, null)).get(0);
+                        Submission submission = Database.read("Submission", new Submission(issn, submissionID, null, null, null, null, null)).get(0);
                         DefaultMutableTreeNode articalNode = new DefaultMutableTreeNode(submission);
                         editionNode.add(articalNode);
                     }
