@@ -131,9 +131,9 @@ public class ArticlePanel extends javax.swing.JPanel {
             //status of false -> reject button
             this.su = sub;
             this.st = status;
-	}
+        }
 
-	public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {
                 try {
                     if (st){
                         Database.update("Submission",su,new Submission(null,null,null,null,null,null,null,null,Status.ACCEPTED),false);
@@ -151,8 +151,21 @@ public class ArticlePanel extends javax.swing.JPanel {
                                 }
                             }
                         }
-                        System.out.println(su.getIssn()+" "+su.getSubmissionID()+" "+newestVolume+" "+newestEdition);
-                        Database.write("Article",new Article(su.getIssn(),su.getSubmissionID(),newestVolume,newestEdition));
+                        //if the current edition and volume are full, create new ones
+                        int amountArticles = Database.read("Article", new Article(null,null,newestVolume,newestEdition)).size();
+                        if(amountArticles >= 8) {
+                        	if (newestEdition == 6) {
+                        		Database.write("Edition",new Edition(su.getIssn(),newestVolume+1,1));
+                                Database.write("Article",new Article(su.getIssn(),su.getSubmissionID(),newestVolume+1,1));
+                        	}
+                        	else {
+                        		Database.write("Edition",new Edition(su.getIssn(),newestVolume,newestEdition+1));
+                                Database.write("Article",new Article(su.getIssn(),su.getSubmissionID(),newestVolume,newestEdition+1));
+                        	}
+                        }
+                        else {
+                            Database.write("Article",new Article(su.getIssn(),su.getSubmissionID(),newestVolume,newestEdition));
+                        }
                     }
                     else {
                         Database.update("Submission",su,new Submission(null,null,null,null,null,null,null,null,Status.REJECTED),false);
