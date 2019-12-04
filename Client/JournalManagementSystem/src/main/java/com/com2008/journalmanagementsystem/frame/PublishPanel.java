@@ -138,42 +138,63 @@ public class PublishPanel extends javax.swing.JPanel {
             this.volNumber = volNumber;
             this.edNumber = edNumber;
             this.publishType = publishType;
-	}
+        }	
 
         public void actionPerformed(ActionEvent e) {
-        	//if publishing as a volume
-            if (publishType){
-            	//check that there at least 4 editions already
-                if(edNumber <= 3){
-                    JOptionPane.showMessageDialog(null, "There must be at least 4 editions in a volume", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-                //check there are at least 3 items in an edition
-                else if (subList.size() <= 2) {
-                	JOptionPane.showMessageDialog(null, "There must be at least 3 articles in an edition", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-                else {
-                    try {
-                    	//otherwise write to the database
-                        Database.write("Edition", new Edition(journal.getIssn(),volNumber+1,1));
-                    } catch (SQLException ex) {
-                        Logger.getLogger(PublishPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
-            else {
-            	//if publishing as an edition
-            	//we just need to check there are at least 3 articles
-                if (subList.size() >= 3){
-                    try {
-                        Database.write("Edition", new Edition(journal.getIssn(),volNumber,edNumber+1));
-                    } catch (SQLException ex) {
-                        Logger.getLogger(PublishPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                else {
-                    JOptionPane.showMessageDialog(null, "There must be at least 3 articles in an edition", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
+        	List<Edition> updatedEditionList = null;
+        	boolean hasPressed = false;
+			try {
+				updatedEditionList = Database.read("Edition", new Edition(journal.getIssn(),null,null));
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			for (Edition edition:updatedEditionList) {
+				if(edition.getVolume() == volNumber+1 || edition.getEdition() == edNumber+1) {
+					hasPressed = true;
+				}
+			}
+        	if (hasPressed) {
+        		JOptionPane.showMessageDialog(null, "Option Already Picked", "Error", JOptionPane.ERROR_MESSAGE);
+                JButton parentButton = (JButton)e.getSource();
+                parentButton.setEnabled(false);
+        	}
+        	else {
+	        	//if publishing as a volume
+	            if (publishType){
+	            	//check that there at least 4 editions already
+	                if(edNumber <= 3){
+	                    JOptionPane.showMessageDialog(null, "There must be at least 4 editions in a volume", "Error", JOptionPane.ERROR_MESSAGE);
+	                }
+	                //check there are at least 3 items in an edition
+	                else if (subList.size() <= 2) {
+	                	JOptionPane.showMessageDialog(null, "There must be at least 3 articles in an edition", "Error", JOptionPane.ERROR_MESSAGE);
+	                }
+	                else {
+	                    try {
+	                    	//otherwise write to the database
+	                        Database.write("Edition", new Edition(journal.getIssn(),volNumber+1,1));
+	                    } catch (SQLException ex) {
+	                        Logger.getLogger(PublishPanel.class.getName()).log(Level.SEVERE, null, ex);
+	                    }
+	                }
+	            }
+	            else {
+	            	//if publishing as an edition
+	            	//we just need to check there are at least 3 articles
+	                if (subList.size() >= 3){
+	                    try {
+	                        Database.write("Edition", new Edition(journal.getIssn(),volNumber,edNumber+1));
+	                    } catch (SQLException ex) {
+	                        Logger.getLogger(PublishPanel.class.getName()).log(Level.SEVERE, null, ex);
+	                    }
+	                }
+	                else {
+	                    JOptionPane.showMessageDialog(null, "There must be at least 3 articles in an edition", "Error", JOptionPane.ERROR_MESSAGE);
+	                }
+	            }
+        	}
+            
             journalPanel.revalidate();
             journalPanel.repaint();
         }
