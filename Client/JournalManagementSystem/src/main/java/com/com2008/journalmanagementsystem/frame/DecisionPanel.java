@@ -6,8 +6,12 @@
 package com.com2008.journalmanagementsystem.frame;
 
 import com.com2008.journalmanagementsystem.model.Account;
+import com.com2008.journalmanagementsystem.model.Article;
+import com.com2008.journalmanagementsystem.model.Edition;
 import com.com2008.journalmanagementsystem.model.EditorOnBoard;
 import com.com2008.journalmanagementsystem.model.Journal;
+import com.com2008.journalmanagementsystem.model.Review;
+import com.com2008.journalmanagementsystem.model.Review.Verdict;
 import com.com2008.journalmanagementsystem.model.Submission;
 import com.com2008.journalmanagementsystem.model.Submission.Status;
 import com.com2008.journalmanagementsystem.model.SubmissionAuthor;
@@ -56,12 +60,94 @@ public class DecisionPanel extends javax.swing.JPanel {
                 journals.add(currentJournal);
                 List<Submission> currentSubmissions = Database.read(
                         "Submission", new Submission(
-                                editorOnBoard.getIssn(),null,null,null,null,null,null,null,null));
+                                editorOnBoard.getIssn(),null,null,null,null,null,null,null,Status.REVIEWED));
                 submissions.add(currentSubmissions);
             }
         }
         catch (SQLException e) {
             e.printStackTrace();
+        }
+        
+        //automatically accept or reject submissions based on reviews
+        List<Review> reviews = null;
+        List<Submission> deleteSubs = new ArrayList<>();
+        for (int i=0;i<journals.size(); i++) {
+        	for (Submission sub:submissions.get(i)) {
+        		try {
+					reviews = Database.read("Review", new Review(null,null,sub.getSubmissionID(),null,null,null));
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+        		//automatic = 0 -> manually accept/reject
+        		//automatic = -3 -> automatically reject
+        		//automatic = 3 -> automatically accept
+        		int automatic = 0;
+        		for (Review review: reviews) {
+        			System.out.println(review.getVerdict());
+        			switch (review.getVerdict()) {
+        			case STRONG_ACCEPT:
+        				automatic += 1;
+        				break;
+        			case STRONG_REJECT:
+        				automatic -= 1;
+        				break;
+					default:
+						break;
+        			}
+        		}
+        		if (automatic == 3) {
+        			System.out.println("auto accept");
+        			try {
+        			 Database.update("Submission",sub,new Submission(null,null,null,null,null,null,null,null,Status.ACCEPTED),false);
+                     List<Edition> editions = Database.read("Edition", new Edition(null,null,null));
+                     int newestVolume = 0;
+                     int newestEdition = 0;
+                     for (Edition edition:editions){
+                         if (edition.getVolume() > newestVolume){
+                             newestVolume = edition.getVolume();
+                             newestEdition = edition.getEdition();
+                         }
+                         else if (edition.getVolume() == newestVolume) {
+                             if (edition.getEdition() > newestEdition){
+                                 newestEdition = edition.getEdition();
+                             }
+                         }
+                     }
+                     //if the current edition and volume are full, create new ones
+                     int amountArticles = Database.read("Article", new Article(null,null,newestVolume,newestEdition)).size();
+                     if(amountArticles >= 8) {
+                     	if (newestEdition == 6) {
+                     		Database.write("Edition",new Edition(sub.getIssn(),newestVolume+1,1));
+                             Database.write("Article",new Article(sub.getIssn(),sub.getSubmissionID(),newestVolume+1,1));
+                     	}
+                     	else {
+                     		Database.write("Edition",new Edition(sub.getIssn(),newestVolume,newestEdition+1));
+                             Database.write("Article",new Article(sub.getIssn(),sub.getSubmissionID(),newestVolume,newestEdition+1));
+                     	}
+                     }
+                     else {
+                         Database.write("Article",new Article(sub.getIssn(),sub.getSubmissionID(),newestVolume,newestEdition));
+                     }
+        				
+        			}
+        			catch (SQLException ex) {
+        				ex.printStackTrace();
+        			}
+            		deleteSubs.add(sub);
+        		}
+        		else if (automatic == -3) {
+        			System.out.println("auto reject");
+        			try {
+						Database.update("Submission",sub,new Submission(null,null,null,null,null,null,null,null,Status.REJECTED),false);
+					} catch (SQLException ex) {
+						ex.printStackTrace();
+					}
+            		deleteSubs.add(sub);
+        		}
+        	}
+        	for (Submission s:deleteSubs) {
+        		submissions.get(i).remove(s);
+        	}
         }
     
         //for each submission in a journal add a button and labels
