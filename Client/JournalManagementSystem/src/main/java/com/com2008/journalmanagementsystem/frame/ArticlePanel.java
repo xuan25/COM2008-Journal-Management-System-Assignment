@@ -140,10 +140,25 @@ public class ArticlePanel extends javax.swing.JPanel {
             reviewPanel.setVisible(true);
 
             innerReviewPanel.removeAll();
-            ReviewPanel reviewPanel = new ReviewPanel("Reviewer",
+            // A editable ReviewPanel for Reviewers only
+            ReviewPanel reviewPanelReviewer = new ReviewPanel("Reviewer",
                     new Review(email, submission.getIssn(), submission.getSubmissionID(), null, null, null, null),
                     UserRole.REVIEWER);
-            innerReviewPanel.add(reviewPanel);
+            innerReviewPanel.add(reviewPanelReviewer);
+        case EDITOR:
+            try {
+                List<Review> reviews = Database.read("Review", new Review(null, submission.getIssn(),
+                        submission.getSubmissionID(), null, null, null, null));
+                for (int i = 0; i < reviews.size(); i++) {
+                    ReviewPanel reviewPanel = new ReviewPanel("Reviewer" + (i + 1), reviews.get(i),
+                            UserRole.EDITOR);
+                    innerReviewPanel.add(reviewPanel);
+                }
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            break;
         default:
             break;
         }
