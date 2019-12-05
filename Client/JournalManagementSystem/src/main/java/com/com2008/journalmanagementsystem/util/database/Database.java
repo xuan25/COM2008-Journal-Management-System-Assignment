@@ -3,7 +3,6 @@ package com.com2008.journalmanagementsystem.util.database;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.security.InvalidParameterException;
 import java.sql.*;
 import java.util.*;
 
@@ -203,10 +202,7 @@ public class Database {
      * @param dataRowNew    New data  (Null represents not change)
      * @throws SQLException
      */
-    public static <T extends IDataRow> int update(String table, T dataRowOld, T dataRowNew, Boolean includeNull) throws SQLException{
-        // TODO : Remove param includeNull after everything is done.
-        if(includeNull)
-            throw new InvalidParameterException("includeNull=true is no longer supported. Please use includeNull=false for updating database.");
+    public static <T extends IDataRow> int update(String table, T dataRowOld, T dataRowNew) throws SQLException{
         PreparedStatement statement = prepareUpdateStatement(table, dataRowOld, dataRowNew);
         return statement.executeUpdate();
     }
@@ -357,8 +353,8 @@ public class Database {
             System.out.println("Result count 1: " + a.size());
 
             // Update & Read
-            update("Account", new com.com2008.journalmanagementsystem.model.Account("bshan3@sheffield.ac.uk", null,null, null, null), new com.com2008.journalmanagementsystem.model.Account("bshan3@sheffield.ac.uk", null, "Boxuan1", null, "UoS"), false);
-            update("Account", new com.com2008.journalmanagementsystem.model.Account("jqi6@sheffield.ac.uk", null, null, null, null), new com.com2008.journalmanagementsystem.model.Account("jqi6@sheffield.ac.uk", null, "Jingxiang1", null, "UoS"), true);
+            update("Account", new com.com2008.journalmanagementsystem.model.Account("bshan3@sheffield.ac.uk", null,null, null, null), new com.com2008.journalmanagementsystem.model.Account("bshan3@sheffield.ac.uk", null, "Boxuan1", null, "UoS"));
+            update("Account", new com.com2008.journalmanagementsystem.model.Account("jqi6@sheffield.ac.uk", null, null, null, null), new com.com2008.journalmanagementsystem.model.Account("jqi6@sheffield.ac.uk", null, "Jingxiang1", null, "UoS"));
             List<com.com2008.journalmanagementsystem.model.Account> b = read("Account", new com.com2008.journalmanagementsystem.model.Account(null, null, null, null, "UoS"));
             System.out.println("Result count 2: " + b.size());
 
