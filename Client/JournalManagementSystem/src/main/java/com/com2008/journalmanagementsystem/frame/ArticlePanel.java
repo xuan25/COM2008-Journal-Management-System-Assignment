@@ -62,6 +62,7 @@ public class ArticlePanel extends javax.swing.JPanel {
 
         confirmFinalPanel.setVisible(false);
         uploadFinalPDFBtn.setVisible(false);
+        abstractTextArea.setEditable(false);
 
         // Load panels for each role
         switch (userRole) {
@@ -488,11 +489,16 @@ public class ArticlePanel extends javax.swing.JPanel {
 
     private void openPDFBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_openPDFBtnActionPerformed
         try {
-            File temp = File.createTempFile(UUID.randomUUID().toString(), ".pdf");
-            String tempPath = temp.getAbsolutePath();
-            temp.deleteOnExit();
+            List<SubmissionDocument> submissionDocuments = Database.read("SubmissionDocument", new SubmissionDocument(submission.getIssn(), submission.getSubmissionID(), null, null));
+            if(submissionDocuments.size() == 0){
+                JOptionPane.showMessageDialog(this, "Document not found.", "Open document", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            SubmissionDocument submissionDocument = submissionDocuments.get(0);
 
-            SubmissionDocument submissionDocument = Database.read("SubmissionDocument", new SubmissionDocument(submission.getIssn(), submission.getSubmissionID(), null, null)).get(0);
+            File temp = File.createTempFile(UUID.randomUUID().toString(), ".pdf");
+            temp.deleteOnExit();
+            
             if(submissionDocument.getFinalDraft() != null)
                 submissionDocument.downloadFinalDraft(temp);
             else

@@ -74,6 +74,7 @@ public class ReviewPanel extends javax.swing.JPanel {
 
                 reviewerLabel.setText(name);
                 acceptableLabel.setText(review.getVerdict().toString());
+                summaryTextArea.setEditable(false);
                 summaryTextArea.setText(review.getSummary());
         
                 try {
