@@ -750,6 +750,7 @@ public class LoginFrame extends javax.swing.JFrame {
         try {
             if(Database.write("Account", account) == 1){
                 if(Database.write("Author", new Author(account.getEmail(), hashedPassword)) == 1){
+                    Database.write("Reviewer", new Reviewer(account.getEmail(), hashedPassword));
                     JOptionPane.showMessageDialog(null, "registration success", "Register", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{
