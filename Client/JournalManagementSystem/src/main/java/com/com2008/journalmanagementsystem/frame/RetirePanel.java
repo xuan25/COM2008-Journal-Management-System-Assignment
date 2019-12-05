@@ -5,6 +5,7 @@
  */
 package com.com2008.journalmanagementsystem.frame;
 
+import com.com2008.journalmanagementsystem.model.Account;
 import com.com2008.journalmanagementsystem.model.Editor;
 import com.com2008.journalmanagementsystem.model.EditorOnBoard;
 import com.com2008.journalmanagementsystem.model.Journal;
@@ -135,7 +136,8 @@ public class RetirePanel extends javax.swing.JPanel {
                      				+ "\nYou will now be logged out and account removed", "Information", JOptionPane.INFORMATION_MESSAGE);
                             JFrame fr = (JFrame)SwingUtilities.getRoot(editorPanel);
                             fr.dispose();
-                     		Database.delete("Editor", new Editor(email,null));
+                            Database.delete("Editor", new Editor(email,null));
+                            Database.delete("Account", new Account(email, null, null, null, null));
                             LoginFrame newLogFrame = new LoginFrame();
                             newLogFrame.setVisible(true);
                      	}
