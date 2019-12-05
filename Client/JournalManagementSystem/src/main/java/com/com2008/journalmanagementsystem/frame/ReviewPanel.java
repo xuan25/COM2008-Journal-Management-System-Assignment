@@ -29,6 +29,7 @@ public class ReviewPanel extends javax.swing.JPanel {
      * Creates new form ReviewPanel
      */
     private Review review;
+    Status status = Status.UNKNOW;
     DefaultListModel<TypoError> typoErrorListModel = new DefaultListModel<TypoError>();
     DefaultListModel<Criticism> criticismsListModel = new DefaultListModel<Criticism>();
     public ReviewPanel() {
@@ -42,12 +43,9 @@ public class ReviewPanel extends javax.swing.JPanel {
         typoErrorsList.setModel(typoErrorListModel);
         criticismsList.setModel(criticismsListModel);
 
-        Status status = Status.UNKNOW;
+        // Status status = Status.UNKNOW;
         try {
-            status = Database
-                    .read("Submission",
-                            new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null))
-                    .get(0).getStatus();
+            status = Database.read("Submission",new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null)).get(0).getStatus();
         } catch (SQLException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
@@ -415,8 +413,8 @@ public class ReviewPanel extends javax.swing.JPanel {
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
 
         try {
-            if (Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null)).get(0).getStatus() == Submission.Status.RESPONSED) {
-
+            if (status == Submission.Status.RESPONSED) {
+                //update final-verdict
                 int verdictIndex = verdictSelectList.getSelectedIndex();
                 Verdict verdict = Verdict.valueOf(verdictIndex);
                 if (verdictIndex != -1) {
@@ -425,12 +423,14 @@ public class ReviewPanel extends javax.swing.JPanel {
 
             }
             else {
+                //Set review
                 int verdictIndex = verdictSelectList.getSelectedIndex();
                 Verdict verdict = Verdict.valueOf(verdictIndex);
                 review.setVerdict(verdict);
                 review.setSummary(summaryTextArea.getText());
                 review.setTimestampNow();
-                // review.setTimestamp(timestamp);
+
+                // Review
                 try {
                     Database.write("Review", review);
                 } catch (SQLException e1) {
@@ -438,6 +438,7 @@ public class ReviewPanel extends javax.swing.JPanel {
                     e1.printStackTrace();
                 }
 
+                //Typo Errors
                 for (int i = 0; i < typoErrorListModel.getSize(); i++) {
                     try {
                         Database.write("TypoError", typoErrorListModel.get(i));
@@ -447,6 +448,7 @@ public class ReviewPanel extends javax.swing.JPanel {
                     }
                 }
 
+                //Criticisms
                 for (int i = 0; i < criticismsListModel.getSize(); i++) {
                     try {
                         Database.write("Criticism", criticismsListModel.get(i));
@@ -468,7 +470,7 @@ public class ReviewPanel extends javax.swing.JPanel {
                 }
             }
 
-            submitButton.setEnabled(false);
+            // submitButton.setEnabled(false);
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
