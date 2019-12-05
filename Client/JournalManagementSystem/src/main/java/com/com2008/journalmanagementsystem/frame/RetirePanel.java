@@ -124,6 +124,21 @@ public class RetirePanel extends javax.swing.JPanel {
             	 if (eList.size() > 1) {
                  	try {
      					Database.delete("EditorOnBoard", new EditorOnBoard(issn, email));
+                 		JOptionPane.showMessageDialog(null, "You are no longer on the board of this journal", 
+                 				"Information", JOptionPane.INFORMATION_MESSAGE);
+                 		JButton currentButton = (JButton) e.getSource();
+                 		currentButton.setEnabled(false);
+                     	List<EditorOnBoard > editorsOnBoard = Database.read("EditorOnBoard", new EditorOnBoard(null,email));
+                     	//if your are no longer an editor on any board, logout and delete account
+                     	if (editorsOnBoard.size() == 0) {
+                     		JOptionPane.showMessageDialog(null, "You are no longer the editor of any journal"
+                     				+ "\nYou will now be logged out and account removed", "Information", JOptionPane.INFORMATION_MESSAGE);
+                            JFrame fr = (JFrame)SwingUtilities.getRoot(editorPanel);
+                            fr.dispose();
+                     		Database.delete("Editor", new Editor(email,null));
+                            LoginFrame newLogFrame = new LoginFrame();
+                            newLogFrame.setVisible(true);
+                     	}
      				} catch (SQLException e1) {
      					e1.printStackTrace();
      				}
