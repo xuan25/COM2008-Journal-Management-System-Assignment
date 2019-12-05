@@ -59,13 +59,7 @@ public class ReviewerPanel extends javax.swing.JPanel {
                     universitySet.add(account.getUniversity());
 
                 String reviewerUniversity = Database.read("Account", new Account(email, null, null, null, null)).get(0).getUniversity();
-
                 int reviewSize = Database.read("Review", new Review(email, null, null, null, null, null, null)).size();
-
-                
-
-
-
                 int articleSize = Database.read("SubmissionAuthor", new SubmissionAuthor(null, null, email)).size();
 
                 if(!universitySet.contains(reviewerUniversity)){
@@ -75,6 +69,16 @@ public class ReviewerPanel extends javax.swing.JPanel {
                     }
                 }
             }
+
+            List<Review> reviews = Database.read("Review", new Review(email, null, null, null, null, null, null));
+                for (Review review : reviews) {
+                    Submission submis = Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null, null, null)).get(0);
+                    if (submis.getStatus() == Submission.Status.REVIEWED) {
+                        // selectListModel.addElement(submis);
+                        selectListModel.add(0, submis);
+                    }
+                }
+
             selectList.setModel(selectListModel);
 
             DefaultListModel responsDefaultListModel = new DefaultListModel<Submission>();
