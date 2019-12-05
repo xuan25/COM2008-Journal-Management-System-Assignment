@@ -135,7 +135,7 @@ public class MainFrame extends javax.swing.JFrame {
                         updateMainPanel(new ProfilePanel(userRole, email));
                     }
                 }));
-        	selectionsPanel.add(new SidePanelButton("Retire", new MouseAdapter() {
+            	selectionsPanel.add(new SidePanelButton("Retire", new MouseAdapter() {
                     public void mousePressed(MouseEvent evt) {
                         activeSidePanelBtn((SidePanelButton)evt.getSource());
                         updateMainPanel(new RetirePanel(email));
@@ -147,8 +147,20 @@ public class MainFrame extends javax.swing.JFrame {
                         updateMainPanel(new DecisionPanel(email));
                     }
                 }));
+                selectionsPanel.add(new SidePanelButton("Create New Journal", new MouseAdapter() {
+                    public void mousePressed(MouseEvent evt) {
+                        activeSidePanelBtn((SidePanelButton) evt.getSource());
+                        updateMainPanel(new CreateJournalPanel(email));
+                    }
+                }));
+                selectionsPanel.add(new SidePanelButton("Add Editor to Journal", new MouseAdapter() {
+                    public void mousePressed(MouseEvent evt) {
+                        activeSidePanelBtn((SidePanelButton) evt.getSource());
+                        updateMainPanel(new AddEditorPanel(email));
+                    }
+                }));
             	try {
-                    java.util.List<Journal> journals = Database.read("Journal", new Journal(null, null, email, null, null));
+                    java.util.List<Journal> journals = Database.read("Journal", new Journal(null, null, email));
                 	if (journals.size() > 0) {
                         selectionsPanel.add(new SidePanelButton("Pass Chief Editor", new MouseAdapter() {
                             public void mousePressed(MouseEvent evt) {

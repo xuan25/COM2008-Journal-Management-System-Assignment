@@ -56,7 +56,7 @@ public class RetirePanel extends javax.swing.JPanel {
         try {
             List<EditorOnBoard> editorsOnBoard = Database.read("EditorOnBoard", new EditorOnBoard(null,email));
             for (EditorOnBoard editorOnBoard:editorsOnBoard){
-                Journal currentJournal = Database.read("Journal", new Journal(editorOnBoard.getIssn(),null,null,null,null)).get(0);
+                Journal currentJournal = Database.read("Journal", new Journal(editorOnBoard.getIssn(),null,null)).get(0);
                 journals.add(currentJournal);
                 List<EditorOnBoard> currentEditorsOnBoard = Database.read("EditorOnBoard", new EditorOnBoard(editorOnBoard.getIssn(),null));
                 editorsOnBoardOf.add(currentEditorsOnBoard);

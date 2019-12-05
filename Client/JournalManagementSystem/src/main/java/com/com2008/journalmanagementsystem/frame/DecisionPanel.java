@@ -55,7 +55,7 @@ public class DecisionPanel extends javax.swing.JPanel {
                     "EditorOnBoard", new EditorOnBoard(null,email));
             for (EditorOnBoard editorOnBoard:editorsOnBoard){
                 Journal currentJournal = Database.read(
-                        "Journal", new Journal(editorOnBoard.getIssn(),null,null,null,null)).get(0);
+                        "Journal", new Journal(editorOnBoard.getIssn(),null,null)).get(0);
                 journals.add(currentJournal);
                 List<Submission> currentSubmissions = Database.read(
                         "Submission", new Submission(

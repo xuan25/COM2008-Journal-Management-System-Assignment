@@ -12,6 +12,7 @@ import javax.swing.*;
 
 import com.com2008.journalmanagementsystem.model.Account;
 import com.com2008.journalmanagementsystem.model.Author;
+import com.com2008.journalmanagementsystem.model.Edition;
 import com.com2008.journalmanagementsystem.model.Editor;
 import com.com2008.journalmanagementsystem.model.EditorOnBoard;
 import com.com2008.journalmanagementsystem.model.Journal;
@@ -696,7 +697,6 @@ public class LoginFrame extends javax.swing.JFrame {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -704,11 +704,11 @@ public class LoginFrame extends javax.swing.JFrame {
 	    	Database.write("Account", new Account(newAccount.getEmail(),newAccount.getTitle(),
 	    			newAccount.getForename(),newAccount.getSurname(),newAccount.getUniversity()));
 	    	Database.write("Editor", new Editor(newAccount.getEmail(), hashedPassword));
-			Database.write("Journal", new Journal(issn,journalName,newAccount.getEmail()));
+		Database.write("Journal", new Journal(issn,journalName,newAccount.getEmail()));
 	    	Database.write("EditorOnBoard", new EditorOnBoard(issn, newAccount.getEmail()));
+	    	Database.write("Edition", new Edition(issn,1,1));
 	    	JOptionPane.showMessageDialog(null, "registration success", "Register", JOptionPane.INFORMATION_MESSAGE);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

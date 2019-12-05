@@ -53,7 +53,7 @@ public class PublishPanel extends javax.swing.JPanel {
         try {
             editorsOnBoard = Database.read("EditorOnBoard", new EditorOnBoard(null,email));
             for (int i=0;i<editorsOnBoard.size();i++){
-                Journal currentJournal = Database.read("Journal", new Journal(editorsOnBoard.get(i).getIssn(),null,null,null,null)).get(0);
+                Journal currentJournal = Database.read("Journal", new Journal(editorsOnBoard.get(i).getIssn(),null,null)).get(0);
                 journals.add(currentJournal);
                 List<Edition> currentEditions = Database.read("Edition", new Edition(
                         editorsOnBoard.get(i).getIssn(),null,null));

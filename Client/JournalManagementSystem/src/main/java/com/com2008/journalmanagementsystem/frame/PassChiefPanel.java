@@ -45,7 +45,7 @@ public class PassChiefPanel extends javax.swing.JPanel {
         List<Journal> journals = null;
         List<List<EditorOnBoard>> editorBoards = new ArrayList<>();
         try {
-            journals = Database.read("Journal", new Journal(null,null,email,null,null));
+            journals = Database.read("Journal", new Journal(null,null,email));
             for (Journal journal : journals){
                 List<EditorOnBoard> journalEditors = Database.read("EditorOnBoard", new EditorOnBoard(journal.getIssn(),null));
                 editorBoards.add(journalEditors);
@@ -110,7 +110,7 @@ public class PassChiefPanel extends javax.swing.JPanel {
             //get the most up to date version of the journal\
             Journal updatedJournal = null;
             try {
-                updatedJournal = Database.read("Journal", new Journal(thisJournal.getIssn(),null,null,null,null)).get(0);
+                updatedJournal = Database.read("Journal", new Journal(thisJournal.getIssn(),null,null)).get(0);
             } catch (SQLException ex) {
                 Logger.getLogger(PassChiefPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -118,8 +118,8 @@ public class PassChiefPanel extends javax.swing.JPanel {
             //(user may have tranferred chief and tried to press the button again)
             if (updatedJournal.getCheifEmail().toLowerCase().equals(userEmail.toLowerCase())){ 
                 try {
-                    Database.update("Journal",thisJournal,new Journal(null,null,newEmail,null,null),false);
-                    int journalAmount = Database.read("Journal", new Journal(null,null,userEmail,null,null)).size();
+                    Database.update("Journal",thisJournal,new Journal(null,null,newEmail),false);
+                    int journalAmount = Database.read("Journal", new Journal(null,null,userEmail)).size();
                     System.out.println(journalAmount);
                     if (journalAmount == 0){
                         //if you are no longer chief of any journal
