@@ -210,6 +210,7 @@ public class ArticlePanel extends javax.swing.JPanel {
             e1.printStackTrace();
         }
 
+        // TODO : remove this
         // Test review panel
 
         // if(reviewPanel.isVisible()){

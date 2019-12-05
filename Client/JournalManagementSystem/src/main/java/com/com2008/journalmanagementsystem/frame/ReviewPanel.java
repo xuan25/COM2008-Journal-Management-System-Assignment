@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.xml.crypto.Data;
 
 import com.com2008.journalmanagementsystem.model.*;
@@ -54,10 +55,18 @@ public class ReviewPanel extends javax.swing.JPanel {
         authorResponsePanel.setVisible(false);
         submitPannel.setVisible(false);
 
+        if(review.getVerdict() != null)
+            firstVerdictLabel.setText(review.getVerdict().toString());
+        else
+            firstVerdictLabel.setText(null);
+        if(review.getFinalVerdict() != null)
+            finalVerdictLabel.setText(review.getFinalVerdict().toString());
+        else
+            finalVerdictLabel.setText(null);
+
         switch(userRole){
             case AUTHOR:
                 reviewerLabel.setText(name);
-                acceptableLabel.setText(review.getVerdict().toString());
                 summaryTextArea.setEditable(false);
                 summaryTextArea.setText(review.getSummary());
         
@@ -89,14 +98,12 @@ public class ReviewPanel extends javax.swing.JPanel {
 
                 if(review.getTimestamp() == null){
                     // First review stage
-                    acceptableLabel.setVisible(false);
                     summaryTextArea.setText("");
 
                     typoErrorsList.removeAll();
                     criticismsList.removeAll();
                 }
                 else{
-                    acceptableLabel.setText(this.review.getVerdict().toString());
                     summaryTextArea.setEditable(false);
                     summaryTextArea.setText(this.review.getSummary());
                     if(status == Status.SUBMITTED || status == Status.REVIEWED){
@@ -123,8 +130,6 @@ public class ReviewPanel extends javax.swing.JPanel {
                 summaryTextArea.setText(this.review.getSummary());
 
                 authorResponsePanel.setVisible(true); 
-                
-                acceptableLabel.setText(this.review.getVerdict().toString());
 
                 loadTypoErrors();
                 loadResponsesWithCriticsims();
@@ -206,7 +211,10 @@ public class ReviewPanel extends javax.swing.JPanel {
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         infoPanel = new javax.swing.JPanel();
         reviewerLabel = new javax.swing.JLabel();
-        acceptableLabel = new javax.swing.JLabel();
+        infoVerdictPanel = new javax.swing.JPanel();
+        firstVerdictLabel = new javax.swing.JLabel();
+        filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
+        finalVerdictLabel = new javax.swing.JLabel();
         summaryLabel = new javax.swing.JLabel();
         summaryScrollPane = new javax.swing.JScrollPane();
         summaryTextArea = new javax.swing.JTextArea();
@@ -259,10 +267,20 @@ public class ReviewPanel extends javax.swing.JPanel {
         reviewerLabel.setText("Reviewer ID");
         infoPanel.add(reviewerLabel, java.awt.BorderLayout.CENTER);
 
-        acceptableLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        acceptableLabel.setForeground(new java.awt.Color(0, 153, 0));
-        acceptableLabel.setText("Acceptable");
-        infoPanel.add(acceptableLabel, java.awt.BorderLayout.EAST);
+        infoVerdictPanel.setLayout(new javax.swing.BoxLayout(infoVerdictPanel, javax.swing.BoxLayout.LINE_AXIS));
+
+        firstVerdictLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        firstVerdictLabel.setForeground(new java.awt.Color(0, 153, 0));
+        firstVerdictLabel.setText("First");
+        infoVerdictPanel.add(firstVerdictLabel);
+        infoVerdictPanel.add(filler5);
+
+        finalVerdictLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        finalVerdictLabel.setForeground(new java.awt.Color(0, 153, 0));
+        finalVerdictLabel.setText("Final");
+        infoVerdictPanel.add(finalVerdictLabel);
+
+        infoPanel.add(infoVerdictPanel, java.awt.BorderLayout.EAST);
 
         mainPanel.add(infoPanel);
 
@@ -411,21 +429,22 @@ public class ReviewPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
+        int verdictIndex = verdictSelectList.getSelectedIndex();
+        if (verdictIndex == -1){
+            JOptionPane.showMessageDialog(this, "Please select a verdict", "Submit", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
+        submitButton.setEnabled(false);
+
+        Verdict verdict = Verdict.valueOf(verdictIndex);
         try {
             if (status == Submission.Status.RESPONSED) {
                 //update final-verdict
-                int verdictIndex = verdictSelectList.getSelectedIndex();
-                Verdict verdict = Verdict.valueOf(verdictIndex);
-                if (verdictIndex != -1) {
-                    Database.update("Review", review, new Review(null, null, null, null, null, verdict, null), false);
-                }
-
+                Database.update("Review", review, new Review(null, null, null, null, null, verdict, null), false);
             }
             else {
                 //Set review
-                int verdictIndex = verdictSelectList.getSelectedIndex();
-                Verdict verdict = Verdict.valueOf(verdictIndex);
                 review.setVerdict(verdict);
                 review.setSummary(summaryTextArea.getText());
                 review.setTimestampNow();
@@ -461,7 +480,7 @@ public class ReviewPanel extends javax.swing.JPanel {
 
             List<Review> reviewList= Database.read("Review", new Review(null, review.getIssn(), review.getSubmissionID(), null, null, null, null));
             if (reviewList.size() > 2) {
-                if (Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null)).get(0).getStatus() == Submission.Status.SUBMITTED    ) {
+                if (Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null)).get(0).getStatus() == Submission.Status.SUBMITTED) {
                     Database.update("Submission", Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null)).get(0), new Submission(null, null, null, null, null, null, Submission.Status.REVIEWED), false);
                 }
                 boolean finalverdict = reviewList.get(0).getFinalVerdict() != null && reviewList.get(1).getFinalVerdict() != null && reviewList.get(2).getFinalVerdict() != null;
@@ -469,14 +488,10 @@ public class ReviewPanel extends javax.swing.JPanel {
                     Database.update("Submission", Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null)).get(0), new Submission(null, null, null, null, null, null, Submission.Status.VERDICTED), false);
                 }
             }
-
-            // submitButton.setEnabled(false);
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
-        
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void typoErrorAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typoErrorAddButtonActionPerformed
@@ -502,7 +517,6 @@ public class ReviewPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel SubmissionLabel;
-    private javax.swing.JLabel acceptableLabel;
     private javax.swing.JLabel addTypoText;
     private javax.swing.JLabel authorResponseLable;
     private javax.swing.JList<Response> authorResponseList;
@@ -520,7 +534,11 @@ public class ReviewPanel extends javax.swing.JPanel {
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
     private javax.swing.Box.Filler filler4;
+    private javax.swing.Box.Filler filler5;
+    private javax.swing.JLabel finalVerdictLabel;
+    private javax.swing.JLabel firstVerdictLabel;
     private javax.swing.JPanel infoPanel;
+    private javax.swing.JPanel infoVerdictPanel;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSplitPane jSplitPane2;
