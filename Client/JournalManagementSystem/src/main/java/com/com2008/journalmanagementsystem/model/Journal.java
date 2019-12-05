@@ -12,7 +12,7 @@ public class Journal implements IDataRow{
         
     }
 
-    public Journal(String issn, String journalName, String cheifEmail, String surname, String university){
+    public Journal(String issn, String journalName, String cheifEmail){
         this.issn = issn;
         this.journalName = journalName;
         this.cheifEmail = cheifEmail;

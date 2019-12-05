@@ -13,6 +13,8 @@ import javax.swing.*;
 import com.com2008.journalmanagementsystem.model.Account;
 import com.com2008.journalmanagementsystem.model.Author;
 import com.com2008.journalmanagementsystem.model.Editor;
+import com.com2008.journalmanagementsystem.model.EditorOnBoard;
+import com.com2008.journalmanagementsystem.model.Journal;
 import com.com2008.journalmanagementsystem.model.Reviewer;
 import com.com2008.journalmanagementsystem.util.Password;
 import com.com2008.journalmanagementsystem.util.database.Database;
@@ -670,7 +672,49 @@ public class LoginFrame extends javax.swing.JFrame {
     }// GEN-LAST:event_closeBtnMouseClicked
 
     private void regJournalBtnMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_regJournalBtnMouseClicked
-        // TODO : Register a new journal
+    	//validate data
+    	if (!(registerJournalPanel.verify() && registerPanelForJournal.verify())) {
+    		return;
+    	}
+
+    	String journalName = registerJournalPanel.getJournalName();
+    	String issn = registerJournalPanel.getISSN();
+
+    	Account newAccount = registerPanelForJournal.getRegInfo();
+    	String hashedPassword = registerPanelForJournal.getHashedPassword();
+
+    	try {
+			int issnCount = Database.read("Journal", new Journal(issn,null,null)).size();
+			if (issnCount > 0) {
+				JOptionPane.showMessageDialog(null, "ISSN already exists", "ISSN Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			int accountCount = Database.read("Account", new Account(newAccount.getEmail(),null,null,null,null)).size();
+			if (accountCount > 0) {
+				JOptionPane.showMessageDialog(null, "Account already exists", "Account Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+    	try {
+	    	Database.write("Account", new Account(newAccount.getEmail(),newAccount.getTitle(),
+	    			newAccount.getForename(),newAccount.getSurname(),newAccount.getUniversity()));
+	    	Database.write("Editor", new Editor(newAccount.getEmail(), hashedPassword));
+			Database.write("Journal", new Journal(issn,journalName,newAccount.getEmail()));
+	    	Database.write("EditorOnBoard", new EditorOnBoard(issn, newAccount.getEmail()));
+	    	JOptionPane.showMessageDialog(null, "registration success", "Register", JOptionPane.INFORMATION_MESSAGE);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+
+
     }// GEN-LAST:event_regJournalBtnMouseClicked
 
     private void loginBtnMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_loginBtnMouseClicked
