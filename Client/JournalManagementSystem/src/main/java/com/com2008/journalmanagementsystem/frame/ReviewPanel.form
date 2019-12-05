@@ -226,11 +226,11 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="authorResponcePanel">
+        <Container class="javax.swing.JPanel" name="authorResponsePanel">
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="authorResponceLable">
+            <Component class="javax.swing.JLabel" name="authorResponseLable">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Responses:"/>
               </Properties>
@@ -240,7 +240,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Container class="javax.swing.JScrollPane" name="authorResponceTextPanel">
+            <Container class="javax.swing.JScrollPane" name="authorResponseTextPanel">
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
@@ -252,7 +252,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JList" name="authorResponceList">
+                <Component class="javax.swing.JList" name="authorResponseList">
                   <Properties>
                     <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
                       <StringArray count="0"/>

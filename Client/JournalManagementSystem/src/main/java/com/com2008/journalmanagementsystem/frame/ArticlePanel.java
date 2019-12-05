@@ -119,7 +119,8 @@ public class ArticlePanel extends javax.swing.JPanel {
                     }
                 }
 
-            } else {
+            }
+            else {
                 try {
                     List<Review> reviews = Database.read("Review", new Review(null, submission.getIssn(),
                             submission.getSubmissionID(), null, null, null, null));
@@ -145,6 +146,7 @@ public class ArticlePanel extends javax.swing.JPanel {
                     new Review(email, submission.getIssn(), submission.getSubmissionID(), null, null, null, null),
                     UserRole.REVIEWER);
             innerReviewPanel.add(reviewPanelReviewer);
+            break;
         case EDITOR:
             try {
                 List<Review> reviews = Database.read("Review", new Review(null, submission.getIssn(),
