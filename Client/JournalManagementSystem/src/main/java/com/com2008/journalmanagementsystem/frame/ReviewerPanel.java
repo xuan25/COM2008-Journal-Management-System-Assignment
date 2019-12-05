@@ -72,9 +72,8 @@ public class ReviewerPanel extends javax.swing.JPanel {
 
             List<Review> reviews = Database.read("Review", new Review(email, null, null, null, null, null, null));
                 for (Review review : reviews) {
-                    Submission submis = Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null, null, null)).get(0);
+                    Submission submis = Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null)).get(0);
                     if (submis.getStatus() == Submission.Status.REVIEWED) {
-                        // selectListModel.addElement(submis);
                         selectListModel.add(0, submis);
                     }
                 }

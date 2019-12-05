@@ -138,7 +138,7 @@ public class ReviewPanel extends javax.swing.JPanel {
                             }
                         }
                         authorResponceList.setModel(responsesListModel);
-                        Submission submission = Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null, null, null)).get(0);
+                        Submission submission = Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null)).get(0);
                         if (submission.getStatus() == Submission.Status.REVIEWED) {
                             submitPannel.setVisible(false);
                         }
