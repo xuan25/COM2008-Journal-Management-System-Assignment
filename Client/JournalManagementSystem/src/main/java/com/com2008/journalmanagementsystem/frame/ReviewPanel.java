@@ -11,9 +11,11 @@ import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.xml.crypto.Data;
 
 import com.com2008.journalmanagementsystem.model.*;
 import com.com2008.journalmanagementsystem.model.Review.Verdict;
+import com.com2008.journalmanagementsystem.model.Submission.Status;
 import com.com2008.journalmanagementsystem.util.database.Database;
 
 /**
@@ -38,7 +40,6 @@ public class ReviewPanel extends javax.swing.JPanel {
     //     reviewerLabel.setText(name);
     //     acceptableLabel.setText(review.getVerdict().toString());
     //     summaryTextArea.setText(review.getSummary());
-
     //     try {
     //         typoErrorsList.removeAll();
     //         criticismsList.removeAll();
@@ -61,8 +62,6 @@ public class ReviewPanel extends javax.swing.JPanel {
     //         // TODO Auto-generated catch block
     //         e.printStackTrace();
     //     }
-        
-
     // }
 
     public ReviewPanel(String name, Review review, UserRole userRole) {
@@ -139,10 +138,16 @@ public class ReviewPanel extends javax.swing.JPanel {
                             }
                         }
                         authorResponceList.setModel(responsesListModel);
-                        Submission submission = Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null)).get(0);
-                        if (submission.getStatus() == Submission.Status.REVIEWED) {
+
+                        Review r = Database.read("Review", new Review(null, review.getIssn(), review.getSubmissionID(), null, null, null, null)).get(0);
+                        Submission sub = Database.read("Submission", new Submission(r.getIssn(), r.getSubmissionID(), null, null, null, null, null)).get(0);
+                        if (r != null) {
                             submitPannel.setVisible(false);
                         }
+                        if (sub.getStatus() == Submission.Status.RESPONSED) {
+                             submitPannel.setVisible(true);
+                        }
+
                     }
                     else{
                         this.review = review;
@@ -394,11 +399,13 @@ public class ReviewPanel extends javax.swing.JPanel {
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
 
         try {
-            if (Database.read("Response",new Response(review.getEmail(), review.getIssn(), review.getSubmissionID(), null, null)).size() != 0) {
+            if (Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null)).get(0).getStatus() == Submission.Status.RESPONSED) {
 
                 int verdictIndex = verdictSelectList.getSelectedIndex();
                 Verdict verdict = Verdict.valueOf(verdictIndex);
-                Database.update("Review", review, new Review(null, null, null, null, null, verdict, null), false);
+                if (verdictIndex != -1) {
+                    Database.update("Review", review, new Review(null, null, null, null, null, verdict, null), false);
+                }
 
             }
             else {
@@ -436,7 +443,9 @@ public class ReviewPanel extends javax.swing.JPanel {
 
             List<Review> reviewList= Database.read("Review", new Review(null, review.getIssn(), review.getSubmissionID(), null, null, null, null));
             if (reviewList.size() > 2) {
-                Database.update("Submission", Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null)).get(0), new Submission(null, null, null, null, null, null, Submission.Status.REVIEWED), false);
+                if (Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null)).get(0).getStatus() == Submission.Status.SUBMITTED    ) {
+                    Database.update("Submission", Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null)).get(0), new Submission(null, null, null, null, null, null, Submission.Status.REVIEWED), false);
+                }
                 boolean finalverdict = reviewList.get(0).getFinalVerdict() != null && reviewList.get(1).getFinalVerdict() != null && reviewList.get(2).getFinalVerdict() != null;
                 if (finalverdict) {
                     Database.update("Submission", Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null)).get(0), new Submission(null, null, null, null, null, null, Submission.Status.VERDICTED), false);

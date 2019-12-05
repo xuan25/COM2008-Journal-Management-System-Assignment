@@ -71,19 +71,24 @@ public class ReviewerPanel extends javax.swing.JPanel {
             }
 
             List<Review> reviews = Database.read("Review", new Review(email, null, null, null, null, null, null));
-                for (Review review : reviews) {
-                    Submission submis = Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null)).get(0);
-                    if (submis.getStatus() == Submission.Status.REVIEWED) {
-                        selectListModel.add(0, submis);
-                    }
-                }
+            for (Review review : reviews) {
+                Submission submis = Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null)).get(0);
+                // if (review.getFinalVerdict() == null ) {
+                if (submis.getStatus() == Submission.Status.REVIEWED || submis.getStatus() == Submission.Status.SUBMITTED) {
+                    selectListModel.removeElement(submis);
+                    selectListModel.add(0, submis);
+                } 
+                // }
+            }
 
             selectList.setModel(selectListModel);
 
             DefaultListModel responsDefaultListModel = new DefaultListModel<Submission>();
             List<Review> reviewList = Database.read("Review", new Review(email, null, null, null, null, null, null));
             for (Review review : reviewList) {
-                if (Database.read("Response", new Response(email, review.getIssn(), review.getSubmissionID(), null, null)).size() != 0) {
+                Submission submisssion = Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null)).get(0);
+                if (submisssion.getStatus() == Submission.Status.RESPONSED) {
+                // if (Database.read("Response", new Response(email, review.getIssn(), review.getSubmissionID(), null, null)).size() != 0) {
                     if (review.getFinalVerdict() == null) {
                         responsDefaultListModel.addElement(Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null)).get(0));
                     }
