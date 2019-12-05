@@ -41,10 +41,12 @@ public class AuthorPanel extends javax.swing.JPanel {
         DefaultMutableTreeNode submittedNode = new DefaultMutableTreeNode("Submitted");
         DefaultMutableTreeNode reviewedNode = new DefaultMutableTreeNode("Reviewed");
         DefaultMutableTreeNode responsedNode = new DefaultMutableTreeNode("Responsed");
+        DefaultMutableTreeNode verdictedNode = new DefaultMutableTreeNode("Final verdicted");
 
         rootNode.add(submittedNode);
         rootNode.add(reviewedNode);
         rootNode.add(responsedNode);
+        rootNode.add(verdictedNode);
 
         try {
             List<SubmissionAuthor> submissionAuthors = Database.read("SubmissionAuthor", new SubmissionAuthor(null, null, email));
@@ -60,6 +62,11 @@ public class AuthorPanel extends javax.swing.JPanel {
                         break;
                     case RESPONSED:
                         responsedNode.add(submissionNode);
+                        break;
+                    case VERDICTED:
+                        verdictedNode.add(submissionNode);
+                        break;
+                    default:
                         break;
                 }
             }
