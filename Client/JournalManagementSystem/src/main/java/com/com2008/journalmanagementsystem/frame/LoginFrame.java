@@ -12,6 +12,10 @@ import javax.swing.*;
 
 import com.com2008.journalmanagementsystem.model.Account;
 import com.com2008.journalmanagementsystem.model.Author;
+import com.com2008.journalmanagementsystem.model.Edition;
+import com.com2008.journalmanagementsystem.model.Editor;
+import com.com2008.journalmanagementsystem.model.EditorOnBoard;
+import com.com2008.journalmanagementsystem.model.Journal;
 import com.com2008.journalmanagementsystem.model.Reviewer;
 import com.com2008.journalmanagementsystem.util.Password;
 import com.com2008.journalmanagementsystem.util.database.Database;
@@ -30,7 +34,7 @@ public class LoginFrame extends javax.swing.JFrame {
     }
 
     private LoadingPanel loadingPanel;
-    
+
     public void setLoading(boolean flag){
         if(flag){
             if(loadingPanel == null){
@@ -669,7 +673,48 @@ public class LoginFrame extends javax.swing.JFrame {
     }// GEN-LAST:event_closeBtnMouseClicked
 
     private void regJournalBtnMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_regJournalBtnMouseClicked
-        // TODO : Register a new journal
+    	//validate data
+    	if (!(registerJournalPanel.verify() && registerPanelForJournal.verify())) {
+    		return;
+    	}
+
+    	String journalName = registerJournalPanel.getJournalName();
+    	String issn = registerJournalPanel.getISSN();
+
+    	Account newAccount = registerPanelForJournal.getRegInfo();
+    	String hashedPassword = registerPanelForJournal.getHashedPassword();
+
+    	try {
+			int issnCount = Database.read("Journal", new Journal(issn,null,null)).size();
+			if (issnCount > 0) {
+				JOptionPane.showMessageDialog(null, "ISSN already exists", "ISSN Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			int accountCount = Database.read("Account", new Account(newAccount.getEmail(),null,null,null,null)).size();
+			if (accountCount > 0) {
+				JOptionPane.showMessageDialog(null, "Account already exists", "Account Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+    	try {
+	    	Database.write("Account", new Account(newAccount.getEmail(),newAccount.getTitle(),
+	    			newAccount.getForename(),newAccount.getSurname(),newAccount.getUniversity()));
+	    	Database.write("Editor", new Editor(newAccount.getEmail(), hashedPassword));
+		Database.write("Journal", new Journal(issn,journalName,newAccount.getEmail()));
+	    	Database.write("EditorOnBoard", new EditorOnBoard(issn, newAccount.getEmail()));
+	    	Database.write("Edition", new Edition(issn,1,1));
+	    	JOptionPane.showMessageDialog(null, "registration success", "Register", JOptionPane.INFORMATION_MESSAGE);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+
+
+
     }// GEN-LAST:event_regJournalBtnMouseClicked
 
     private void loginBtnMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_loginBtnMouseClicked
@@ -680,10 +725,29 @@ public class LoginFrame extends javax.swing.JFrame {
 
         switch(loginRoleComboBox.getSelectedIndex()){
             case 0: //Editor
+	            	try {
+	            		java.util.List<Editor> editors = Database.read("Editor", new Editor(email, null));
+	            		if(editors.size() > 0){
+	                        if(editors.get(0).getHashedPassword().equals(hashedPassword)){
+	                            new MainFrame(this, UserRole.EDITOR, email).setVisible(true);
+	                            this.setVisible(false);
+	                        }
+	                        else{
+	                            JOptionPane.showMessageDialog(null, "Password incorrect.", "Login", JOptionPane.ERROR_MESSAGE);
+	                        }
+	                    }
+	                    else{
+	                        JOptionPane.showMessageDialog(null, "User not found.", "Login", JOptionPane.ERROR_MESSAGE);
+	                    }
+	            	}
+	            	catch (SQLException e) {
+	            		e.printStackTrace();
+	            	}
                 break;
             case 1: //Author
                 try {
                     java.util.List<Author> authors = Database.read("Author", new Author(email, null));
+                    System.out.println(authors);
                     if(authors.size() > 0){
                         if(authors.get(0).getHashedPassword().equals(hashedPassword)){
                             new MainFrame(this, UserRole.AUTHOR, email).setVisible(true);
@@ -700,7 +764,7 @@ public class LoginFrame extends javax.swing.JFrame {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-                
+
                 break;
             case 2: //Reviewer
                 try {
@@ -765,7 +829,7 @@ public class LoginFrame extends javax.swing.JFrame {
             e.printStackTrace();
         }
         return;
-    }                                         
+    }
 
     /**
      * @param args the command line arguments
@@ -774,7 +838,7 @@ public class LoginFrame extends javax.swing.JFrame {
         /* Set the Windows look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -794,7 +858,7 @@ public class LoginFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

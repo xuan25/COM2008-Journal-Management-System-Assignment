@@ -9,10 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,14 +21,18 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.com2008.journalmanagementsystem.model.Account;
-import com.com2008.journalmanagementsystem.model.Author;
-import com.com2008.journalmanagementsystem.model.Response;
+import com.com2008.journalmanagementsystem.model.Article;
+import com.com2008.journalmanagementsystem.model.Edition;
 import com.com2008.journalmanagementsystem.model.Review;
 import com.com2008.journalmanagementsystem.model.Submission;
+import com.com2008.journalmanagementsystem.model.Submission.Status;
 import com.com2008.journalmanagementsystem.model.SubmissionAuthor;
 import com.com2008.journalmanagementsystem.model.SubmissionDocument;
-import com.com2008.journalmanagementsystem.model.Submission.Status;
 import com.com2008.journalmanagementsystem.util.database.Database;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -147,6 +148,9 @@ public class ArticlePanel extends javax.swing.JPanel {
             break;
         }
 
+        acceptBtn.addActionListener(new StatusActionListener(submission,true));
+        rejectBtn.addActionListener(new StatusActionListener(submission,false));
+
         // Load basic submission data
         titleLabel.setText(submission.getTitle());
         statusLabel.setText(submission.getStatus().toString());
@@ -210,6 +214,66 @@ public class ArticlePanel extends javax.swing.JPanel {
 
     public JButton getSubmitAllResponsesBtn() {
         return confirmFinalBtn;
+    }
+
+    private class StatusActionListener implements ActionListener {
+        //custom action listener for accept/reject buttons
+        //sets the status to accepted or rejected based on button press
+    	Submission su;
+        boolean st;
+
+        public StatusActionListener(Submission sub, boolean status) {
+            //status of true -> accept button
+            //status of false -> reject button
+            this.su = sub;
+            this.st = status;
+        }
+
+        public void actionPerformed(ActionEvent e) {
+                try {
+                    if (st){
+                        Database.update("Submission",su,new Submission(null,null,null,null,null,null,Status.ACCEPTED),false);
+                        List<Edition> editions = Database.read("Edition", new Edition(null,null,null));
+                        int newestVolume = 0;
+                        int newestEdition = 0;
+                        for (Edition edition:editions){
+                            if (edition.getVolume() > newestVolume){
+                                newestVolume = edition.getVolume();
+                                newestEdition = edition.getEdition();
+                            }
+                            else if (edition.getVolume() == newestVolume) {
+                                if (edition.getEdition() > newestEdition){
+                                    newestEdition = edition.getEdition();
+                                }
+                            }
+                        }
+                        //if the current edition and volume are full, create new ones
+                        int amountArticles = Database.read("Article", new Article(null,null,newestVolume,newestEdition)).size();
+                        if(amountArticles >= 8) {
+                        	if (newestEdition == 6) {
+                        		Database.write("Edition",new Edition(su.getIssn(),newestVolume+1,1));
+                                Database.write("Article",new Article(su.getIssn(),su.getSubmissionID(),newestVolume+1,1));
+                        	}
+                        	else {
+                        		Database.write("Edition",new Edition(su.getIssn(),newestVolume,newestEdition+1));
+                                Database.write("Article",new Article(su.getIssn(),su.getSubmissionID(),newestVolume,newestEdition+1));
+                        	}
+                        }
+                        else {
+                            Database.write("Article",new Article(su.getIssn(),su.getSubmissionID(),newestVolume,newestEdition));
+                        }
+                    }
+                    else {
+                        Database.update("Submission",su,new Submission(null,null,null,null,null,null,Status.REJECTED),false);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(ArticlePanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                //get the parent JFrame to close when accept/reject
+                //button clicked
+                JFrame fr = (JFrame)SwingUtilities.getRoot(acceptBtn);
+                fr.setVisible(false);
+        }
     }
 
     /**
@@ -533,7 +597,7 @@ public class ArticlePanel extends javax.swing.JPanel {
                 e.printStackTrace();
             }
         }
-    }                                                 
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

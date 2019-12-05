@@ -15,4 +15,11 @@ public class EditorOnBoard implements IDataRow{
         this.issn = issn;
         this.email = email;
     }
+    
+    public String getIssn(){
+        return issn;
+    }
+    public String getEmail(){
+        return email;
+    }
 }

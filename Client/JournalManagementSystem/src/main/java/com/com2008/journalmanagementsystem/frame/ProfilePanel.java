@@ -12,6 +12,7 @@ import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 import com.com2008.journalmanagementsystem.model.Author;
+import com.com2008.journalmanagementsystem.model.Editor;
 import com.com2008.journalmanagementsystem.util.Password;
 import com.com2008.journalmanagementsystem.util.database.Database;
 
@@ -229,6 +230,16 @@ public class ProfilePanel extends javax.swing.JPanel {
                         return;
                     }
                     break;
+                case EDITOR:
+                	Editor editor = Database.read("Editor", new Editor(email, null)).get(0);
+                    if(editor.getHashedPassword().equals(hashedOldPassword)){
+                        Database.update("Editor", new Editor(email, null), new Editor(null, hashedNewPassword), false);
+                        JOptionPane.showMessageDialog(null, "Change password success.", "Change password", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Incorrect old password.", "Change password", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
                 default:
                     break;
             }
