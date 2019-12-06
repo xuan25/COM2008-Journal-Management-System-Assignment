@@ -168,6 +168,11 @@
                                   </Constraints>
                                 </Component>
                                 <Component class="javax.swing.JTextField" name="issnField">
+                                  <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Segoe UI" size="12" style="0"/>
+                                    </Property>
+                                  </Properties>
                                   <Constraints>
                                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
                                       <BorderConstraints direction="Center"/>
@@ -267,6 +272,11 @@
                                   </Constraints>
                                 </Component>
                                 <Component class="javax.swing.JTextField" name="editorEmailField">
+                                  <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Segoe UI" size="12" style="0"/>
+                                    </Property>
+                                  </Properties>
                                   <Constraints>
                                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
                                       <BorderConstraints direction="Center"/>
@@ -331,6 +341,9 @@
                             </Container>
                             <Component class="javax.swing.JButton" name="addNewEditorButton">
                               <Properties>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                  <Font name="Segoe UI" size="12" style="0"/>
+                                </Property>
                                 <Property name="text" type="java.lang.String" value="Add New Editor (fill in journal ISSN only)"/>
                               </Properties>
                               <Events>

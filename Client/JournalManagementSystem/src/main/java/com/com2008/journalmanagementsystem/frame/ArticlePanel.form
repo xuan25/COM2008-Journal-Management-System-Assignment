@@ -205,7 +205,7 @@
                     <Container class="javax.swing.JPanel" name="innerAuthorPanel">
                       <Properties>
                         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                          <Color id="Default Cursor"/>
+                          <Color id="&#x9ed8;&#x8ba4;&#x5149;&#x6807;"/>
                         </Property>
                       </Properties>
                       <Constraints>
@@ -319,7 +319,7 @@
                     <Container class="javax.swing.JPanel" name="innerPdfPanel">
                       <Properties>
                         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                          <Color id="Default Cursor"/>
+                          <Color id="&#x9ed8;&#x8ba4;&#x5149;&#x6807;"/>
                         </Property>
                       </Properties>
                       <Constraints>
@@ -473,6 +473,9 @@
                   <SubComponents>
                     <Component class="javax.swing.JButton" name="confirmFinalBtn">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Segoe UI" size="12" style="0"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Confirm final draft &amp; responses"/>
                       </Properties>
                       <Events>

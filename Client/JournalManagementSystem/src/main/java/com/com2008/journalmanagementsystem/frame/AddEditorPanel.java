@@ -141,6 +141,8 @@ public class AddEditorPanel extends javax.swing.JPanel {
 
         issnPanel.add(issnLabelPanel, java.awt.BorderLayout.WEST);
         issnPanel.add(filler41, java.awt.BorderLayout.SOUTH);
+
+        issnField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         issnPanel.add(issnField, java.awt.BorderLayout.CENTER);
 
         addEditorInnerPanel.add(issnPanel);
@@ -162,6 +164,8 @@ public class AddEditorPanel extends javax.swing.JPanel {
 
         addExistingEditorPanel.add(addExistingEditorLabelPanel, java.awt.BorderLayout.WEST);
         addExistingEditorPanel.add(filler39, java.awt.BorderLayout.SOUTH);
+
+        editorEmailField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         addExistingEditorPanel.add(editorEmailField, java.awt.BorderLayout.CENTER);
 
         addEditorInnerPanel.add(addExistingEditorPanel);
@@ -183,6 +187,7 @@ public class AddEditorPanel extends javax.swing.JPanel {
 
         addEditorInnerPanel.add(confirmPanel);
 
+        addNewEditorButton.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         addNewEditorButton.setText("Add New Editor (fill in journal ISSN only)");
         addNewEditorButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

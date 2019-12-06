@@ -178,7 +178,7 @@ public class LoginFrame extends javax.swing.JFrame {
         loginSelPanel.add(filler8);
 
         loginReaderBtn.setBackground(Theme.getFgColor());
-        loginReaderBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        loginReaderBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         loginReaderBtn.setMaximumSize(new java.awt.Dimension(100, 100));
         loginReaderBtn.setPreferredSize(new java.awt.Dimension(100, 100));
         loginReaderBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -211,7 +211,7 @@ public class LoginFrame extends javax.swing.JFrame {
         loginSelPanel.add(filler7);
 
         loginUserBtn.setBackground(Theme.getFgColor());
-        loginUserBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        loginUserBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         loginUserBtn.setMaximumSize(new java.awt.Dimension(100, 100));
         loginUserBtn.setPreferredSize(new java.awt.Dimension(100, 100));
         loginUserBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -245,7 +245,7 @@ public class LoginFrame extends javax.swing.JFrame {
         registerPanel.setLayout(new java.awt.GridLayout(1, 2));
 
         registerAuthorBtn.setBackground(Theme.getFgColor());
-        registerAuthorBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        registerAuthorBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         registerAuthorBtn.setMaximumSize(new java.awt.Dimension(100, 30));
         registerAuthorBtn.setPreferredSize(new java.awt.Dimension(100, 30));
         registerAuthorBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -270,7 +270,7 @@ public class LoginFrame extends javax.swing.JFrame {
         registerPanel.add(registerAuthorBtn);
 
         registerJournalBtn.setBackground(Theme.getFgColor());
-        registerJournalBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        registerJournalBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         registerJournalBtn.setMaximumSize(new java.awt.Dimension(100, 30));
         registerJournalBtn.setPreferredSize(new java.awt.Dimension(100, 30));
         registerJournalBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -306,7 +306,7 @@ public class LoginFrame extends javax.swing.JFrame {
         regAuthorToobarPanel.setLayout(new javax.swing.BoxLayout(regAuthorToobarPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         regAuthorBackBtn.setBackground(Theme.getFgColor());
-        regAuthorBackBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        regAuthorBackBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         regAuthorBackBtn.setMaximumSize(new java.awt.Dimension(60, 30));
         regAuthorBackBtn.setPreferredSize(new java.awt.Dimension(60, 30));
         regAuthorBackBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -339,7 +339,7 @@ public class LoginFrame extends javax.swing.JFrame {
         regAuthorBtnPanel.setLayout(new java.awt.BorderLayout());
 
         regAuthorBtn.setBackground(Theme.getFgColor());
-        regAuthorBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        regAuthorBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         regAuthorBtn.setMaximumSize(new java.awt.Dimension(100, 40));
         regAuthorBtn.setPreferredSize(new java.awt.Dimension(100, 40));
         regAuthorBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -376,7 +376,7 @@ public class LoginFrame extends javax.swing.JFrame {
         regJournalToobarPanel.setLayout(new javax.swing.BoxLayout(regJournalToobarPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         regJournalbackBtn.setBackground(Theme.getFgColor());
-        regJournalbackBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        regJournalbackBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         regJournalbackBtn.setMaximumSize(new java.awt.Dimension(60, 30));
         regJournalbackBtn.setPreferredSize(new java.awt.Dimension(60, 30));
         regJournalbackBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -416,7 +416,7 @@ public class LoginFrame extends javax.swing.JFrame {
         regJournalBtnPanel.setLayout(new java.awt.BorderLayout());
 
         regJournalBtn.setBackground(Theme.getFgColor());
-        regJournalBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        regJournalBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         regJournalBtn.setMaximumSize(new java.awt.Dimension(100, 40));
         regJournalBtn.setPreferredSize(new java.awt.Dimension(100, 40));
         regJournalBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -453,7 +453,7 @@ public class LoginFrame extends javax.swing.JFrame {
         loginToobarPanel.setLayout(new javax.swing.BoxLayout(loginToobarPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         loginbackBtn.setBackground(Theme.getFgColor());
-        loginbackBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        loginbackBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         loginbackBtn.setMaximumSize(new java.awt.Dimension(60, 30));
         loginbackBtn.setPreferredSize(new java.awt.Dimension(60, 30));
         loginbackBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -579,7 +579,7 @@ public class LoginFrame extends javax.swing.JFrame {
         loginBtnPanel.setLayout(new java.awt.BorderLayout());
 
         loginBtn.setBackground(Theme.getFgColor());
-        loginBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        loginBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         loginBtn.setMaximumSize(new java.awt.Dimension(100, 40));
         loginBtn.setPreferredSize(new java.awt.Dimension(100, 40));
         loginBtn.addMouseListener(new java.awt.event.MouseAdapter() {

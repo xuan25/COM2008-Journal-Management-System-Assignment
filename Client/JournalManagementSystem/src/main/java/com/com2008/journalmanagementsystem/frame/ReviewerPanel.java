@@ -143,6 +143,7 @@ public class ReviewerPanel extends javax.swing.JPanel {
         selectLable.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         selectPanel.add(selectLable, java.awt.BorderLayout.PAGE_START);
 
+        selectList.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         selectList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 selectListValueChanged(evt);
@@ -156,6 +157,7 @@ public class ReviewerPanel extends javax.swing.JPanel {
 
         authorResponsePanel.setLayout(new java.awt.BorderLayout());
 
+        responsedLable.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         responsedLable.setText("Responsed:");
         authorResponsePanel.add(responsedLable, java.awt.BorderLayout.PAGE_START);
 
@@ -178,6 +180,7 @@ public class ReviewerPanel extends javax.swing.JPanel {
         refreshButtonPanel.setMaximumSize(new java.awt.Dimension(2147483647, 29));
         refreshButtonPanel.setLayout(new java.awt.BorderLayout());
 
+        refreshButton.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         refreshButton.setText("Refresh list");
         refreshButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

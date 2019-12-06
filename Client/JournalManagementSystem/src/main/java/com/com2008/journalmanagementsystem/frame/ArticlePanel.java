@@ -488,6 +488,7 @@ public class ArticlePanel extends javax.swing.JPanel {
 
         confirmFinalPanel.setLayout(new java.awt.BorderLayout());
 
+        confirmFinalBtn.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         confirmFinalBtn.setText("Confirm final draft & responses");
         confirmFinalBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

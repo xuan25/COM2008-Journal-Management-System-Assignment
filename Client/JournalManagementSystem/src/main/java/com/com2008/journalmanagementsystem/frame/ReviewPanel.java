@@ -349,6 +349,7 @@ public class ReviewPanel extends javax.swing.JPanel {
         typoErrorsAddPanel.add(addTypoText, java.awt.BorderLayout.NORTH);
 
         typoErrorsTextArea.setColumns(20);
+        typoErrorsTextArea.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         typoErrorsTextArea.setRows(5);
         typoErrorAddScrolpanel.setViewportView(typoErrorsTextArea);
 
@@ -373,6 +374,7 @@ public class ReviewPanel extends javax.swing.JPanel {
         criticismsAddPanel.add(criticismsAddText, java.awt.BorderLayout.PAGE_START);
 
         criticsmsTextArea.setColumns(20);
+        criticsmsTextArea.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         criticsmsTextArea.setRows(5);
         criticismsAddScrolPanel.setViewportView(criticsmsTextArea);
 
@@ -399,10 +401,6 @@ public class ReviewPanel extends javax.swing.JPanel {
 
         verdictSelectList.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         verdictSelectList.setModel(new javax.swing.AbstractListModel<String>() {
-            /**
-             *
-             */
-            private static final long serialVersionUID = 1L;
             String[] strings = { "STRONG_REJECT", "WEAK_REJECT", "WEAK_ACCEPT", "STRONG_ACCEPT" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }

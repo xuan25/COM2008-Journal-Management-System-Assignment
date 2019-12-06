@@ -101,6 +101,7 @@ public class AuthorPanel extends javax.swing.JPanel {
 
         jSplitPane1.setDividerLocation(200);
 
+        submissionTree.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         submissionTree.setToolTipText("");
         submissionTree.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
             public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {

@@ -79,7 +79,7 @@ public class SubmissionPanel extends javax.swing.JPanel {
     // @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -87,33 +87,27 @@ public class SubmissionPanel extends javax.swing.JPanel {
         journalPanel = new javax.swing.JPanel();
         journalLabel = new javax.swing.JLabel();
         journalComboBox = new javax.swing.JComboBox<>();
-        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10),
-                new java.awt.Dimension(32767, 10));
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         jSeparator1 = new javax.swing.JSeparator();
-        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10),
-                new java.awt.Dimension(32767, 10));
+        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         titlePanel = new javax.swing.JPanel();
         titleLabel = new javax.swing.JLabel();
         titleTextField = new javax.swing.JTextField();
         filePanel = new javax.swing.JPanel();
         fileLabel = new javax.swing.JLabel();
         chooseFileBtn = new javax.swing.JButton();
-        filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10),
-                new java.awt.Dimension(32767, 10));
+        filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         jSeparator2 = new javax.swing.JSeparator();
-        filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10),
-                new java.awt.Dimension(32767, 10));
+        filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         corrAuthorPanel = new javax.swing.JPanel();
         corrAuthorEmailLabel = new javax.swing.JLabel();
         corrAuthorTextField = new javax.swing.JTextField();
         setCorrAuthorBtn = new javax.swing.JButton();
         selectedCorrAuthorPanel = new javax.swing.JPanel();
         corrAuthorLabel = new javax.swing.JLabel();
-        filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10),
-                new java.awt.Dimension(32767, 10));
+        filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         jSeparator3 = new javax.swing.JSeparator();
-        filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10),
-                new java.awt.Dimension(32767, 10));
+        filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         coAuthorPanel = new javax.swing.JPanel();
         coAuthorEmailLabel = new javax.swing.JLabel();
         coAuthorTextField = new javax.swing.JTextField();
@@ -121,23 +115,18 @@ public class SubmissionPanel extends javax.swing.JPanel {
         removeCoAuthorBtn = new javax.swing.JButton();
         coAuthorScrollPane = new javax.swing.JScrollPane();
         coAuthorList = new javax.swing.JList<>();
-        filler8 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10),
-                new java.awt.Dimension(32767, 10));
+        filler8 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         jSeparator4 = new javax.swing.JSeparator();
-        filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10),
-                new java.awt.Dimension(32767, 10));
+        filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         abstractLabel = new javax.swing.JLabel();
         abstractScrollPane = new javax.swing.JScrollPane();
         abstractTextArea = new javax.swing.JTextArea();
-        filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10),
-                new java.awt.Dimension(32767, 10));
+        filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         jSeparator5 = new javax.swing.JSeparator();
-        filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10),
-                new java.awt.Dimension(32767, 10));
+        filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         submitPanel = new javax.swing.JPanel();
         submitBtn = new javax.swing.JButton();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0),
-                new java.awt.Dimension(0, 32767));
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
 
         setLayout(new java.awt.BorderLayout());
 
@@ -145,6 +134,7 @@ public class SubmissionPanel extends javax.swing.JPanel {
 
         journalPanel.setLayout(new javax.swing.BoxLayout(journalPanel, javax.swing.BoxLayout.LINE_AXIS));
 
+        journalLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         journalLabel.setText("Journal to submit:");
         journalPanel.add(journalLabel);
 
@@ -158,9 +148,11 @@ public class SubmissionPanel extends javax.swing.JPanel {
 
         titlePanel.setLayout(new javax.swing.BoxLayout(titlePanel, javax.swing.BoxLayout.LINE_AXIS));
 
+        titleLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         titleLabel.setText("Title: ");
         titlePanel.add(titleLabel);
 
+        titleTextField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         titleTextField.setMaximumSize(new java.awt.Dimension(2147483647, 26));
         titlePanel.add(titleTextField);
 
@@ -169,9 +161,11 @@ public class SubmissionPanel extends javax.swing.JPanel {
         filePanel.setMaximumSize(new java.awt.Dimension(2147483647, 45));
         filePanel.setLayout(new java.awt.BorderLayout());
 
+        fileLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         fileLabel.setText("<No file selected>");
         filePanel.add(fileLabel, java.awt.BorderLayout.CENTER);
 
+        chooseFileBtn.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         chooseFileBtn.setText("Choose a file...");
         chooseFileBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,12 +181,15 @@ public class SubmissionPanel extends javax.swing.JPanel {
 
         corrAuthorPanel.setLayout(new javax.swing.BoxLayout(corrAuthorPanel, javax.swing.BoxLayout.LINE_AXIS));
 
+        corrAuthorEmailLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         corrAuthorEmailLabel.setText("Email:");
         corrAuthorPanel.add(corrAuthorEmailLabel);
 
+        corrAuthorTextField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         corrAuthorTextField.setMaximumSize(new java.awt.Dimension(2147483647, 26));
         corrAuthorPanel.add(corrAuthorTextField);
 
+        setCorrAuthorBtn.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         setCorrAuthorBtn.setText("Set Corr-author");
         setCorrAuthorBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -206,6 +203,7 @@ public class SubmissionPanel extends javax.swing.JPanel {
         selectedCorrAuthorPanel.setMaximumSize(new java.awt.Dimension(2147483647, 16));
         selectedCorrAuthorPanel.setLayout(new java.awt.BorderLayout());
 
+        corrAuthorLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         corrAuthorLabel.setText("<No corr-author setted>");
         selectedCorrAuthorPanel.add(corrAuthorLabel, java.awt.BorderLayout.CENTER);
 
@@ -216,12 +214,15 @@ public class SubmissionPanel extends javax.swing.JPanel {
 
         coAuthorPanel.setLayout(new javax.swing.BoxLayout(coAuthorPanel, javax.swing.BoxLayout.LINE_AXIS));
 
+        coAuthorEmailLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         coAuthorEmailLabel.setText("Email:");
         coAuthorPanel.add(coAuthorEmailLabel);
 
+        coAuthorTextField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         coAuthorTextField.setMaximumSize(new java.awt.Dimension(2147483647, 26));
         coAuthorPanel.add(coAuthorTextField);
 
+        addCoAuthorBtn.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         addCoAuthorBtn.setText("Add Co-author");
         addCoAuthorBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,6 +231,7 @@ public class SubmissionPanel extends javax.swing.JPanel {
         });
         coAuthorPanel.add(addCoAuthorBtn);
 
+        removeCoAuthorBtn.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         removeCoAuthorBtn.setText("Remove");
         removeCoAuthorBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -240,6 +242,7 @@ public class SubmissionPanel extends javax.swing.JPanel {
 
         mainPanel.add(coAuthorPanel);
 
+        coAuthorList.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         coAuthorScrollPane.setViewportView(coAuthorList);
 
         mainPanel.add(coAuthorScrollPane);
@@ -247,10 +250,12 @@ public class SubmissionPanel extends javax.swing.JPanel {
         mainPanel.add(jSeparator4);
         mainPanel.add(filler9);
 
+        abstractLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         abstractLabel.setText("Abstract:");
         mainPanel.add(abstractLabel);
 
         abstractTextArea.setColumns(20);
+        abstractTextArea.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         abstractTextArea.setRows(5);
         abstractScrollPane.setViewportView(abstractTextArea);
 
@@ -262,6 +267,7 @@ public class SubmissionPanel extends javax.swing.JPanel {
         submitPanel.setMaximumSize(new java.awt.Dimension(2147483647, 29));
         submitPanel.setLayout(new java.awt.BorderLayout());
 
+        submitBtn.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         submitBtn.setText("Submit");
         submitBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -399,7 +405,7 @@ public class SubmissionPanel extends javax.swing.JPanel {
             e.printStackTrace();
         }
         JOptionPane.showMessageDialog(this, "Submission success.", "Submission", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_submitBtnActionPerformed
+    }                                         
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

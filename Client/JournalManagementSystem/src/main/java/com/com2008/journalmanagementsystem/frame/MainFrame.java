@@ -280,7 +280,7 @@ public class MainFrame extends javax.swing.JFrame {
         sidePanel.add(selectionsPanel, java.awt.BorderLayout.CENTER);
 
         logoutBtn.setBackground(Theme.getFgColor());
-        logoutBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        logoutBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         logoutBtn.setMaximumSize(new java.awt.Dimension(32767, 50));
         logoutBtn.setPreferredSize(new java.awt.Dimension(250, 50));
         logoutBtn.addMouseListener(new java.awt.event.MouseAdapter() {
