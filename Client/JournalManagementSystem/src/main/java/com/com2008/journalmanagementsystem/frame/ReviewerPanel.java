@@ -36,9 +36,7 @@ public class ReviewerPanel extends javax.swing.JPanel {
 
     public ReviewerPanel(String email) {
         initComponents();
-
         this.email = email;
-
         refreshList();
     }
 
@@ -74,12 +72,10 @@ public class ReviewerPanel extends javax.swing.JPanel {
             List<Review> reviews = Database.read("Review", new Review(email, null, null, null, null, null, null));
             for (Review review : reviews) {
                 Submission submis = Database.read("Submission", new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null)).get(0);
-                // if (review.getFinalVerdict() == null ) {
                 if (submis.getStatus() == Submission.Status.REVIEWED || submis.getStatus() == Submission.Status.SUBMITTED) {
                     selectListModel.removeElement(submis);
                     selectListModel.add(0, submis);
                 } 
-                // }
             }
 
             selectList.setModel(selectListModel);
@@ -202,7 +198,6 @@ public class ReviewerPanel extends javax.swing.JPanel {
 
     private void selectListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_selectListValueChanged
         responsedList.setSelectedValue(null, false);
-
         Submission submission = selectList.getSelectedValue();
         if(submission == null){
             return;
@@ -232,8 +227,6 @@ public class ReviewerPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_responsedListValueChanged
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
-        // Submission submissionNow = selectList.getSelectedValue();
-        // selectListModel.removeElement(submissionNow);
         reviewPanel.removeAll();
         reviewPanel.repaint();
         reviewPanel.revalidate();

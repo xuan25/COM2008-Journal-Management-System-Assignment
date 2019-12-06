@@ -47,7 +47,6 @@ public class ReviewPanel extends javax.swing.JPanel {
         typoErrorsList.setModel(typoErrorListModel);
         criticismsList.setModel(criticismsListModel);
 
-        // Status status = Status.UNKNOW;
         try {
             status = Database.read("Submission",new Submission(review.getIssn(), review.getSubmissionID(), null, null, null, null, null)).get(0).getStatus();
         } catch (SQLException e1) {
