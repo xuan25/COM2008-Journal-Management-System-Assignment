@@ -67,6 +67,7 @@ public class RegisterDialog extends javax.swing.JDialog {
         registerLabel = new javax.swing.JLabel();
         filler66 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 20), new java.awt.Dimension(32767, 20));
 
+        setTitle("Register");
         setPreferredSize(new java.awt.Dimension(400, 300));
         getContentPane().add(registerPanel, java.awt.BorderLayout.CENTER);
 

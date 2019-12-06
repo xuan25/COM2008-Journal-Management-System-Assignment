@@ -234,6 +234,7 @@ public class MainFrame extends javax.swing.JFrame {
         mainPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Journal Management System");
         setLocation(getStartupLocation());
         setPreferredSize(getFrameSize());
         setSize(getFrameSize());
