@@ -178,8 +178,6 @@ public class ArticlePanel extends javax.swing.JPanel {
         statusLabel.setText(submission.getStatus().toString());
 
         abstractTextArea.setText(submission.getContentAbstract());
-        // TODO : unused linkLabel
-        linkLabel.setText(null);
 
         try {
             Account mainAuthor = Database.read("Account", new Account(submission.getMainAuthor(), null, null, null, null)).get(0);
@@ -214,25 +212,6 @@ public class ArticlePanel extends javax.swing.JPanel {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
-
-        // TODO : remove this
-        // Test review panel
-
-        // if(reviewPanel.isVisible()){
-        // innerReviewPanel.removeAll();
-        // try {
-        // List<Review> reviews = Database.read("Review", new Review(null,
-        // submission.getIssn(), submission.getSubmissionID(), null, null, null, null));
-        // for(int i = 0; i < reviews.size(); i++){
-        // ReviewPanel reviewPanel = new ReviewPanel("Reviewer" + (i + 1),
-        // reviews.get(i));
-        // innerReviewPanel.add(reviewPanel);
-        // }
-        // } catch (SQLException e) {
-        // // TODO Auto-generated catch block
-        // e.printStackTrace();
-        // }
-        // }
     }
 
     public JButton getSubmitAllResponsesBtn() {
@@ -342,7 +321,6 @@ public class ArticlePanel extends javax.swing.JPanel {
         pdfPanel = new javax.swing.JPanel();
         innerPdfPanel = new javax.swing.JPanel();
         pdfLabel = new javax.swing.JLabel();
-        linkLabel = new javax.swing.JLabel();
         openPDFBtn = new javax.swing.JButton();
         uploadFinalPDFBtn = new javax.swing.JButton();
         filler8 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
@@ -469,10 +447,6 @@ public class ArticlePanel extends javax.swing.JPanel {
         pdfLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         pdfLabel.setText("PDF link");
         innerPdfPanel.add(pdfLabel);
-
-        linkLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        linkLabel.setText("https://link.pdf.here");
-        innerPdfPanel.add(linkLabel);
 
         openPDFBtn.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         openPDFBtn.setText("Open PDF");
@@ -659,7 +633,6 @@ public class ArticlePanel extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JLabel linkLabel;
     private javax.swing.JLabel mainAuthorHeaderLabel;
     private javax.swing.JLabel mainAuthorLabel;
     private javax.swing.JPanel mainPanel;

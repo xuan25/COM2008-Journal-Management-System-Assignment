@@ -719,8 +719,6 @@ public class LoginFrame extends javax.swing.JFrame {
     }// GEN-LAST:event_regJournalBtnMouseClicked
 
     private void loginBtnMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_loginBtnMouseClicked
-        // TODO : Login
-
         String email = loginEmailTextField.getText();
         String hashedPassword = Password.generateHash(new String(loginPasswordField.getPassword()));
 

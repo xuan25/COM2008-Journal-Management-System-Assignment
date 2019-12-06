@@ -408,11 +408,6 @@ public class ReviewPanel extends javax.swing.JPanel {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        verdictSelectList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                verdictSelectListValueChanged(evt);
-            }
-        });
         verdictList.setViewportView(verdictSelectList);
 
         verdictPanel.add(verdictList, java.awt.BorderLayout.CENTER);
@@ -516,10 +511,6 @@ public class ReviewPanel extends javax.swing.JPanel {
         criticsmsTextArea.setText("");
 
     }//GEN-LAST:event_criticismsAddButtonActionPerformed
-
-    private void verdictSelectListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_verdictSelectListValueChanged
-        // TODO delet the func
-    }//GEN-LAST:event_verdictSelectListValueChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

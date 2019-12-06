@@ -216,7 +216,6 @@ public class ReviewerPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_selectListValueChanged
 
     private void responsedListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_responsedListValueChanged
-        // TODO add your handling code here:
         selectList.setSelectedValue(null, false);
 
         Submission submission = responsedList.getSelectedValue();
@@ -233,7 +232,6 @@ public class ReviewerPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_responsedListValueChanged
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
-        // TODO add your handling code here:
         // Submission submissionNow = selectList.getSelectedValue();
         // selectListModel.removeElement(submissionNow);
         reviewPanel.removeAll();
