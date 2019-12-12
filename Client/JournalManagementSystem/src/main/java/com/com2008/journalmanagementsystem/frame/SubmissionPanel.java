@@ -21,6 +21,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import com.com2008.journalmanagementsystem.model.Account;
 import com.com2008.journalmanagementsystem.model.Author;
 import com.com2008.journalmanagementsystem.model.Journal;
+import com.com2008.journalmanagementsystem.model.Reviewer;
 import com.com2008.journalmanagementsystem.model.Submission;
 import com.com2008.journalmanagementsystem.model.SubmissionAuthor;
 import com.com2008.journalmanagementsystem.model.SubmissionDocument;
@@ -311,8 +312,8 @@ public class SubmissionPanel extends javax.swing.JPanel {
                     String hashedPassword = dialog.getHashedPassword();
                     try {
                         if (Database.write("Account", account) == 1) {
-                            if (Database.write("Author", new Author(account.getEmail(), hashedPassword)) == 1) {
-                                JOptionPane.showMessageDialog(null, "registration success", "Register", JOptionPane.INFORMATION_MESSAGE);
+                            if (Database.write("Author", new Author(account.getEmail(), hashedPassword)) == 1 && Database.write("Reviewer", new Reviewer(account.getEmail(), hashedPassword)) == 1) {
+                                JOptionPane.showMessageDialog(null, "Registration success", "Register", JOptionPane.INFORMATION_MESSAGE);
                                 return account;
                             } else {
                                 // TODO : Regiter failed
