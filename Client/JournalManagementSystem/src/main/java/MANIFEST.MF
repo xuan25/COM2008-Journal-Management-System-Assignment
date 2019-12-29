@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Created-By: 10.0.2 (Oracle Corporation)
+Main-Class: com.com2008.journalmanagementsystem.Main
+Class-Path: lib\mysql-connector-java-8.0.18.jar
+
